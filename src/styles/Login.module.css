@@ -1,0 +1,123 @@
+.logincontainer {
+    display: flex;
+    justify-content: space-between;
+    height: 100vh;
+}
+
+.formcontainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.phoneform {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 2px 15px 0px #E9E9E9;
+    padding: 20px 20px 4rem 20px;
+    width: 85%;
+}
+
+.inputwrapper {
+    width: 70%;
+    margin: 0 auto;
+    margin-top: 3rem;
+}
+
+.paneltext {
+    color: var(--color-1);
+}
+
+.btnwrapper {
+    margin-top: 4rem;
+    text-align: center;
+}
+
+.btnphoneform {
+    color: var(--color-3);
+    background-color: var(--color-1);
+    border-radius: 8px;
+    padding: 6px 35px;
+}
+
+.iconformphone {
+    margin-right: 10px;
+}
+
+
+.logocontainer {
+    background-color: var(--color-1);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo {}
+
+.textco {
+    position: absolute;
+    bottom: 7%;
+    left: 50%;
+    transform: translate(-50%);
+    color: #fff;
+    font-size: calc(1rem + .1vw);
+}
+
+
+.errorinput {
+    color: rgb(204, 22, 22);
+    margin-top: 15px;
+    font-size: .8rem;
+}
+
+.disablebtn {
+    opacity: .9;
+    cursor: not-allowed;
+}
+
+/* mobile */
+
+.logincontainerm {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-1);
+}
+
+
+@media (max-width:992px) {
+    .inputwrapper {
+        width: 90%;
+    }
+}
+
+@media (max-width:768px) {
+    .phoneform {
+        box-shadow: none;
+        padding-bottom: 1.4rem;
+    }
+
+    .inputwrapper {
+        width: 100%;
+    }
+
+    .btnphoneform {
+        width: 100%;
+    }
+
+    .textco {
+        bottom: 3%;
+        font-size: calc(1rem + .2vw);
+    }
+
+    .logoformm {
+        width: 153px;
+        height: 78px;
+        position: absolute;
+        top: 10%;
+        left: 50%;
+        transform: translate(-50%);
+    }
+}
