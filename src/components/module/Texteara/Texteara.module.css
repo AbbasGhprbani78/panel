@@ -2,7 +2,6 @@
     border: 1px solid #9a9a9a;
     position: relative;
     border-radius: 5px;
-    height: 45.6px !important;
 }
 
 .labeltextarea {
@@ -23,4 +22,5 @@
     resize: none;
     font-size: .9rem;
     color: var(--color-1);
+    padding: 10px 10px 0 10px;
 }

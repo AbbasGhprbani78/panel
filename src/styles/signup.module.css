@@ -19,13 +19,12 @@
 }
 
 .textco {
-    position: absolute;
-    bottom: 7%;
-    left: 50%;
-    transform: translate(-50%);
     color: #fff;
     font-size: calc(1rem + .1vw);
-    margin-bottom: 0;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    bottom: 0;
 }
 
 .signupform {
@@ -39,7 +38,7 @@
 .formcontent {
     width: 80%;
     margin: 1rem auto 0 auto;
-    max-height: 85vh;
+    max-height: 70vh;
     overflow-y: scroll;
 }
 
@@ -49,6 +48,7 @@
     align-items: center;
     border-bottom: 1px solid #d9d9d9;
     padding-bottom: 7px;
+    justify-content: space-between;
 }
 
 .usericon {
@@ -94,24 +94,28 @@
 /*start style mobile */
 .signupcontainerm {
     background-color: var(--color-1);
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
+    flex-direction: column;
+    justify-content: space-around;
     align-items: center;
-    justify-content: center;
 }
 
 .logoformm {
     width: 153px;
     height: 78px;
-    position: absolute;
-    top: 0px;
-    left: 50%;
-    transform: translate(-50%);
 }
 
 .formcontent::-webkit-scrollbar {
     display: none;
 }
+
+.linksignin {
+    color: var(--color-1);
+    font-size: .8rem;
+    cursor: pointer;
+}
+
 
 /* end style mobile */
 @media (max-width:992px) {
@@ -125,9 +129,13 @@
 }
 
 @media (max-width:768px) {
+
     .textco {
-        bottom: 2px;
+        position: relative;
         font-size: calc(1rem + .2vw);
+        margin-bottom: 2px;
+        text-align: center;
+        width: 100%;
     }
 
     .signupform {
@@ -136,7 +144,7 @@
 
     .formcontent {
         width: 90%;
-        max-height: 60vh;
+        max-height: 50vh;
         overflow-y: scroll;
     }
 

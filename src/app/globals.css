@@ -402,3 +402,24 @@ button {
 body {
     background-color: var(--color-2);
 }
+
+@font-face {
+    font-family: 'iranYekan';
+    src: url('/fonts/light/iranyekanweblight.ttf') format('ttf'),
+        url('/fonts/light/iranyekanweblight.woff2') format('woff2'),
+        url('/fonts/light/iranyekanweblight.woff') format('woff'),
+        url('/fonts/light/iranyekanweblight.eot') format('eot'),
+        url('/fonts/light/iranyekanweblight.otf') format('otf'),
+
+        url('/fonts/bold/iranyekanwebbold.ttf') format('ttf'),
+        url('/fonts/bold/iranyekanwebbold.woff2') format('woff2'),
+        url('/fonts/bold/iranyekanwebbold.woff') format('woff'),
+        url('/fonts/bold/iranyekanwebbold.eot') format('eot'),
+        url('/fonts/bold/iranyekanwebbold.otf') format('otf'),
+}
+
+html,
+body {
+
+    font-family: 'iranYekan', sans-serif !important;
+}

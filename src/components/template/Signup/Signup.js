@@ -6,6 +6,7 @@ import { FaUser, FaArrowLeftLong, LuPhone } from "react-icons/fa6";
 import Input from '@/components/module/Input/Input';
 import { Formik } from 'formik';
 import Texteara from '@/components/module/Texteara/Texteara';
+import Link from 'next/link';
 export default function Signup() {
 
     const [windowWidth, setWindowWidth] = useState(window.innerWidth)
@@ -22,6 +23,7 @@ export default function Signup() {
             window.removeEventListener('resize', handleWindowResize);
         };
     }, [])
+
     return (
         <>
             {
@@ -31,8 +33,11 @@ export default function Signup() {
                             <img className={styles.logoformm} src="/images/logo.svg" alt="" />
                             <div className={styles.signupform}>
                                 <div className={styles.headersignup}>
-                                    <FaUser className={styles.usericon} />
-                                    <p className={styles.Signuptext}>اطلاعات من</p>
+                                    <div className='d-flex align-items-center'>
+                                        <FaUser className={styles.usericon} />
+                                        <p className={styles.Signuptext}>اطلاعات من</p>
+                                    </div>
+                                    <Link href='/login' className={styles.linksignin}>قبلا ثبت نام کرده اید؟</Link>
                                 </div>
                                 <Formik
                                     validate={(values) => {
@@ -47,8 +52,8 @@ export default function Signup() {
                                         } else if (!phoneRegex.test(values.phone_number)) {
                                             errors.phone_number = "شماره تلفن معتبر نیست";
                                         }
-                                        if (values.province === "") {
-                                            errors.province = "وارد کردن استان اجباری میباشد";
+                                        if (values.state === "") {
+                                            errors.state = "وارد کردن استان اجباری میباشد";
                                         }
                                         if (values.email === "") {
                                             errors.email = "وارد کردن ایمیل اجباری میباشد";
@@ -68,7 +73,7 @@ export default function Signup() {
                                     initialValues={{
                                         full_name: "",
                                         phone_number: "",
-                                        province: "",
+                                        state: "",
                                         email: "",
                                         address: "",
                                         password: ""
@@ -80,138 +85,8 @@ export default function Signup() {
                                     }}
                                 >
                                     {({ values, handleChange, handleSubmit, errors, touched, isSubmitting }) => (
-                                        <form onSubmit={handleSubmit} className={styles.formcontent}>
-                                            <div>
-                                                <Input
-                                                    name="full_name"
-                                                    label="نام و نام خانوادگی"
-                                                    icon={LuPhone}
-                                                    value={values.full_name}
-                                                    onChange={handleChange}
-                                                />
-                                                {errors.full_name && touched.full_name && <span className={styles.errorinput}>{errors.full_name}</span>}
-                                            </div>
-                                            <div>
-                                                <Input
-                                                    name="phone_number"
-                                                    label="شماره تماس"
-                                                    icon={LuPhone}
-                                                    value={values.phone_number}
-                                                    onChange={handleChange}
-                                                />
-                                                {errors.phone_number && touched.phone_number && <span className={styles.errorinput}>{errors.phone_number}</span>}
-                                            </div>
-                                            <div>
-                                                <Input
-                                                    name="province"
-                                                    label="استان"
-                                                    icon={LuPhone}
-                                                    value={values.province}
-                                                    onChange={handleChange}
-                                                />
-                                                {errors.province && touched.province && <span className={styles.errorinput}>{errors.province}</span>}
-                                            </div>
-                                            <div>
-                                                <Input
-                                                    name="email"
-                                                    label="ایمیل"
-                                                    icon={LuPhone}
-                                                    value={values.email}
-                                                    onChange={handleChange}
-                                                />
-                                                {errors.email && touched.email && <span className={styles.errorinput}>{errors.email}</span>}
-                                            </div>
-                                            <div>
-                                                <Input
-                                                    name="password"
-                                                    label="رمز عبور"
-                                                    icon={LuPhone}
-                                                    value={values.password}
-                                                    onChange={handleChange}
-                                                />
-                                                {errors.password && touched.password && <span className={styles.errorinput}>{errors.password}</span>}
-                                            </div>
-                                            <div>
-                                                <Texteara
-                                                    name="address"
-                                                    label="آدرس"
-                                                    value={values.address}
-                                                    onChange={handleChange}
-                                                />
-                                                {errors.address && touched.address && <span className={styles.errorinput}>{errors.address}</span>}
-                                            </div>
-                                            <button
-                                                className={`${styles.btnsignup} ${isSubmitting ? styles.disablebtn : ""}`}
-                                                type='submit'
-                                                disabled={isSubmitting}
-                                            >
-                                                ادامه
-                                                <FaArrowLeftLong className={styles.btnsignupicon} />
-                                            </button>
-                                        </form>
-                                    )}
-
-                                </Formik>
-                            </div>
-
-                            <p className={styles.textco}>Powered By ARIISCO</p>
-                        </div>
-                    </> :
-                    <>
-                        <div className={styles.signupcontainer}>
-                            <Col md={6} className={styles.formcontainer}>
-                                <div className={styles.signupform}>
-                                    <div className={styles.headersignup}>
-                                        <FaUser className={styles.usericon} />
-                                        <p className={styles.Signuptext}>اطلاعات من</p>
-                                    </div>
-                                    <Formik
-                                        validate={(values) => {
-                                            const errors = {};
-                                            const phoneRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
-                                            const emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/
-                                            if (values.full_name === "") {
-                                                errors.full_name = "وارد کردن نام و نام خانوادگی اجباری میباشد";
-                                            }
-                                            if (values.phone_number === "") {
-                                                errors.phone_number = "وارد کردن شماره تلفن اجباری میباشد";
-                                            } else if (!phoneRegex.test(values.phone_number)) {
-                                                errors.phone_number = "شماره تلفن معتبر نیست";
-                                            }
-                                            if (values.province === "") {
-                                                errors.province = "وارد کردن استان اجباری میباشد";
-                                            }
-                                            if (values.email === "") {
-                                                errors.email = "وارد کردن ایمیل اجباری میباشد";
-                                            } else if (!emailRegex.test(values.email)) {
-                                                errors.email = "ایمیل معتبر نیست";
-                                            }
-                                            if (values.address === "") {
-                                                errors.address = "وارد کردن آدرس اجباری میباشد";
-                                            }
-                                            if (values.password === "") {
-                                                errors.password = "وارد کردن رمز عبور اجباری میباشد";
-                                            }
-
-                                            return errors;
-                                        }}
-
-                                        initialValues={{
-                                            full_name: "",
-                                            phone_number: "",
-                                            province: "",
-                                            email: "",
-                                            address: "",
-                                            password: ""
-                                        }}
-
-                                        onSubmit={async (values, { setSubmitting }) => {
-                                            console.log(values)
-                                            setSubmitting(false)
-                                        }}
-                                    >
-                                        {({ values, handleChange, handleSubmit, errors, touched, isSubmitting }) => (
-                                            <form onSubmit={handleSubmit} className={styles.formcontent}>
+                                        <form onSubmit={handleSubmit} >
+                                            <div className={styles.formcontent}>
                                                 <div>
                                                     <Input
                                                         name="full_name"
@@ -234,13 +109,13 @@ export default function Signup() {
                                                 </div>
                                                 <div>
                                                     <Input
-                                                        name="province"
+                                                        name="state"
                                                         label="استان"
                                                         icon={LuPhone}
-                                                        value={values.province}
+                                                        value={values.state}
                                                         onChange={handleChange}
                                                     />
-                                                    {errors.province && touched.province && <span className={styles.errorinput}>{errors.province}</span>}
+                                                    {errors.state && touched.state && <span className={styles.errorinput}>{errors.state}</span>}
                                                 </div>
                                                 <div>
                                                     <Input
@@ -270,6 +145,143 @@ export default function Signup() {
                                                         onChange={handleChange}
                                                     />
                                                     {errors.address && touched.address && <span className={styles.errorinput}>{errors.address}</span>}
+                                                </div>
+                                            </div>
+                                            <button
+                                                className={`${styles.btnsignup} ${isSubmitting ? styles.disablebtn : ""}`}
+                                                type='submit'
+                                                disabled={isSubmitting}
+                                            >
+                                                ادامه
+                                                <FaArrowLeftLong className={styles.btnsignupicon} />
+                                            </button>
+                                        </form>
+                                    )}
+
+                                </Formik>
+                            </div>
+
+                            <p className={styles.textco}>Powered By ARIISCO</p>
+                        </div>
+                    </> :
+                    <>
+                        <div className={styles.signupcontainer}>
+                            <Col md={6} className={styles.formcontainer}>
+                                <div className={styles.signupform}>
+                                    <div className={styles.headersignup}>
+                                        <div className='d-flex align-items-center'>
+                                            <FaUser className={styles.usericon} />
+                                            <p className={styles.Signuptext}>اطلاعات من</p>
+                                        </div>
+                                        <Link href='/login' className={styles.linksignin}>قبلا ثبت نام کرده اید؟</Link>
+                                    </div>
+                                    <Formik
+                                        validate={(values) => {
+                                            const errors = {};
+                                            const phoneRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+                                            const emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/
+                                            if (values.full_name === "") {
+                                                errors.full_name = "وارد کردن نام و نام خانوادگی اجباری میباشد";
+                                            }
+                                            if (values.phone_number === "") {
+                                                errors.phone_number = "وارد کردن شماره تلفن اجباری میباشد";
+                                            } else if (!phoneRegex.test(values.phone_number)) {
+                                                errors.phone_number = "شماره تلفن معتبر نیست";
+                                            }
+                                            if (values.state === "") {
+                                                errors.state = "وارد کردن استان اجباری میباشد";
+                                            }
+                                            if (values.email === "") {
+                                                errors.email = "وارد کردن ایمیل اجباری میباشد";
+                                            } else if (!emailRegex.test(values.email)) {
+                                                errors.email = "ایمیل معتبر نیست";
+                                            }
+                                            if (values.address === "") {
+                                                errors.address = "وارد کردن آدرس اجباری میباشد";
+                                            }
+                                            if (values.password === "") {
+                                                errors.password = "وارد کردن رمز عبور اجباری میباشد";
+                                            }
+
+                                            return errors;
+                                        }}
+
+                                        initialValues={{
+                                            full_name: "",
+                                            phone_number: "",
+                                            state: "",
+                                            email: "",
+                                            address: "",
+                                            password: ""
+                                        }}
+
+                                        onSubmit={async (values, { setSubmitting }) => {
+                                            console.log(values)
+                                            setSubmitting(false)
+                                        }}
+                                    >
+                                        {({ values, handleChange, handleSubmit, errors, touched, isSubmitting }) => (
+                                            <form onSubmit={handleSubmit} >
+                                                <div className={styles.formcontent}>
+                                                    <div>
+                                                        <Input
+                                                            name="full_name"
+                                                            label="نام و نام خانوادگی"
+                                                            icon={LuPhone}
+                                                            value={values.full_name}
+                                                            onChange={handleChange}
+                                                        />
+                                                        {errors.full_name && touched.full_name && <span className={styles.errorinput}>{errors.full_name}</span>}
+                                                    </div>
+                                                    <div>
+                                                        <Input
+                                                            name="phone_number"
+                                                            label="شماره تماس"
+                                                            icon={LuPhone}
+                                                            value={values.phone_number}
+                                                            onChange={handleChange}
+                                                        />
+                                                        {errors.phone_number && touched.phone_number && <span className={styles.errorinput}>{errors.phone_number}</span>}
+                                                    </div>
+                                                    <div>
+                                                        <Input
+                                                            name="state"
+                                                            label="استان"
+                                                            icon={LuPhone}
+                                                            value={values.state}
+                                                            onChange={handleChange}
+                                                        />
+                                                        {errors.state && touched.state && <span className={styles.errorinput}>{errors.state}</span>}
+                                                    </div>
+                                                    <div>
+                                                        <Input
+                                                            name="email"
+                                                            label="ایمیل"
+                                                            icon={LuPhone}
+                                                            value={values.email}
+                                                            onChange={handleChange}
+                                                        />
+                                                        {errors.email && touched.email && <span className={styles.errorinput}>{errors.email}</span>}
+                                                    </div>
+                                                    <div>
+                                                        <Input
+                                                            name="password"
+                                                            label="رمز عبور"
+                                                            icon={LuPhone}
+                                                            value={values.password}
+                                                            onChange={handleChange}
+                                                        />
+                                                        {errors.password && touched.password && <span className={styles.errorinput}>{errors.password}</span>}
+                                                    </div>
+                                                    <div>
+                                                        <Texteara
+                                                            name="address"
+                                                            label="آدرس"
+                                                            value={values.address}
+                                                            onChange={handleChange}
+                                                        />
+                                                        {errors.address && touched.address && <span className={styles.errorinput}>{errors.address}</span>}
+                                                    </div>
                                                 </div>
                                                 <button
                                                     className={`${styles.btnsignup} ${isSubmitting ? styles.disablebtn : ""}`}
