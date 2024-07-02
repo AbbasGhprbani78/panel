@@ -1,0 +1,28 @@
+.headercontainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    width: 100%;
+    border-bottom: 1px solid var(--color-1);
+    padding-bottom: 5px;
+    padding-top: 10px;
+}
+
+.headertext {
+    font-weight: bold;
+}
+
+.iconheaderwrap {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: var(--color-3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.iconheader {
+    font-size: 1.4rem;
+    color: #fff;
+}

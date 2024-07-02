@@ -85,67 +85,66 @@ export default function Signup() {
                                     }}
                                 >
                                     {({ values, handleChange, handleSubmit, errors, touched, isSubmitting }) => (
-                                        <form onSubmit={handleSubmit} >
-                                            <div className={styles.formcontent}>
-                                                <div>
-                                                    <Input
-                                                        name="full_name"
-                                                        label="نام و نام خانوادگی"
-                                                        icon={LuPhone}
-                                                        value={values.full_name}
-                                                        onChange={handleChange}
-                                                    />
-                                                    {errors.full_name && touched.full_name && <span className={styles.errorinput}>{errors.full_name}</span>}
-                                                </div>
-                                                <div>
-                                                    <Input
-                                                        name="phone_number"
-                                                        label="شماره تماس"
-                                                        icon={LuPhone}
-                                                        value={values.phone_number}
-                                                        onChange={handleChange}
-                                                    />
-                                                    {errors.phone_number && touched.phone_number && <span className={styles.errorinput}>{errors.phone_number}</span>}
-                                                </div>
-                                                <div>
-                                                    <Input
-                                                        name="state"
-                                                        label="استان"
-                                                        icon={LuPhone}
-                                                        value={values.state}
-                                                        onChange={handleChange}
-                                                    />
-                                                    {errors.state && touched.state && <span className={styles.errorinput}>{errors.state}</span>}
-                                                </div>
-                                                <div>
-                                                    <Input
-                                                        name="email"
-                                                        label="ایمیل"
-                                                        icon={LuPhone}
-                                                        value={values.email}
-                                                        onChange={handleChange}
-                                                    />
-                                                    {errors.email && touched.email && <span className={styles.errorinput}>{errors.email}</span>}
-                                                </div>
-                                                <div>
-                                                    <Input
-                                                        name="password"
-                                                        label="رمز عبور"
-                                                        icon={LuPhone}
-                                                        value={values.password}
-                                                        onChange={handleChange}
-                                                    />
-                                                    {errors.password && touched.password && <span className={styles.errorinput}>{errors.password}</span>}
-                                                </div>
-                                                <div>
-                                                    <Texteara
-                                                        name="address"
-                                                        label="آدرس"
-                                                        value={values.address}
-                                                        onChange={handleChange}
-                                                    />
-                                                    {errors.address && touched.address && <span className={styles.errorinput}>{errors.address}</span>}
-                                                </div>
+                                        <form onSubmit={handleSubmit} className={styles.formcontent}>
+
+                                            <div>
+                                                <Input
+                                                    name="full_name"
+                                                    label="نام و نام خانوادگی"
+                                                    icon={LuPhone}
+                                                    value={values.full_name}
+                                                    onChange={handleChange}
+                                                />
+                                                {errors.full_name && touched.full_name && <span className={styles.errorinput}>{errors.full_name}</span>}
+                                            </div>
+                                            <div>
+                                                <Input
+                                                    name="phone_number"
+                                                    label="شماره تماس"
+                                                    icon={LuPhone}
+                                                    value={values.phone_number}
+                                                    onChange={handleChange}
+                                                />
+                                                {errors.phone_number && touched.phone_number && <span className={styles.errorinput}>{errors.phone_number}</span>}
+                                            </div>
+                                            <div>
+                                                <Input
+                                                    name="state"
+                                                    label="استان"
+                                                    icon={LuPhone}
+                                                    value={values.state}
+                                                    onChange={handleChange}
+                                                />
+                                                {errors.state && touched.state && <span className={styles.errorinput}>{errors.state}</span>}
+                                            </div>
+                                            <div>
+                                                <Input
+                                                    name="email"
+                                                    label="ایمیل"
+                                                    icon={LuPhone}
+                                                    value={values.email}
+                                                    onChange={handleChange}
+                                                />
+                                                {errors.email && touched.email && <span className={styles.errorinput}>{errors.email}</span>}
+                                            </div>
+                                            <div>
+                                                <Input
+                                                    name="password"
+                                                    label="رمز عبور"
+                                                    icon={LuPhone}
+                                                    value={values.password}
+                                                    onChange={handleChange}
+                                                />
+                                                {errors.password && touched.password && <span className={styles.errorinput}>{errors.password}</span>}
+                                            </div>
+                                            <div>
+                                                <Texteara
+                                                    name="address"
+                                                    label="آدرس"
+                                                    value={values.address}
+                                                    onChange={handleChange}
+                                                />
+                                                {errors.address && touched.address && <span className={styles.errorinput}>{errors.address}</span>}
                                             </div>
                                             <button
                                                 className={`${styles.btnsignup} ${isSubmitting ? styles.disablebtn : ""}`}
@@ -221,67 +220,65 @@ export default function Signup() {
                                         }}
                                     >
                                         {({ values, handleChange, handleSubmit, errors, touched, isSubmitting }) => (
-                                            <form onSubmit={handleSubmit} >
-                                                <div className={styles.formcontent}>
-                                                    <div>
-                                                        <Input
-                                                            name="full_name"
-                                                            label="نام و نام خانوادگی"
-                                                            icon={LuPhone}
-                                                            value={values.full_name}
-                                                            onChange={handleChange}
-                                                        />
-                                                        {errors.full_name && touched.full_name && <span className={styles.errorinput}>{errors.full_name}</span>}
-                                                    </div>
-                                                    <div>
-                                                        <Input
-                                                            name="phone_number"
-                                                            label="شماره تماس"
-                                                            icon={LuPhone}
-                                                            value={values.phone_number}
-                                                            onChange={handleChange}
-                                                        />
-                                                        {errors.phone_number && touched.phone_number && <span className={styles.errorinput}>{errors.phone_number}</span>}
-                                                    </div>
-                                                    <div>
-                                                        <Input
-                                                            name="state"
-                                                            label="استان"
-                                                            icon={LuPhone}
-                                                            value={values.state}
-                                                            onChange={handleChange}
-                                                        />
-                                                        {errors.state && touched.state && <span className={styles.errorinput}>{errors.state}</span>}
-                                                    </div>
-                                                    <div>
-                                                        <Input
-                                                            name="email"
-                                                            label="ایمیل"
-                                                            icon={LuPhone}
-                                                            value={values.email}
-                                                            onChange={handleChange}
-                                                        />
-                                                        {errors.email && touched.email && <span className={styles.errorinput}>{errors.email}</span>}
-                                                    </div>
-                                                    <div>
-                                                        <Input
-                                                            name="password"
-                                                            label="رمز عبور"
-                                                            icon={LuPhone}
-                                                            value={values.password}
-                                                            onChange={handleChange}
-                                                        />
-                                                        {errors.password && touched.password && <span className={styles.errorinput}>{errors.password}</span>}
-                                                    </div>
-                                                    <div>
-                                                        <Texteara
-                                                            name="address"
-                                                            label="آدرس"
-                                                            value={values.address}
-                                                            onChange={handleChange}
-                                                        />
-                                                        {errors.address && touched.address && <span className={styles.errorinput}>{errors.address}</span>}
-                                                    </div>
+                                            <form onSubmit={handleSubmit} className={styles.formcontent}>
+                                                <div>
+                                                    <Input
+                                                        name="full_name"
+                                                        label="نام و نام خانوادگی"
+                                                        icon={LuPhone}
+                                                        value={values.full_name}
+                                                        onChange={handleChange}
+                                                    />
+                                                    {errors.full_name && touched.full_name && <span className={styles.errorinput}>{errors.full_name}</span>}
+                                                </div>
+                                                <div>
+                                                    <Input
+                                                        name="phone_number"
+                                                        label="شماره تماس"
+                                                        icon={LuPhone}
+                                                        value={values.phone_number}
+                                                        onChange={handleChange}
+                                                    />
+                                                    {errors.phone_number && touched.phone_number && <span className={styles.errorinput}>{errors.phone_number}</span>}
+                                                </div>
+                                                <div>
+                                                    <Input
+                                                        name="state"
+                                                        label="استان"
+                                                        icon={LuPhone}
+                                                        value={values.state}
+                                                        onChange={handleChange}
+                                                    />
+                                                    {errors.state && touched.state && <span className={styles.errorinput}>{errors.state}</span>}
+                                                </div>
+                                                <div>
+                                                    <Input
+                                                        name="email"
+                                                        label="ایمیل"
+                                                        icon={LuPhone}
+                                                        value={values.email}
+                                                        onChange={handleChange}
+                                                    />
+                                                    {errors.email && touched.email && <span className={styles.errorinput}>{errors.email}</span>}
+                                                </div>
+                                                <div>
+                                                    <Input
+                                                        name="password"
+                                                        label="رمز عبور"
+                                                        icon={LuPhone}
+                                                        value={values.password}
+                                                        onChange={handleChange}
+                                                    />
+                                                    {errors.password && touched.password && <span className={styles.errorinput}>{errors.password}</span>}
+                                                </div>
+                                                <div>
+                                                    <Texteara
+                                                        name="address"
+                                                        label="آدرس"
+                                                        value={values.address}
+                                                        onChange={handleChange}
+                                                    />
+                                                    {errors.address && touched.address && <span className={styles.errorinput}>{errors.address}</span>}
                                                 </div>
                                                 <button
                                                     className={`${styles.btnsignup} ${isSubmitting ? styles.disablebtn : ""}`}
@@ -293,7 +290,6 @@ export default function Signup() {
                                                 </button>
                                             </form>
                                         )}
-
                                     </Formik>
                                 </div>
                             </Col>

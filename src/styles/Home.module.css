@@ -1,0 +1,9 @@
+.wrapperpage {
+    display: flex;
+    justify-content: space-between;
+}
+
+.pagecontent {
+    width: 78%;
+    margin-right: 20%;
+}
