@@ -2,6 +2,7 @@
     border-radius: 10px;
     box-shadow: 0px 2px 15px 0px #E9E9E9;
     padding: 20px 25px;
+    background-color: #fff;
 }
 
 .infousertop {
@@ -30,7 +31,7 @@
 }
 
 .userabout {
-    margin-top: 2rem;
+    margin-top: 1.3rem;
 }
 
 .useraboutitem {
@@ -49,7 +50,7 @@
 }
 
 .btnwrapper {
-    margin: 1.5rem;
+    margin-top: 1.5rem;
     text-align: left;
 }
 

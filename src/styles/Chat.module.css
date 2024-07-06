@@ -1,0 +1,20 @@
+.wrapperpage {
+    display: flex;
+    justify-content: space-between;
+}
+
+.pagecontent {
+    width: 82%;
+    margin-right: 18%;
+    padding: 0 3%;
+    min-height: 100vh;
+    background-color: var(--color-2);
+}
+
+@media (max-width:1025px) {
+    .pagecontent {
+        width: 100%;
+        margin-right: 0;
+        padding: 0;
+    }
+}

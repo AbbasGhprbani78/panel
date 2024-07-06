@@ -394,14 +394,12 @@ button {
 }
 
 :root {
+
     --color-1: #404348;
     --color-2: #f9f9f9;
     --color-3: #ffcb05;
 }
 
-body {
-    background-color: var(--color-2);
-}
 
 @font-face {
     font-family: 'iranYekan';
@@ -420,6 +418,42 @@ body {
 
 html,
 body {
-
+    background-color: var(--color-2);
     font-family: 'iranYekan', sans-serif !important;
+}
+
+
+tbody,
+td,
+tfoot,
+th,
+tr {
+    border-style: none !important;
+    border-width: 0 !important;
+    border: none !important;
+    color: var(--color-1) !important;
+}
+
+thead {
+    border-bottom: 1px solid #d9d9d9 !important;
+}
+
+td {
+    padding-top: 25px !important;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+
+}
+
+::-webkit-scrollbar-track {
+    background: #888;
+}
+
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-3);
+    border-radius: 6px;
 }

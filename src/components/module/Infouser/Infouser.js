@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './InfoUser.module.css'
 import { CiUser } from "react-icons/ci";
-export default function Infouser() {
+export default function Infouser({ setShowModal }) {
     return (
         <div className={styles.infouserwrapper}>
             <div className={styles.infousertop}>
@@ -25,7 +25,7 @@ export default function Infouser() {
                 </div>
             </div>
             <div className={styles.btnwrapper}>
-                <button className={styles.btnedituser}>
+                <button className={styles.btnedituser} onClick={() => setShowModal(true)}>
                     ویرایش
                 </button>
             </div>

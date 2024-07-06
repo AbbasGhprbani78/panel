@@ -2,7 +2,12 @@
 import React, { useEffect, useState } from 'react'
 import styles from '@/styles/signup.module.css'
 import { Col } from 'react-bootstrap'
-import { FaUser, FaArrowLeftLong, LuPhone } from "react-icons/fa6";
+import { FaUser, FaArrowLeftLong } from "react-icons/fa6";
+import { FaPhone } from "react-icons/fa6";
+import { TbBuildingEstate } from "react-icons/tb";
+import { MdEmail } from "react-icons/md";
+import { IoEyeSharp } from "react-icons/io5";
+import { IoEyeOff } from "react-icons/io5";
 import Input from '@/components/module/Input/Input';
 import { Formik } from 'formik';
 import Texteara from '@/components/module/Texteara/Texteara';
@@ -10,7 +15,11 @@ import Link from 'next/link';
 export default function Signup() {
 
     const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+    const [isPrivate, setIsPerivate] = useState(true)
 
+    const handleToggle = () => {
+        setIsPerivate((e) => !e);
+    }
 
     useEffect(() => {
         const handleWindowResize = () => {
@@ -91,9 +100,10 @@ export default function Signup() {
                                                 <Input
                                                     name="full_name"
                                                     label="نام و نام خانوادگی"
-                                                    icon={LuPhone}
+                                                    icon={FaUser}
                                                     value={values.full_name}
                                                     onChange={handleChange}
+                                                    type={"text"}
                                                 />
                                                 {errors.full_name && touched.full_name && <span className={styles.errorinput}>{errors.full_name}</span>}
                                             </div>
@@ -101,9 +111,10 @@ export default function Signup() {
                                                 <Input
                                                     name="phone_number"
                                                     label="شماره تماس"
-                                                    icon={LuPhone}
+                                                    icon={FaPhone}
                                                     value={values.phone_number}
                                                     onChange={handleChange}
+                                                    type={"text"}
                                                 />
                                                 {errors.phone_number && touched.phone_number && <span className={styles.errorinput}>{errors.phone_number}</span>}
                                             </div>
@@ -111,9 +122,10 @@ export default function Signup() {
                                                 <Input
                                                     name="state"
                                                     label="استان"
-                                                    icon={LuPhone}
+                                                    icon={TbBuildingEstate}
                                                     value={values.state}
                                                     onChange={handleChange}
+                                                    type={"text"}
                                                 />
                                                 {errors.state && touched.state && <span className={styles.errorinput}>{errors.state}</span>}
                                             </div>
@@ -121,9 +133,10 @@ export default function Signup() {
                                                 <Input
                                                     name="email"
                                                     label="ایمیل"
-                                                    icon={LuPhone}
+                                                    icon={MdEmail}
                                                     value={values.email}
                                                     onChange={handleChange}
+                                                    type={"text"}
                                                 />
                                                 {errors.email && touched.email && <span className={styles.errorinput}>{errors.email}</span>}
                                             </div>
@@ -131,9 +144,11 @@ export default function Signup() {
                                                 <Input
                                                     name="password"
                                                     label="رمز عبور"
-                                                    icon={LuPhone}
+                                                    icon={isPrivate ? IoEyeSharp : IoEyeOff}
                                                     value={values.password}
                                                     onChange={handleChange}
+                                                    handleToggle={handleToggle}
+                                                    type={isPrivate ? "password" : "text"}
                                                 />
                                                 {errors.password && touched.password && <span className={styles.errorinput}>{errors.password}</span>}
                                             </div>
@@ -159,7 +174,6 @@ export default function Signup() {
 
                                 </Formik>
                             </div>
-
                             <p className={styles.textco}>Powered By ARIISCO</p>
                         </div>
                     </> :
@@ -225,9 +239,10 @@ export default function Signup() {
                                                     <Input
                                                         name="full_name"
                                                         label="نام و نام خانوادگی"
-                                                        icon={LuPhone}
+                                                        icon={FaUser}
                                                         value={values.full_name}
                                                         onChange={handleChange}
+                                                        type={"text"}
                                                     />
                                                     {errors.full_name && touched.full_name && <span className={styles.errorinput}>{errors.full_name}</span>}
                                                 </div>
@@ -235,9 +250,10 @@ export default function Signup() {
                                                     <Input
                                                         name="phone_number"
                                                         label="شماره تماس"
-                                                        icon={LuPhone}
+                                                        icon={FaPhone}
                                                         value={values.phone_number}
                                                         onChange={handleChange}
+                                                        type={"text"}
                                                     />
                                                     {errors.phone_number && touched.phone_number && <span className={styles.errorinput}>{errors.phone_number}</span>}
                                                 </div>
@@ -245,9 +261,10 @@ export default function Signup() {
                                                     <Input
                                                         name="state"
                                                         label="استان"
-                                                        icon={LuPhone}
+                                                        icon={TbBuildingEstate}
                                                         value={values.state}
                                                         onChange={handleChange}
+                                                        type={"text"}
                                                     />
                                                     {errors.state && touched.state && <span className={styles.errorinput}>{errors.state}</span>}
                                                 </div>
@@ -255,9 +272,10 @@ export default function Signup() {
                                                     <Input
                                                         name="email"
                                                         label="ایمیل"
-                                                        icon={LuPhone}
+                                                        icon={MdEmail}
                                                         value={values.email}
                                                         onChange={handleChange}
+                                                        type={"text"}
                                                     />
                                                     {errors.email && touched.email && <span className={styles.errorinput}>{errors.email}</span>}
                                                 </div>
@@ -265,9 +283,11 @@ export default function Signup() {
                                                     <Input
                                                         name="password"
                                                         label="رمز عبور"
-                                                        icon={LuPhone}
+                                                        icon={isPrivate ? IoEyeSharp : IoEyeOff}
                                                         value={values.password}
                                                         onChange={handleChange}
+                                                        handleToggle={handleToggle}
+                                                        type={isPrivate ? "password" : "text"}
                                                     />
                                                     {errors.password && touched.password && <span className={styles.errorinput}>{errors.password}</span>}
                                                 </div>

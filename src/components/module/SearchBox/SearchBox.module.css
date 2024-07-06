@@ -1,0 +1,35 @@
+.searchboxwrapper {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: end;
+}
+
+.searchboxcontant {
+    display: flex;
+    align-items: center;
+    box-shadow: 0px 2px 4px 0px #BDBDBD;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 35%;
+    justify-content: space-between;
+    background-color: #fff;
+}
+
+.searhiconwrapper {
+    background-color: var(--color-1);
+    padding: 5px 10px;
+}
+
+.searchicon {
+    color: #fff;
+    font-size: 1.2rem;
+}
+
+.inputsearch {
+    width: 100%;
+    padding: 0 15px;
+}
+
+.inputsearch::-webkit-input-placeholder {
+    font-size: .8rem;
+}

@@ -4,7 +4,10 @@ import Input from '@/components/module/Input/Input'
 import styles from '@/styles/Login.module.css'
 import { Col } from 'react-bootstrap'
 import { Formik } from 'formik'
-import { LuPhone, FaArrowLeftLong } from "react-icons/fa6";
+import { FaArrowLeftLong } from "react-icons/fa6";
+import { FaPhone } from "react-icons/fa6";
+import { IoEyeSharp } from "react-icons/io5";
+import { IoEyeOff } from "react-icons/io5";
 import axios from 'axios'
 import { MdOutlineMail } from "react-icons/md";
 import Link from 'next/link'
@@ -12,7 +15,7 @@ import Link from 'next/link'
 export default function Login() {
 
     const [windowWidth, setWindowWidth] = useState(window.innerWidth)
-    const [step, setStep] = useState(2)
+    const [step, setStep] = useState(3)
     const [isForget, setIsForget] = useState(false)
     const inputRefs = useRef([]);
     const [timeLeft, setTimeLeft] = useState(10);
@@ -64,25 +67,27 @@ export default function Login() {
         };
     }, [])
 
+    const [isPrivate, setIsPerivate] = useState(true)
 
-    useEffect(() => {
-        let timer;
-        if (step === 3) {
-            timer = setInterval(() => {
-                setTimeLeft(prevTime => {
-                    if (prevTime <= 1) {
-                        clearInterval(timer);
-                        setShowResendMessage(true);
-                        return 0;
-                    }
-                    return prevTime - 1;
-                });
-            }, 1000);
-        }
+    const handleToggle = () => {
+        setIsPerivate((e) => !e);
+    }
 
-        return () => clearInterval(timer);
-    }, [step]);
+    const startTimer = () => {
+        setTimeLeft(10);
+        setShowResendMessage(false);
 
+        const timer = setInterval(() => {
+            setTimeLeft((prevTime) => {
+                if (prevTime <= 1) {
+                    clearInterval(timer);
+                    setShowResendMessage(true);
+                    return 0;
+                }
+                return prevTime - 1;
+            });
+        }, 1000);
+    };
 
     const formatTime = (seconds) => {
         const minutes = Math.floor(seconds / 60);
@@ -90,11 +95,17 @@ export default function Login() {
         return `${minutes < 10 ? '0' : ''}${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
     };
 
+    useEffect(() => {
+        startTimer();
+    }, [step]);
+
+
     return (
         <>
             {
                 windowWidth < 768 ?
                     <>
+
                         <div className={styles.logincontainerm}>
                             <img className={styles.logoformm} src="/images/logo.svg" alt="" />
                             {
@@ -141,9 +152,10 @@ export default function Login() {
                                                             <Input
                                                                 name="phone_number"
                                                                 label="شماره تماس"
-                                                                icon={LuPhone}
+                                                                icon={FaPhone}
                                                                 value={values.phone_number}
                                                                 onChange={handleChange}
+                                                                type={"text"}
                                                             />
                                                             {errors.phone_number && touched.phone_number && <span className={styles.errorinput}>{errors.phone_number}</span>}
                                                             <div className='mt-1'><Link href="/signup" className={styles.linksignup}>هنوز ثبت نام نکرده اید؟</Link>
@@ -196,9 +208,11 @@ export default function Login() {
                                                                 <Input
                                                                     name="password"
                                                                     label="کلمه عبور"
-                                                                    icon={LuPhone}
+                                                                    icon={isPrivate ? IoEyeSharp : IoEyeOff}
                                                                     value={values.password}
                                                                     onChange={handleChange}
+                                                                    type={isPrivate ? "password" : "text"}
+                                                                    handleToggle={handleToggle}
                                                                 />
                                                                 {errors.password && touched.password && <span className={styles.errorinput}>{errors.password}</span>}
                                                             </div>
@@ -213,7 +227,7 @@ export default function Login() {
                                                                     <span className={`mx-2 ${styles.textsendsms}`}>
                                                                         ارسال کد یکبار مصرف از طریق پیامک
                                                                     </span>
-                                                                    {/* <FaAngleLeft className={styles.angleicon} /> */}
+
                                                                 </button>
                                                             </div>
                                                             {
@@ -224,7 +238,7 @@ export default function Login() {
                                                                         <span className={`mx-2 ${styles.textsendsms}`}>
                                                                             ارسال کد یکبار مصرف به ایمیل
                                                                         </span>
-                                                                        {/* <FaAngleLeft className={styles.angleicon} /> */}
+
                                                                     </button>
                                                                 </div>
                                                             }
@@ -270,7 +284,11 @@ export default function Login() {
                                                         {
                                                             showResendMessage ? (
                                                                 <div className='text-center d-flex justify-content-center'>
-                                                                    <p className={`${styles.time} ${styles.againcode}`}>
+                                                                    <p
+                                                                        className={`${styles.time} ${styles.againcode}`}
+                                                                        onClick={() => {
+                                                                            startTimer()
+                                                                        }}>
                                                                         ارسال مجدد
                                                                     </p>
                                                                 </div>
@@ -299,6 +317,7 @@ export default function Login() {
 
                             <p className={styles.textco}>Powered By ARIISCO</p>
                         </div>
+
                     </> :
                     <>
                         <div className={styles.logincontainer}>
@@ -346,9 +365,10 @@ export default function Login() {
                                                                 <Input
                                                                     name="phone_number"
                                                                     label="شماره تماس"
-                                                                    icon={LuPhone}
+                                                                    icon={FaPhone}
                                                                     value={values.phone_number}
                                                                     onChange={handleChange}
+                                                                    type={"text"}
                                                                 />
                                                                 {errors.phone_number && touched.phone_number && <span className={styles.errorinput}>{errors.phone_number}</span>}
                                                                 <div className='mt-1'><Link href="/signup" className={styles.linksignup}>هنوز ثبت نام نکرده اید؟</Link>
@@ -399,9 +419,11 @@ export default function Login() {
                                                                     <Input
                                                                         name="password"
                                                                         label="کلمه عبور"
-                                                                        icon={LuPhone}
+                                                                        icon={isPrivate ? IoEyeSharp : IoEyeOff}
                                                                         value={values.password}
                                                                         onChange={handleChange}
+                                                                        type={isPrivate ? "password" : "text"}
+                                                                        handleToggle={handleToggle}
                                                                     />
                                                                     {errors.password && touched.password && <span className={styles.errorinput}>{errors.password}</span>}
                                                                 </div>
@@ -416,7 +438,7 @@ export default function Login() {
                                                                         <span className={`mx-2 ${styles.texttosend}`}>
                                                                             ارسال کد یکبار مصرف از طریق پیامک
                                                                         </span>
-                                                                        {/* <FaAngleLeft className={styles.angleicon} /> */}
+
                                                                     </button>
                                                                 </div>
                                                                 {
@@ -427,7 +449,7 @@ export default function Login() {
                                                                             <span className={`mx-2 ${styles.texttosend}`}>
                                                                                 ارسال کد یکبار مصرف به ایمیل
                                                                             </span>
-                                                                            {/* <FaAngleLeft className={styles.angleicon} /> */}
+
                                                                         </button>
                                                                     </div>
                                                                 }
@@ -466,14 +488,17 @@ export default function Login() {
                                                                         ref={el => (inputRefs.current[index] = el)}
                                                                         onChange={(e) => handleInputChange(e, index)}
                                                                         onKeyDown={(e) => handleKeyDown(e, index)}
-
                                                                     />
                                                                 ))}
                                                             </div>
 
                                                             {showResendMessage ? (
                                                                 <div className='text-center d-flex justify-content-center'>
-                                                                    <p className={`${styles.time} ${styles.againcode}`}>
+                                                                    <p
+                                                                        className={`${styles.time} ${styles.againcode}`}
+                                                                        onClick={() => {
+                                                                            startTimer()
+                                                                        }}>
                                                                         ارسال مجدد
                                                                     </p>
                                                                 </div>

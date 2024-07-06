@@ -26,3 +26,21 @@
     font-size: 1.4rem;
     color: #fff;
 }
+
+.headermobile {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--color-1);
+    padding: 10px 20px;
+}
+
+.logomobile {
+    height: auto;
+    width: 100px;
+}
+
+.iconham {
+    color: #fff;
+    font-size: 1.4rem;
+}

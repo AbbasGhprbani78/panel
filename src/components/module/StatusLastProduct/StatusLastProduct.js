@@ -1,59 +1,62 @@
 "use client"
 import React, { useEffect, useState } from 'react'
 import styles from './StatusLastProduct.module.css'
+import { IoBagAddOutline } from "react-icons/io5";
+import { MdOutlineShoppingCartCheckout } from "react-icons/md";
+import { IoMdDoneAll } from "react-icons/io";
+import { FiTruck } from "react-icons/fi";
+import { HiOutlineNewspaper } from "react-icons/hi2";
+import { BsBox2 } from "react-icons/bs";
 export default function StatusLastProduct() {
 
-    const [currentStep, setCurrentStep] = useState(1);
+    const [currentStep, setCurrentStep] = useState(3);
 
-    const handleNext = () => {
-        setCurrentStep((prevStep) => (prevStep < 4 ? prevStep + 1 : prevStep));
-    };
-
-    const handlePrev = () => {
-        setCurrentStep((prevStep) => (prevStep > 1 ? prevStep - 1 : prevStep));
-    };
-
-
-    // useEffect(() => {
-    //     if (currentStep === 1) {
-    //         setContent("اطلاعات اولیه مشتری :")
-    //     }
-    //     else if (currentStep === 2) {
-    //         setContent("اطلاعات اولیه خودرو")
-    //     }
-    // }, [currentStep])
 
     return (
         <div className={styles.statusproduct}>
             <p className={styles.statustext}>وضعیت آخرین سفارش</p>
             <div className={`${styles.pragresswrapper} d-flex justify-content-between`} style={{ direction: "ltr" }}>
                 <div className={`${styles.pragressContainer}`}>
-                    <div className={styles.progress} style={{ width: `${(currentStep - 1) * 33.33}%` }}></div>
-                    <div style={{ position: "relative" }} className={`${styles.circle} ${currentStep >= 1 ? `${styles.active}` : ''}`}>
-                        1
-                        <p className={styles.itemprogtext}>اطلاعات مشتری</p>
+                    <div className={styles.progress} style={{ width: `${(currentStep - 1) * 20}%` }}></div>
+                    <div style={{ position: "relative" }}
+                        className={`${styles.circle} ${currentStep >= 1 ? `${styles.active}` : ''}`}>
+                        <IoBagAddOutline className={`${styles.iconstatus} ${currentStep >= 1 ? `${styles.activeicon}` : ''}`} />
+                        <p className={styles.itemprogtext}>صدور سفارش</p>
                     </div>
                     <div className={`${styles.circle} ${currentStep >= 2 ? `${styles.active}` : ''}`}>
-                        2
-                        <p className={styles.itemprogtext}>اطلاعات خودرو</p>
+                        <MdOutlineShoppingCartCheckout className={`${styles.iconstatus} ${currentStep >= 2 ? `${styles.activeicon}` : ''}`} />
+                        <p className={styles.itemprogtext}>تایید فروش</p>
                     </div>
                     <div className={`${styles.circle} ${currentStep >= 3 ? `${styles.active}` : ''}`}>
-                        3
-                        <p className={styles.itemprogtext}>اطلاعات خودرو</p>
+                        <IoMdDoneAll className={`${styles.iconstatus} ${currentStep >= 3 ? `${styles.activeicon}` : ''}`} />
+                        <p className={styles.itemprogtext}>تایید نهایی</p>
                     </div>
                     <div className={`${styles.circle} ${currentStep >= 4 ? `${styles.active}` : ''}`}>
-                        4
-                        <p className={styles.itemprogtext}>اطلاعات خودرو</p>
+                        <FiTruck className={`${styles.iconstatus} ${currentStep >= 4 ? `${styles.activeicon}` : ''}`} />
+                        <p className={styles.itemprogtext}>در حال ارسال</p>
+                    </div>
+                    <div className={`${styles.circle} ${currentStep >= 5 ? `${styles.active}` : ''}`}>
+                        <HiOutlineNewspaper className={`${styles.iconstatus} ${currentStep >= 5 ? `${styles.activeicon}` : ''}`} />
+                        <p className={styles.itemprogtext}>مختومه</p>
+                    </div>
+                    <div className={`${styles.circle} ${currentStep >= 6 ? `${styles.active}` : ''}`}>
+                        <BsBox2 className={`${styles.iconstatus} ${currentStep >= 6 ? `${styles.activeicon}` : ''}`} />
+                        <p className={styles.itemprogtext}>کامل ارسال شده</p>
                     </div>
                 </div>
-
-
-                {/* <button className="btn" id="Prev" onClick={handlePrev} disabled={currentStep === 1}>
-                Prev
-            </button>
-            <button className="btn" id="Next" onClick={handleNext} disabled={currentStep === 4}>
-                Next
-            </button> */}
+            </div>
+            <div className={styles.statusproductbottom}>
+                <div className={styles.orderdeatil}>
+                    <div className={styles.orderdetailitem}>
+                        <span className={styles.orderdetailtitle}>تعداد سفارش :</span>
+                        <span className={styles.orderdetailtext}>100 عدد </span>
+                    </div>
+                    <div className={styles.orderdetailitem}>
+                        <span className={styles.orderdetailtitle}>تاریخ سفارش :</span>
+                        <span className={styles.orderdetailtext}>01/02/23</span>
+                    </div>
+                </div>
+                <button className={styles.historybtn}>تاریخچه</button>
             </div>
         </div>
     )

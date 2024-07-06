@@ -6,7 +6,7 @@ export default function Notifications() {
     return (
         <div className={styles.notificationwrapper}>
             <div className={styles.notificationheader}>
-                <FaBell />
+                <FaBell className={styles.notificon} />
                 <span className={styles.notification}>اعلانات</span>
             </div>
             <div className={styles.notificationcontent}>
