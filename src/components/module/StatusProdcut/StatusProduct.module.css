@@ -1,0 +1,101 @@
+.pragresswrapper {
+    text-align: center;
+    width: 75%;
+    margin: 1.5rem auto 0 1.5rem;
+}
+
+.progressc {
+    width: 100%;
+}
+
+.pragressContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 100%;
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.pragressContainer::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    z-index: 1;
+    background-color: #bdbdbd;
+    transform: translateY(-50%);
+}
+
+.progress {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    transform: translateY(-50%);
+    background-color: #ffcb05;
+    transition: 0.4s ease;
+    z-index: 1;
+}
+
+.circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 3px solid var(--color-21);
+    background-color: #fff;
+    color: var(--color-21);
+    transition: .4s ease;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.circle.active {
+    border-color: #ffcb05;
+    color: #ffcb05;
+}
+
+.activeicon {
+    color: #ffcb05;
+}
+
+.itemprogtext {
+    position: absolute;
+    top: 100%;
+    padding-top: 10px;
+    font-size: .8rem;
+    width: max-content;
+    color: var(--color-1);
+}
+
+
+
+@media (max-width:780px) {
+    .pragresswrapper {
+        width: 90%;
+        margin: 1.5rem auto 0 auto;
+        overflow-x: scroll;
+        overflow-y: hidden;
+    }
+
+    .pragresswrapper::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+@media (max-width:658px) {
+
+
+    .progressc {
+        width: 1000px;
+    }
+
+    .progressc>.pragressContainer {
+        width: 500px;
+    }
+}

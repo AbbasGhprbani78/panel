@@ -17,7 +17,7 @@
 
 .searhiconwrapper {
     background-color: var(--color-1);
-    padding: 5px 10px;
+    padding: 7px 10px;
 }
 
 .searchicon {
@@ -32,4 +32,31 @@
 
 .inputsearch::-webkit-input-placeholder {
     font-size: .8rem;
+}
+
+@media (max-width:1025px) {
+    .searchboxwrapper {
+        position: fixed;
+        width: 93%;
+        transform: translate(-50%);
+        left: 50%;
+        margin-top: 0;
+        top: 90px;
+    }
+}
+
+@media (max-width:992px) {
+
+    .searchboxcontant {
+        width: 50%;
+    }
+
+}
+
+@media (max-width:728px) {
+    .searchboxcontant {
+        width: 100%;
+    }
+
+
 }

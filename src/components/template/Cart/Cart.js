@@ -1,16 +1,41 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from '@/styles/Cart.module.css'
 import SideBar from '@/components/module/SideBar/SideBar'
 import Header from '@/components/module/Header/Header'
 import SearchBox from '@/components/module/SearchBox/SearchBox'
 import CartItem from '@/components/module/CartItem/CartItem'
 import { MdOutlineDone } from "react-icons/md";
+import { MdOutlinePrint } from "react-icons/md";
 import Input from '@/components/module/Input/Input'
+import StatusProduct from '@/components/module/StatusProdcut/StatusProduct'
+import CartItemM from '@/components/module/CartItemM/CartItemM'
 export default function Cart() {
 
     const [showModal, setShowModal] = useState(false)
+    const [isConfirmation, setIsConfirmation] = useState(false)
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth)
     const [value, setValue] = useState("")
+
+    const finalconfirmhandler = () => {
+        setIsConfirmation(true)
+    }
+
+
+
+    useEffect(() => {
+        const handleWindowResize = () => {
+            setWindowWidth(window.innerWidth);
+        };
+
+        window.addEventListener('resize', handleWindowResize);
+
+        return () => {
+            window.removeEventListener('resize', handleWindowResize);
+        };
+    }, [])
+
+
     return (
         <>
             {
@@ -55,22 +80,74 @@ export default function Cart() {
                     <Header title={"سبد خرید"} />
                     <div className={styles.maincontent}>
                         <SearchBox />
+                        {
+                            isConfirmation &&
+                            <div className={`${styles.status}`}>
+                                <StatusProduct />
+                            </div>
+                        }
+                        {
+                            windowWidth < 600 ?
+                                <>
+                                    <div className={`${isConfirmation ? styles.cartItemMwrapperactive : styles.cartItemMwrapper}`}>
+                                        <div className={styles.scrollitem}>
+                                            <CartItemM />
+                                            <CartItemM />
+                                            <CartItemM />
+                                            <CartItemM />
+                                            <CartItemM />
+                                        </div>
+                                        <div className={styles.finalbtnwapper}>
+                                            <button className={`${isConfirmation ? styles.printbtn : styles.finalbtn}`} onClick={finalconfirmhandler}>
+                                                {
+                                                    isConfirmation ?
+                                                        <span>چاپ درخواست</span> :
+                                                        <span>تایید نهایی</span>
+                                                }
+                                                {
+                                                    isConfirmation ?
+
+                                                        < MdOutlinePrint style={{ marginRight: "15px" }} /> :
+                                                        <MdOutlineDone style={{ marginRight: "15px" }} />
+                                                }
+
+                                            </button>
+                                        </div>
+                                    </div>
+                                </> :
+
+                                <>
+                                    <div className={`${isConfirmation ? styles.cartItemMwrapperactive : styles.cartItemMwrapper}`}>
+                                        <div className={styles.carts}>
+                                            <CartItem setShowModal={setShowModal} isConfirmation={isConfirmation} />
+                                            <CartItem setShowModal={setShowModal} isConfirmation={isConfirmation} />
+                                            <CartItem setShowModal={setShowModal} isConfirmation={isConfirmation} />
+                                            <CartItem setShowModal={setShowModal} isConfirmation={isConfirmation} />
+                                            <CartItem setShowModal={setShowModal} isConfirmation={isConfirmation} />
+                                            <CartItem setShowModal={setShowModal} isConfirmation={isConfirmation} />
+                                            <CartItem setShowModal={setShowModal} isConfirmation={isConfirmation} />
+                                        </div>
+                                        <div className={styles.finalbtnwapper}>
+                                            <button className={`${isConfirmation ? styles.printbtn : styles.finalbtn}`} onClick={finalconfirmhandler}>
+                                                {
+                                                    isConfirmation ?
+                                                        <span>چاپ درخواست</span> :
+                                                        <span>تایید نهایی</span>
+                                                }
+                                                {
+                                                    isConfirmation ?
+
+                                                        < MdOutlinePrint style={{ marginRight: "15px" }} /> :
+                                                        <MdOutlineDone style={{ marginRight: "15px" }} />
+                                                }
+
+                                            </button>
+                                        </div>
+                                    </div>
+                                </>
+                        }
                     </div>
-                    <div className={styles.carts}>
-                        <CartItem setShowModal={setShowModal} />
-                        <CartItem setShowModal={setShowModal} />
-                        <CartItem setShowModal={setShowModal} />
-                        <CartItem setShowModal={setShowModal} />
-                        <CartItem setShowModal={setShowModal} />
-                        <CartItem setShowModal={setShowModal} />
-                        <CartItem setShowModal={setShowModal} />
-                    </div>
-                    <div className={styles.finalbtnwapper}>
-                        <button className={styles.finalbtn}>
-                            تایید نهایی
-                            <MdOutlineDone style={{ marginRight: "15px" }} />
-                        </button>
-                    </div>
+
                 </div>
             </div>
         </>

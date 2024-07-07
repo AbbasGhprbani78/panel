@@ -4,12 +4,16 @@
     top: 0;
     bottom: 0;
     right: -100%;
-    width: 55%;
     background-color: #fff;
     z-index: 4;
     padding: 20px;
     border-radius: 10px 0 0 10px;
     transition: right 0.5s ease;
+    overflow-y: scroll;
+}
+
+.offcanavscontent::-webkit-scrollbar {
+    display: none;
 }
 
 .slideIn {
@@ -109,4 +113,22 @@
 .submenuitem:hover {
     transition: all .3s ease;
     color: var(--color-3);
+}
+
+
+@media (max-width:1025px) {
+    .offcanavscontent {
+        width: 30%;
+    }
+}
+
+
+@media (max-width:600px) {
+    .offcanavscontent {
+        width: 55%;
+       
+    }
+
+    
+
 }

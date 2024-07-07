@@ -10,6 +10,7 @@ import StatusLastProduct from '@/components/module/StatusLastProduct/StatusLastP
 import { FaPlus } from "react-icons/fa6";
 import ModalUser from '@/components/module/ModalUser/ModalUser'
 
+
 export default function Home() {
 
     const [showModal, setShowModal] = useState(false)
@@ -31,10 +32,10 @@ export default function Home() {
                                     ثبت سفارش
                                     <FaPlus className={styles.iconplus} />
                                 </button>
-                                <Notifications className={styles.notifications} />
+                                <Notifications />
                             </div>
                             <div className={styles.item2}>
-                                <Infouser setShowModal={setShowModal} />
+                                <Infouser />
                             </div>
                             <div className={styles.item3}>
                                 <Chart />
@@ -48,3 +49,5 @@ export default function Home() {
 
     )
 }
+
+
