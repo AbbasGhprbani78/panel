@@ -1,7 +1,45 @@
-.pragresswrapper {
-    text-align: center;
-    width: 75%;
-    margin: 1.5rem auto 0 1.5rem;
+.ordertrackitemwrappper {
+    margin-top: 1.4rem;
+    border-bottom: 1px solid #d9d9d9;
+    padding-bottom: 20px;
+}
+
+.ordertrackdetail {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: .9rem;
+}
+
+.rightdetail,
+.leftdetail {
+    display: flex;
+    align-items: center;
+
+}
+
+.leftdetail {}
+
+.titlebold {
+    font-weight: bold;
+}
+
+.mapstatus {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.detailbtn {
+    color: #fff;
+    background-color: var(--color-1);
+    border-radius: 10px;
+    padding: 3px 30px;
+}
+
+.wrapper {
+    width: 80%;
+    margin-left: 25px;
 }
 
 .progressc {
@@ -73,32 +111,44 @@
     color: var(--color-1);
 }
 
-.paddingstyle {
-    padding-left: 20px;
-}
-
-
-@media (max-width:780px) {
-    .pragresswrapper {
-        width: 90%;
-        margin: 1.5rem auto 0 auto;
-        overflow-x: scroll;
-        overflow-y: hidden;
+@media (max-width:992px) {
+    .progressc {
+        margin-left: 30px;
+        width: 800px;
     }
 
-    .pragresswrapper::-webkit-scrollbar {
+    .wrapper {
+        overflow-x: scroll;
+    }
+
+    .wrapper::-webkit-scrollbar {
         display: none;
     }
 }
 
-@media (max-width:658px) {
-
-
-    .progressc {
-        width: 1000px;
+@media (max-width:861px) {
+    .mapstatus {
+        flex-direction: column-reverse;
+        align-items: end;
     }
 
-    .progressc>.pragressContainer {
-        width: 500px;
+    .wrapper {
+        width: 90%;
+    }
+
+    .detailbtn {
+        margin-top: 1.4rem;
+    }
+}
+
+@media (max-width:712px) {
+    .numberorder {
+        display: none;
+    }
+}
+
+@media (max-width:600px) {
+    .reqnumberwrapper {
+        display: none;
     }
 }

@@ -23,6 +23,7 @@
 
 .finalbtnwapper {
     margin-top: 2rem;
+    padding-bottom: 2rem;
 }
 
 .finalbtn {
@@ -116,8 +117,17 @@
     border-radius: 8px;
 }
 
+.contnetcratwarpperm {
+    margin-top: 100px;
+}
+
+
+.status {}
+
+.cartItemMwrapper {}
+
 .scrollitem {
-    height: 62vh;
+    height: 65vh;
     overflow-y: scroll;
 }
 
@@ -125,13 +135,42 @@
     display: none;
 }
 
-.status {
-    position: fixed;
-    width: 95%;
-    left: 50%;
-    transform: translate(-50%);
-    top: 150px;
+.calssstyle {
+    padding-left: 50px;
 }
+
+
+.modaldelete {
+    background-color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+
+.aciondelete {
+    border-radius: 10px;
+    padding: 5px 35px;
+}
+
+.ysebtn {
+    border: none;
+    background-color: var(--color-3);
+    color: var(--color-1);
+
+}
+
+.nobtn {
+    border: 1px solid var(--color-3);
+    background-color: #fff;
+    color: var(--color-1);
+}
+
+.wrapper {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: end;
+}
+
 
 @media (max-width:1025px) {
     .pagecontent {
@@ -144,17 +183,12 @@
         padding: 0 20px;
     }
 
-}
-
-@media (max-width:1025px) {
-    .cartItemMwrapper {
-        margin-top: 150px;
+    .cartItemwrapper {
+        margin-top: 90px;
     }
 
-    .cartItemMwrapperactive {
-        margin-top: 230px;
-    }
 }
+
 
 @media (max-width:992px) {
     .finalbtnwapper {

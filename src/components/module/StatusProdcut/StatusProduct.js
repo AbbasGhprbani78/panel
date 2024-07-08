@@ -8,13 +8,14 @@ import { FiTruck } from "react-icons/fi";
 import { HiOutlineNewspaper } from "react-icons/hi2";
 import { BsBox2 } from "react-icons/bs";
 
-export default function StatusProduct() {
+export default function StatusProduct({ style }) {
   const [currentStep, setCurrentStep] = useState(3);
 
+ 
   return (
 
     <div className={`${styles.pragresswrapper} d-flex justify-content-between`} style={{ direction: "ltr" }}>
-      <div className={styles.progressc}>
+      <div className={`${styles.progressc} ${styles[style]}`}>
         <div className={`${styles.pragressContainer}`}>
           <div className={styles.progress} style={{ width: `${(currentStep - 1) * 20}%` }}></div>
           <div style={{ position: "relative" }}

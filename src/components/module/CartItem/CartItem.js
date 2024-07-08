@@ -3,7 +3,7 @@ import styles from './CartItem.module.css'
 import Table from 'react-bootstrap/Table';
 import { IoCloseSharp } from "react-icons/io5";
 import { MdModeEditOutline } from "react-icons/md";
-export default function CartItem({ setShowModal, isConfirmation }) {
+export default function CartItem({ setShowEditModal, isConfirmation, showDeleteModal }) {
     return (
         <div className={styles.cartItemwrappper}>
             <Table className='text-center'>
@@ -11,7 +11,7 @@ export default function CartItem({ setShowModal, isConfirmation }) {
                     <tr>
                         {
                             !isConfirmation &&
-                            <th>< IoCloseSharp className={styles.deleteicon} /></th>
+                            <th>< IoCloseSharp className={styles.deleteicon} onClick={showDeleteModal} /></th>
                         }
 
                         <th className={styles.itemhead}>کد کالا</th>
@@ -26,23 +26,23 @@ export default function CartItem({ setShowModal, isConfirmation }) {
                         {
                             !isConfirmation &&
                             <td>
-                                <MdModeEditOutline className={styles.editicon} onClick={() => setShowModal(true)} />
+                                <MdModeEditOutline className={styles.editicon} onClick={() => setShowEditModal(true)} />
                             </td>
                         }
 
-                        <td>
+                        <td className={styles.bodyitem}>
                             ADFG8745
                         </td>
-                        <td>
+                        <td className={styles.bodyitem}>
                             دستگیره 8400 کروم مشکی مات سوئچی رزت
                         </td>
-                        <td>
+                        <td className={styles.bodyitem}>
                             1/0
                         </td>
-                        <td>
+                        <td className={styles.bodyitem}>
                             12/0
                         </td>
-                        <td>
+                        <td className={styles.bodyitem}>
                             12/0
                         </td>
                     </tr>

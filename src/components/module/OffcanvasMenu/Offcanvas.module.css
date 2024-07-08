@@ -1,28 +1,42 @@
-.offcanavscontent {
+.sidebar {
     position: fixed;
-    min-height: 100vh;
     top: 0;
-    bottom: 0;
-    right: -100%;
-    background-color: #fff;
-    z-index: 4;
+    right: 0;
+    width: 55%;
+    height: 100%;
+    background-color: #ffffff;
+    color: var(--color-1);
     padding: 20px;
-    border-radius: 10px 0 0 10px;
-    transition: right 0.5s ease;
-    overflow-y: scroll;
+    overflow-y: auto;
+    transition: all 0.3s ease;
+    z-index: 99999;
+}
+
+/* Apply animations */
+.sidebar.show {
+    animation: slideIn 0.3s forwards;
+    transform: translateX(0);
+}
+
+.sidebar.hide {
+    animation: slideOut 0.3s forwards;
+    transform: translateX(100%);
+}
+
+.closeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
 }
 
 .offcanavscontent::-webkit-scrollbar {
     display: none;
 }
 
-.slideIn {
-    right: 0;
-}
-
-.slideOut {
-    right: -100%;
-}
 
 .closeIconside {
     font-size: 1.4rem;
@@ -117,7 +131,7 @@
 
 
 @media (max-width:1025px) {
-    .offcanavscontent {
+    .sidebar {
         width: 30%;
     }
 }
@@ -126,9 +140,28 @@
 @media (max-width:600px) {
     .offcanavscontent {
         width: 55%;
-       
+
+    }
+}
+
+
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
     }
 
-    
+    to {
+        transform: translateX(0);
+    }
+}
 
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(100%);
+    }
 }

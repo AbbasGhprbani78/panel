@@ -45,7 +45,7 @@ export default function SideBar() {
                                         <Link href={"#"}>تاریخچه سفارشات</Link>
                                     </li>
                                     <li className={styles.submenuitem}>
-                                        <Link href={"#"}>پیگیری سفارشات</Link>
+                                        <Link href={"/trackorders"}>پیگیری سفارشات</Link>
                                     </li>
                                 </ul>
                             )}

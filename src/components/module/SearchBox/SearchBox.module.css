@@ -1,7 +1,5 @@
 .searchboxwrapper {
-    margin-top: 2rem;
-    display: flex;
-    justify-content: end;
+    width: 35%;
 }
 
 .searchboxcontant {
@@ -10,7 +8,7 @@
     box-shadow: 0px 2px 4px 0px #BDBDBD;
     border-radius: 10px;
     overflow: hidden;
-    width: 35%;
+    width: 100%;
     justify-content: space-between;
     background-color: #fff;
 }
@@ -34,29 +32,20 @@
     font-size: .8rem;
 }
 
-@media (max-width:1025px) {
-    .searchboxwrapper {
-        position: fixed;
-        width: 93%;
-        transform: translate(-50%);
-        left: 50%;
-        margin-top: 0;
-        top: 90px;
-    }
-}
+@media (max-width:1025px) {}
 
 @media (max-width:992px) {
 
-    .searchboxcontant {
+    .searchboxwrapper {
         width: 50%;
     }
 
 }
 
-@media (max-width:728px) {
-    .searchboxcontant {
+@media (max-width:728px) {}
+
+@media (max-width:600px) {
+    .searchboxwrapper {
         width: 100%;
     }
-
-
 }
