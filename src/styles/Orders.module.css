@@ -1,0 +1,53 @@
+.wrapperpage {
+    display: flex;
+    justify-content: space-between;
+}
+
+.pagecontent {
+    width: 82%;
+    margin-right: 18%;
+    padding: 0 3%;
+    min-height: 100vh;
+    background-color: var(--color-2);
+}
+
+.ordertitlewrapper {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.orderitemcontainer {
+    max-height: 75vh;
+    overflow-y: scroll;
+}
+
+.orderitemcontainer::-webkit-scrollbar {
+    display: none;
+}
+
+
+
+/*  */
+
+
+@media (max-width:1025px) {
+    .pagecontent {
+        width: 100%;
+        margin-right: 0;
+        padding: 0;
+    }
+
+    .maincontent {
+        padding: 0 20px;
+    }
+
+}
+
+@media (max-width:768px) {
+
+    .itemhead,
+    .bodyitem {
+        font-size: .8rem !important;
+    }
+}
+

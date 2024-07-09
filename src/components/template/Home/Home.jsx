@@ -35,7 +35,7 @@ export default function Home() {
                                 <Notifications />
                             </div>
                             <div className={styles.item2}>
-                                <Infouser />
+                                <Infouser setShowModal={setShowModal} />
                             </div>
                             <div className={styles.item3}>
                                 <Chart />

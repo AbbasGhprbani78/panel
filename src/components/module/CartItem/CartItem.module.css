@@ -17,6 +17,9 @@
     font-size: 1.2rem;
 }
 
+.bodyitem {
+    padding-top: 25px !important;
+}
 
 @media (max-width:768px) {
 

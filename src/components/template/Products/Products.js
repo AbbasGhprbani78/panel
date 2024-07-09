@@ -1,4 +1,5 @@
-import React from 'react'
+"use client"
+import React, { useState } from 'react'
 import styles from "@/styles/Products.module.css"
 import SideBar from '@/components/module/SideBar/SideBar'
 import Header from '@/components/module/Header/Header'
@@ -7,15 +8,20 @@ import { IoIosArrowBack } from "react-icons/io";
 import ProductItem from '@/components/module/ProductItem/ProductItem'
 
 export default function Products() {
+
+    const [search, setSearch] = useState("")
     return (
         <>
             <div className={styles.wrapperpage}>
                 <SideBar />
                 <div className={styles.pagecontent}>
-                    <Header />
+                    <Header  title={"محصولات"}/>
                     <div className={styles.maincontent}>
                         <div className={styles.wrapper}>
-                            <SearchBox />
+                            <SearchBox
+                                value={search}
+                                onChange={(e) => setSearch(e.target.value)}
+                            />
                         </div>
                         <div className={styles.ProductsPage}>
                             <div className={styles.ProductsBox}>

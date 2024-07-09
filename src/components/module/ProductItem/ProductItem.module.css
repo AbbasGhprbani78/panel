@@ -1,3 +1,102 @@
+@media (min-width:650px) {
+    .ProductItem2 {
+        display: none;
+    }
+
+    .ProductItem1 {
+        background-color: #fff;
+        width: 100%;
+        padding: 10px 0;
+        margin: 1.3rem 0;
+        border-radius: 10px;
+
+    }
+
+    .image {
+        width: 70px;
+
+    }
+
+    .imageBox {
+        border: none;
+        border-style: none;
+        border-width: 0px;
+    }
+
+    .Button {
+        width: max-content;
+        display: flex;
+        height: 30px;
+        overflow: hidden;
+        justify-content: center;
+        align-items: center;
+        margin-right: 30px;
+        cursor: pointer;
+        border-radius: 10px;
+    }
+
+    .Td {
+        padding-top: 25px !important;
+        border: none;
+        border-style: none;
+        border-width: 0px;
+        color: var(--color-1) !important;
+    }
+
+    .Tr {
+        border: none;
+        border-style: none;
+        border-width: 0px;
+    }
+
+    .thead {
+        border-color: #d9d9d9;
+
+    }
+
+    .Th {
+        color: var(--color-1) !important;
+    }
+
+    .text {
+
+        font-size: .7rem;
+
+        padding: 9px 20px 9px 20px;
+        background-color: var(--color-1);
+
+        color: #fff;
+    }
+
+    .icon1 {
+        font-size: .7rem;
+        padding: 9px 13px;
+        background-color: var(--color-3);
+        color: #fff;
+    }
+
+    .iconNone {
+        display: none;
+    }
+
+    .icon2 {
+        font-size: .7rem;
+        padding: 9px 13px;
+        background-color: var(--color-1);
+        color: #72E14D;
+
+    }
+
+}
+
+@media (max-width:768px) {
+
+    .Td,
+    .Th {
+        font-size: .8rem;
+    }
+}
+
 @media (max-width:650px) {
     .ProductItem1 {
         display: none;
@@ -41,6 +140,7 @@
 
     .imageBox img {
         width: 70px;
+        padding-top: 0 !important;
     }
 
     .Box2 {
@@ -114,104 +214,8 @@
     .iconNone {
         display: none;
     }
-}
-
-
-@media (max-width:768px) {
-    .Td {
-        font-size: .8rem;
-    }
-}
-
-
-@media (min-width:650px) {
-    .ProductItem2 {
-        display: none;
-    }
-
-    .ProductItem1 {
-        background-color: #fff;
-        width: 100%;
-        padding: 10px 0;
-        margin: 1.3rem 0;
-        border-radius: 10px;
-
-    }
-
-    .image {
-        width: 70px;
-
-    }
-
-    .imageBox {
-        border: none;
-        border-style: none;
-        border-width: 0px;
-    }
-
-    .Button {
-        width: max-content;
-        display: flex;
-        height: 30px;
-        overflow: hidden;
-        justify-content: center;
-        align-items: center;
-        margin-right: 30px;
-        cursor: pointer;
-        border-radius: 10px;
-    }
-
-    .Td {
-        padding-top: 25px !important;
-        border: none;
-        border-style: none;
-        border-width: 0px;
-        color: var(--color-1) !important;
-    }
-
-    .Tr {
-        border: none;
-        border-style: none;
-        border-width: 0px;
-    }
-
-    .thead {
-        border-color: #d9d9d9;
-
-    }
 
     .Th {
-        color: var(--color-1) !important;
         font-size: .9rem !important;
     }
-
-    .text {
-
-        font-size: .7rem;
-
-        padding: 9px 20px 9px 20px;
-        background-color: var(--color-1);
-
-        color: #fff;
-    }
-
-    .icon1 {
-        font-size: .7rem;
-        padding: 9px 13px;
-        background-color: var(--color-3);
-        color: #fff;
-    }
-
-    .iconNone {
-        display: none;
-    }
-
-    .icon2 {
-        font-size: .7rem;
-        padding: 9px 13px;
-        background-color: var(--color-1);
-        color: #72E14D;
-
-    }
-
 }

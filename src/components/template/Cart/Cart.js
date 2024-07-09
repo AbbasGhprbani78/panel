@@ -18,6 +18,7 @@ export default function Cart() {
     const [isConfirmation, setIsConfirmation] = useState(false)
     const [windowWidth, setWindowWidth] = useState(window.innerWidth)
     const [value, setValue] = useState("")
+    const [searchValue, setSearchValue] = useState("")
 
     const finalconfirmhandler = () => {
         setIsConfirmation(true)
@@ -105,7 +106,10 @@ export default function Cart() {
                             windowWidth < 600 ?
                                 <>
                                     <div className={styles.contnetcratwarpperm}>
-                                        <SearchBox />
+                                        <SearchBox
+                                            value={searchValue}
+                                            onChange={(e) => setSearchValue(e.target.value)}
+                                        />
                                         {
                                             isConfirmation &&
                                             <div className={`${styles.status}`}>
@@ -144,7 +148,10 @@ export default function Cart() {
                                 <>
                                     <div className={`${styles.cartItemwrapper}`}>
                                         <div className={styles.wrapper}>
-                                            <SearchBox />
+                                            <SearchBox
+                                                value={searchValue}
+                                                onChange={(e) => setSearchValue(e.target.value)}
+                                            />
                                         </div>
                                         {
                                             isConfirmation &&

@@ -10,6 +10,7 @@
 
 .headertext {
     font-weight: bold;
+    position: relative;
 }
 
 .iconheaderwrap {
@@ -47,4 +48,16 @@
 .iconham {
     color: #fff;
     font-size: 1.4rem;
+}
+
+
+.headertext::before {
+    content: '';
+    display: block;
+    width: var(--title-width);
+    height: 2px;
+    background-color: var(--color-3);
+    top: 28.5px;
+    left: 0;
+    position: absolute;
 }

@@ -1,6 +1,6 @@
 "use client"
 import React from 'react'
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import styles from './Offcanvas.module.css'
 import { IoCloseSharp } from "react-icons/io5";
 import Link from 'next/link';
@@ -15,20 +15,20 @@ export default function OffcanvasMenu({ setShowSideBar, showSideBar }) {
 
     const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
 
-
     const toggleSubMenu = () => {
         setIsSubMenuOpen(!isSubMenuOpen);
     };
 
-    return (
 
+
+    return (
         <div className={`${styles.sidebar} ${showSideBar ? styles.show : styles.hide}`}>
             <div className='d-flex justify-content-end'>
                 <IoCloseSharp className={styles.closeIconside} onClick={() => setShowSideBar(false)} />
             </div>
             <div className={styles.sidebarlistwrapper}>
                 <ul className={styles.sidebarlist}>
-                    <Link href={"#"} className={styles.listitem}>
+                    <Link href={"/"} className={styles.listitem}>
                         <MdWindow className={styles.iconsidebar} />
                         <span className={styles.listitemtext}>خانه</span>
                     </Link>
@@ -67,9 +67,8 @@ export default function OffcanvasMenu({ setShowSideBar, showSideBar }) {
                         <span className={styles.listitemtext}>خروج</span>
                     </Link>
                 </ul>
-            </div>
+            </div >
         </div>
-
 
     )
 }

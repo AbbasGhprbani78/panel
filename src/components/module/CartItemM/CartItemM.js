@@ -3,7 +3,6 @@ import styles from './CartItemM.module.css'
 import { IoCloseSharp } from "react-icons/io5";
 import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa6";
-import { Col } from 'react-bootstrap';
 export default function CartItemM({ showDeleteModal }) {
     return (
 

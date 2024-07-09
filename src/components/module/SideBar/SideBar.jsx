@@ -24,7 +24,7 @@ export default function SideBar() {
                 </div>
                 <div className={styles.sidebarlistwrapper}>
                     <ul className={styles.sidebarlist}>
-                        <Link href={"#"} className={styles.listitem}>
+                        <Link href={"/"} className={styles.listitem}>
                             <MdWindow className={styles.iconsidebar} />
                             <span className={styles.listitemtext}>خانه</span>
                         </Link>

@@ -46,7 +46,7 @@ export default function ProductItem() {
                   }
                 </div>
               </td>
-              <th scope="col" colspan="2" className={styles.Td}>ADFG8745</th>
+              <td scope="col" colspan="2" className={styles.Td}>ADFG8745</td>
               <td colspan="2" className={styles.Td}>دستگیره 8400 کروم مشکی مات سوئچی رزت</td>
               <td colspan="2" className={styles.Td}>12/0</td>
               <td colspan="2" className={styles.imageBox}>
