@@ -1,0 +1,54 @@
+
+@media (max-width:900px) {
+    .MassageBoxSend{
+        max-width: 80%;
+        min-width: 100px;
+        height: auto;
+        position: relative;
+        
+        background-color: #fff;
+        border: 2px solid var(--color-1);
+        word-wrap: break-word;
+        margin: 10px;
+        border-radius: 10px;
+        padding: 10px;
+    }
+    .MassageBoxReceive{
+        max-width: 80%;
+        min-width: 100px;
+        height: auto;
+        background-color:var(--color-1);
+        word-wrap: break-word;
+        color: white;
+        margin: 20px;
+        align-self: flex-end;
+        border-radius: 10px;
+        padding: 10px;
+    }
+}
+@media (min-width:900px) {
+    .MassageBoxSend{
+        max-width: 27%;
+        min-width: 100px;
+        height: auto;
+        position: relative;
+        background-color: #fff;
+        border: 2px solid var(--color-1);
+        word-wrap: break-word;
+        margin: 10px;
+        border-radius: 10px;
+        padding: 10px;
+    }
+    .MassageBoxReceive{
+        max-width: 27%;
+        min-width: 100px;
+        height: auto;
+        background-color:var(--color-1);
+        word-wrap: break-word;
+        color: white;
+        margin: 20px;
+        align-self: flex-end;
+        border-radius: 10px;
+        padding: 10px;
+    }
+}

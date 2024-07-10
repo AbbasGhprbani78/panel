@@ -1,11 +1,12 @@
 .notifItemwrapper {
     border-bottom: 1px solid #dddddf;
     padding-top: 10px;
-    background-color: #ffffff;
+    background-color:white;
+    z-index: 3;
 }
 
 .notifItem {
-    background-color: #ffffff;
+    background-color: white;
     padding-bottom: 10px;
 }
 

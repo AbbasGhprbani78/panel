@@ -1,5 +1,5 @@
 "use client"
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
 import styles from './Offcanvas.module.css'
 import { IoCloseSharp } from "react-icons/io5";
@@ -19,10 +19,29 @@ export default function OffcanvasMenu({ setShowSideBar, showSideBar }) {
         setIsSubMenuOpen(!isSubMenuOpen);
     };
 
+    const handleClickOutside = (event) => {
+        const sidebar = document.querySelector(`.${styles.sidebar}`);
+        if (sidebar && !sidebar.contains(event.target)) {
+            setShowSideBar(false);
+        }
+    };
+
+    useEffect(() => {
+        if (showSideBar) {
+            document.addEventListener('mousedown', handleClickOutside);
+        } else {
+            document.removeEventListener('mousedown', handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [showSideBar]);
+
 
 
     return (
-        <div className={`${styles.sidebar} ${showSideBar ? styles.show : styles.hide}`}>
+        <div className={`${styles.sidebar} ${showSideBar ? styles.show : ""}`}>
             <div className='d-flex justify-content-end'>
                 <IoCloseSharp className={styles.closeIconside} onClick={() => setShowSideBar(false)} />
             </div>
@@ -41,7 +60,7 @@ export default function OffcanvasMenu({ setShowSideBar, showSideBar }) {
                             {isSubMenuOpen ? <FaAngleUp className={styles.iconarrow} /> : <FaAngleDown className={styles.iconarrow} />}
                         </div>
                         {isSubMenuOpen && (
-                            <ul className={styles.submenu}>
+                            <ul className={`${styles.submenu} ${isSubMenuOpen ? "" : styles.hidesub}`}>
                                 <li className={styles.submenuitem}>
                                     <Link href={"#"}>ثبت سفارش جدید</Link>
                                 </li>
@@ -69,6 +88,5 @@ export default function OffcanvasMenu({ setShowSideBar, showSideBar }) {
                 </ul>
             </div >
         </div>
-
     )
 }

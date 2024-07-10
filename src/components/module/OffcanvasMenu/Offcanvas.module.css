@@ -1,27 +1,23 @@
 .sidebar {
     position: fixed;
     top: 0;
-    right: 0;
+    bottom: 0;
+    right: -56%;
     width: 55%;
     min-height: 100vh;
     background-color: #ffffff;
     color: var(--color-1);
     padding: 20px;
     overflow-y: auto;
-    transition: all 0.3s ease;
+    transition: all 0.5s ease;
     z-index: 9999;
 }
 
-/* Apply animations */
+
 .sidebar.show {
-    animation: slideIn 0.3s forwards;
-    transform: translateX(0);
+    right: 0;
 }
 
-.sidebar.hide {
-    animation: slideOut 0.3s forwards;
-    transform: translateX(100%);
-}
 
 .closeButton {
     position: absolute;
@@ -114,6 +110,9 @@
     padding-left: 0;
 }
 
+
+
+
 .submenuitem {
     padding: 5px 0;
     color: var(--color-1);
@@ -141,27 +140,5 @@
     .sidebar {
         width: 55%;
 
-    }
-}
-
-
-
-@keyframes slideIn {
-    from {
-        transform: translateX(100%);
-    }
-
-    to {
-        transform: translateX(0);
-    }
-}
-
-@keyframes slideOut {
-    from {
-        transform: translateX(0);
-    }
-
-    to {
-        transform: translateX(100%);
     }
 }
