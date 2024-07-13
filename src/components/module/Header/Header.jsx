@@ -32,7 +32,7 @@ export default function Header({ title }) {
 
 
 
-   
+
 
 
     return (
@@ -49,9 +49,9 @@ export default function Header({ title }) {
                     :
                     <div className={styles.headercontainer}>
                         <span className={styles.headertext} ref={titleRef}>{title}</span>
-                        <div className={styles.iconheaderwrap}>
-                            <Link href={"/cart"} style={{ all: "unset" }}> <IoCartOutline className={styles.iconheader} /></Link>
-                        </div>
+                        <Link href={"/cart"}  className={styles.iconheaderwrap}>
+                            <div> <IoCartOutline className={styles.iconheader} /></div>
+                        </Link>
                     </div>
 
             }

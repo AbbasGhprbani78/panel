@@ -147,7 +147,6 @@ export default function Cart() {
                                         </div>
                                     </div>
                                 </> :
-
                                 <>
                                     <div className={`${styles.cartItemwrapper}`}>
                                         <div className={styles.wrapper}>

@@ -12,10 +12,12 @@ import Input from '@/components/module/Input/Input';
 import { Formik } from 'formik';
 import Texteara from '@/components/module/Texteara/Texteara';
 import Link from 'next/link';
+import Select from '@/components/module/Select/Select';
 export default function Signup() {
 
     const [windowWidth, setWindowWidth] = useState(window.innerWidth)
     const [isPrivate, setIsPerivate] = useState(true)
+    const [province, setPovince] = useState("")
 
     const handleToggle = () => {
         setIsPerivate((e) => !e);
@@ -32,6 +34,7 @@ export default function Signup() {
             window.removeEventListener('resize', handleWindowResize);
         };
     }, [])
+
 
     return (
         <>
@@ -119,13 +122,12 @@ export default function Signup() {
                                                 {errors.phone_number && touched.phone_number && <span className={styles.errorinput}>{errors.phone_number}</span>}
                                             </div>
                                             <div>
-                                                <Input
+                                                <Select
                                                     name="state"
                                                     label="استان"
                                                     icon={TbBuildingEstate}
                                                     value={values.state}
-                                                    onChange={handleChange}
-                                                    type={"text"}
+                                                    onChange={(value) => setFieldValue('state', value)}
                                                 />
                                                 {errors.state && touched.state && <span className={styles.errorinput}>{errors.state}</span>}
                                             </div>
@@ -222,7 +224,7 @@ export default function Signup() {
                                         initialValues={{
                                             full_name: "",
                                             phone_number: "",
-                                            state: "",
+                                            state: province,
                                             email: "",
                                             address: "",
                                             password: ""
@@ -233,7 +235,7 @@ export default function Signup() {
                                             setSubmitting(false)
                                         }}
                                     >
-                                        {({ values, handleChange, handleSubmit, errors, touched, isSubmitting }) => (
+                                        {({ values, handleChange, handleSubmit, setFieldValue, errors, touched, isSubmitting }) => (
                                             <form onSubmit={handleSubmit} className={styles.formcontent}>
                                                 <div>
                                                     <Input
@@ -258,13 +260,12 @@ export default function Signup() {
                                                     {errors.phone_number && touched.phone_number && <span className={styles.errorinput}>{errors.phone_number}</span>}
                                                 </div>
                                                 <div>
-                                                    <Input
+                                                    <Select
                                                         name="state"
                                                         label="استان"
                                                         icon={TbBuildingEstate}
                                                         value={values.state}
-                                                        onChange={handleChange}
-                                                        type={"text"}
+                                                        onChange={(value) => setFieldValue('state', value)}
                                                     />
                                                     {errors.state && touched.state && <span className={styles.errorinput}>{errors.state}</span>}
                                                 </div>
@@ -324,3 +325,6 @@ export default function Signup() {
         </>
     )
 }
+
+
+// 

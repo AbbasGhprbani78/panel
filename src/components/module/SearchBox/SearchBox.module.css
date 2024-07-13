@@ -1,8 +1,10 @@
 .searchboxwrapper {
     width: 35%;
+
 }
 
 .searchboxcontant {
+    position: relative;
     display: flex;
     align-items: center;
     box-shadow: 0px 2px 4px 0px #BDBDBD;
@@ -11,6 +13,7 @@
     width: 100%;
     justify-content: space-between;
     background-color: #fff;
+    z-index: 2;
 }
 
 .searhiconwrapper {
@@ -48,4 +51,6 @@
     .searchboxwrapper {
         width: 100%;
     }
+
+
 }

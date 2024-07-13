@@ -15,6 +15,7 @@ import Link from 'next/link'
 export default function Home() {
 
     const [showModal, setShowModal] = useState(false)
+    
     return (
         <>
             <ModalUser setShowModal={setShowModal} showModal={showModal} />

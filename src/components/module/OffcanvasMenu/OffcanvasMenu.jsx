@@ -11,6 +11,7 @@ import { FaHeadphones } from "react-icons/fa6";
 import { FiLogOut } from "react-icons/fi";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
 import { usePathname } from 'next/navigation';
+import { FaShoppingCart } from "react-icons/fa";
 
 export default function OffcanvasMenu({ setShowSideBar, showSideBar }) {
     const pathname = usePathname()
@@ -75,6 +76,10 @@ export default function OffcanvasMenu({ setShowSideBar, showSideBar }) {
                             </ul>
                         )}
                     </li>
+                    <Link href={"/cart"} className={`${styles.listitem} ${pathname === "/cart" ? styles.active : ""} `}>
+                        <FaShoppingCart className={styles.iconsidebar} />
+                        <span className={styles.listitemtext}>سبد خرید</span>
+                    </Link>
                     <Link href={"/report"} className={`${styles.listitem} ${pathname === "/report" ? styles.active : ""} `}>
                         <FaBookmark className={styles.iconsidebar} />
                         <span className={styles.listitemtext}>گزارشات</span>
