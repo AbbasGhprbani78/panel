@@ -3,14 +3,17 @@ import styles from './CartItemM.module.css'
 import { IoCloseSharp } from "react-icons/io5";
 import { FaPlus } from "react-icons/fa6";
 import { FaMinus } from "react-icons/fa6";
-export default function CartItemM({ showDeleteModal }) {
+export default function CartItemM({ showDeleteModal, isConfirmation }) {
     return (
 
         <div className={styles.CartItemmwrapper}>
             <div className={styles.headercart}>
                 <div className='d-flex justify-content-between align-items-center mb-2'>
                     <p className={styles.carttitle}>شرح محصول</p>
-                    <IoCloseSharp className={styles.delete} onClick={showDeleteModal} />
+                    {
+                        !isConfirmation &&
+                        <IoCloseSharp className={styles.delete} onClick={showDeleteModal} />
+                    }
                 </div>
                 <span className={styles.carttext}>دستگیره 8400 کروم مشکی مات سوئچی رزت</span>
             </div>
@@ -30,13 +33,21 @@ export default function CartItemM({ showDeleteModal }) {
                 <div className={styles.cartinfoitem}>
                     <span className={styles.infoitem}>مقدار</span>
                     <div className={styles.boxchangecount}>
-                        <span className={styles.plus}>
-                            <FaPlus />
-                        </span>
-                        <span>1</span>
-                        <span className={styles.min}>
-                            <FaMinus />
-                        </span>
+                        {
+                            !isConfirmation &&
+                            <span className={styles.plus}>
+                                <FaPlus />
+                            </span>
+                        }
+
+                        <div style={{ padding: "0 10px" }}>1</div>
+                        {
+                            !isConfirmation &&
+                            <span className={styles.min}>
+                                <FaMinus />
+                            </span>
+                        }
+
                     </div>
                 </div>
             </div>

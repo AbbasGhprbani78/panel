@@ -1,10 +1,10 @@
-import Orders from '@/components/template/Orders/Orders'
+import MainOrder from '@/components/template/Orders/MainOrder'
 import React from 'react'
 
 export default function page({ params }) {
     const orderid = params.id
-    
+
     return (
-        <Orders id={orderid} />
+        <MainOrder id={orderid} />
     )
 }

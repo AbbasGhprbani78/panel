@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import styles from './OrderItem.module.css'
 import { Table } from 'react-bootstrap'
-export default function OrderItem() {
+export default function OrderItem({ date }) {
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
 
@@ -17,7 +17,7 @@ export default function OrderItem() {
       window.removeEventListener('resize', handleWindowResize);
     };
   }, [])
-  
+
   return (
     <>
       {
@@ -25,10 +25,13 @@ export default function OrderItem() {
           <>
             <div className={styles.CartItemmwrapper}>
               <div className={styles.headercart}>
-                <div className='d-flex justify-content-between align-items-center mb-2'>
-                  <p className={styles.carttitle}>شرح محصول</p>
+                <div>
+                  <div className='d-flex justify-content-between align-items-center mb-2'>
+                    <p className={styles.carttitle}>شرح محصول</p>
+                  </div>
+                  <span className={styles.carttext}>دستگیره 8400 کروم مشکی مات سوئچی رزت</span>
                 </div>
-                <span className={styles.carttext}>دستگیره 8400 کروم مشکی مات سوئچی رزت</span>
+                <img src="/images/Frame 36.png" alt="" style={{ width: "70px", height: "auto" }} />
               </div>
               <div className={styles.cartinfowrapper}>
                 <div className={styles.cartinfoitem}>
@@ -47,38 +50,46 @@ export default function OrderItem() {
             </div>
           </> :
           <>
-            <div div className={styles.cartItemwrappper} >
-              <Table className='text-center'>
-                <thead className={styles.headtable}>
-                  <tr>
-                    <th className={styles.itemhead}>کد کالا</th>
-                    <th className={styles.itemhead}>شرح محصول</th>
-                    <th className={styles.itemhead}>کارتن</th>
-                    <th className={styles.itemhead}>گنجایش کارتن</th>
-                    <th className={styles.itemhead}>مقدار</th>
-                  </tr>
-                </thead>
-                <tbody className={styles.bodytable}>
-                  <tr >
-                    <td className={styles.bodyitem}>
-                      ADFG8745
-                    </td>
-                    <td className={styles.bodyitem}>
-                      دستگیره 8400 کروم مشکی مات سوئچی رزت
-                    </td>
-                    <td className={styles.bodyitem}>
-                      1/0
-                    </td>
-                    <td className={styles.bodyitem}>
-                      12/0
-                    </td>
-                    <td className={styles.bodyitem}>
-                      12/0
-                    </td>
-                  </tr>
-                </tbody>
-              </Table>
-            </div >
+            <div className='d-flex flex-column' style={{ marginBottom: "1.3rem" }}>
+              <div className={styles.cartItemwrappper} >
+                <Table className='text-center'>
+                  <thead className={styles.headtable}>
+                    <tr>
+                      <th className={styles.itemhead}>کد کالا</th>
+                      <th className={styles.itemhead}>شرح محصول</th>
+                      <th className={styles.itemhead}>کارتن</th>
+                      <th className={styles.itemhead}>گنجایش کارتن</th>
+                      <th className={styles.itemhead}>مقدار</th>
+                      <th className={styles.itemhead}>تصویر</th>
+                    </tr>
+                  </thead>
+                  <tbody className={styles.bodytable}>
+                    <tr >
+                      <td className={styles.bodyitem}>
+                        ADFG8745
+                      </td>
+                      <td className={styles.bodyitem}>
+                        دستگیره 8400 کروم مشکی مات سوئچی رزت
+                      </td>
+                      <td className={styles.bodyitem}>
+                        1/0
+                      </td>
+                      <td className={styles.bodyitem}>
+                        12/0
+                      </td>
+                      <td className={styles.bodyitem}>
+                        12/0
+                      </td>
+                      <td >
+                        <img src="/images/Frame 36.png" alt="" style={{ width: "70px", height: "auto" }} />
+                      </td>
+                    </tr>
+                  </tbody>
+                </Table>
+              </div >
+              <p className='text-start w-100 mb-0 mt-1'>{date}</p>
+            </div>
+
           </>
       }
     </>

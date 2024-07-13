@@ -14,7 +14,9 @@
     display: none;
 }
 
-.sidebarcontent {}
+.sidebarcontent ::-webkit-scrollbar {
+    display: none;
+}
 
 .sidebarheader {
     width: 55%;
@@ -44,10 +46,15 @@
     align-items: center;
     width: 100%;
     cursor: pointer;
+    transition: all .3s ease-in;
 }
 
+/* .listitem:hover {
+    color: var(--color-3);
+} */
+
 .listitemtext {
-    margin-right: 7px;
+    margin-right: 12px;
     font-size: .9rem;
 }
 
@@ -103,6 +110,10 @@
 
 .submenuitem:hover {
     transition: all .3s ease;
+    color: var(--color-3);
+}
+
+.active {
     color: var(--color-3);
 }
 

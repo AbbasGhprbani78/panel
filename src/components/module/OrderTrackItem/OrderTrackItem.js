@@ -9,6 +9,7 @@ import { HiOutlineNewspaper } from "react-icons/hi2";
 import { BsBox2 } from "react-icons/bs";
 import { FaWpforms } from "react-icons/fa6";
 import { AiOutlineFileDone } from "react-icons/ai";
+import Link from 'next/link';
 
 export default function OrderTrackItem() {
     const [currentStep, setCurrentStep] = useState(7);
@@ -34,9 +35,9 @@ export default function OrderTrackItem() {
                 </div>
             </div>
             <div className={`${styles.mapstatus} mt-4`}>
-                <button className={styles.detailbtn}>
+                <Link href={"/orders/1"} className={styles.detailbtn}>
                     جزئیات
-                </button>
+                </Link>
                 <div className={styles.wrapper} style={{ direction: "ltr" }}>
                     <div className={`${styles.progressc}`}>
                         <div className={`${styles.pragressContainer}`}>

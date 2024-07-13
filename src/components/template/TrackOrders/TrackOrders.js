@@ -11,7 +11,6 @@ export default function TrackOrders() {
     const [search, setSearch] = useState("")
     const [filterValue, setFilterValue] = useState("")
 
-    console.log(filterValue)
     return (
         <div className={styles.wrapperpage}>
             <SideBar />
@@ -23,12 +22,12 @@ export default function TrackOrders() {
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
                         />
-                        <div className={styles.filtercontainer}>
+                        {/* <div className={styles.filtercontainer}>
                             <Filter
                                 value={filterValue}
                                 onChange={(e) => setFilterValue(e.target.value)}
                             />
-                        </div>
+                        </div> */}
                     </div>
                     <div className={styles.maincontent}>
                         <OrderTrackItem />

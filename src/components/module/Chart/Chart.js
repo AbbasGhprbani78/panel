@@ -51,6 +51,7 @@ const data = [
 export default function Chart() {
     return (
         <div className={styles.chartcontainer}>
+            <p className={styles.titlesole}>فروش در هر ماه</p>
             <ResponsiveContainer width="100%" height="100%">
                 <BarChart width={150} height={40} data={data}>
                     <Bar dataKey="uv" fill="#ffcb05" />

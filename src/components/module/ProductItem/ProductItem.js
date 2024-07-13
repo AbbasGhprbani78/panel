@@ -3,8 +3,14 @@ import React, { useState } from 'react'
 import styles from "@/components/module/ProductItem/ProductItem.module.css"
 import { BsCart2 } from "react-icons/bs";
 import { FaCheck } from "react-icons/fa6";
-export default function ProductItem() {
+export default function ProductItem({ setIsAdd }) {
   const [addItem, setAddItem] = useState(false)
+
+
+  const addToCart = () => {
+    setIsAdd(true)
+    setAddItem(true)
+  }
 
 
   return (
@@ -24,7 +30,7 @@ export default function ProductItem() {
           <tbody className={styles.Tbody}>
             <tr className={styles.Tr}>
               <td colspan="2" className={styles.Td}>
-                <div className={styles.Button} onClick={() => setAddItem(true)}>
+                <div className={styles.Button} onClick={addToCart}>
                   {
                     addItem ?
                       <>
@@ -40,7 +46,7 @@ export default function ProductItem() {
                           <span>افزودن</span>
                         </div>
                         <div className={styles.icon1}>
-                          <BsCart2 />
+                          <BsCart2 style={{ fontSize: "1rem" }} />
                         </div>
                       </>
                   }
@@ -75,19 +81,19 @@ export default function ProductItem() {
           </div>
           <div className={styles.LineBox}>
             <span>کارتن</span>
-            <span>12</span>
+            <span className={styles.number}>124</span>
           </div>
           <div className={styles.LineBox}>
             <span>گنجایش کارتن</span>
-            <span>12</span>
+            <span className={styles.number}>125</span>
           </div>
           <div className={styles.LineBox}>
             <span>مقدار</span>
-            <span>2</span>
+            <span className={styles.number}>2666</span>
           </div>
         </div>
         <div className={styles.Box3}>
-          <div className={styles.Button} onClick={() => setAddItem(true)}>
+          <div className={styles.Button} onClick={addToCart}>
             {
               addItem ?
                 <>

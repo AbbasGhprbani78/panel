@@ -1,16 +1,15 @@
-"use client"
-import React, { useState } from 'react'
+
+import React from 'react'
 import styles from './StatusLastProduct.module.css'
 import StatusProduct from '../StatusProdcut/StatusProduct';
+import Link from 'next/link';
 export default function StatusLastProduct() {
-
-    const [currentStep, setCurrentStep] = useState(3);
 
 
     return (
         <div className={styles.statusproduct}>
             <p className={styles.statustext}>وضعیت آخرین سفارش</p>
-            <StatusProduct />
+            <StatusProduct style={"paddingstyle"}/>
             <div className={styles.statusproductbottom}>
                 <div className={styles.orderdeatil}>
                     <div className={styles.orderdetailitem}>
@@ -22,7 +21,7 @@ export default function StatusLastProduct() {
                         <span className={styles.orderdetailtext}>01/02/23</span>
                     </div>
                 </div>
-                <button className={styles.historybtn}>تاریخچه</button>
+                <Link href={"/orders"} className={styles.historybtn}>تاریخچه</Link>
             </div>
         </div>
     )

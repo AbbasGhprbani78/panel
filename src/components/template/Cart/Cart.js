@@ -20,6 +20,11 @@ export default function Cart() {
     const [value, setValue] = useState("")
     const [searchValue, setSearchValue] = useState("")
 
+    const hideModal = () => {
+        setIsDeleteodal(false)
+        setShowModal(false)
+    }
+
     const finalconfirmhandler = () => {
         setIsConfirmation(true)
     }
@@ -45,24 +50,27 @@ export default function Cart() {
 
     return (
         <>
-            {
-                showModal &&
-                <div className={styles.modalcontainer}>
-                    <div className={styles.modalhide} onClick={() => setShowModal(false)}></div>
-                    <div className={styles.modalwrapper}>
-                        {
-                            isDeleteModal ?
-                                <>
-                                    <div className={styles.modaldelete}>
-                                        <div>
-                                            <span>از حذف محصول اطمینان دارید ؟</span>
-                                        </div>
-                                        <div className="d-flex align-items-center justify-content-between mt-4">
-                                            <button className={`${styles.ysebtn} ${styles.aciondelete}`}>بله</button>
-                                            <button className={`${styles.nobtn} ${styles.aciondelete}`} onClick={() => setShowModal(false)}>خیر</button>
-                                        </div>
+            <div className={styles.wrapperpage}>
+                <SideBar />
+                <div className={styles.pagecontent}>
+                    <div className={`${styles.modalcontainer} ${showModal ? styles.showmodal : ""}`}>
+                        <div className={styles.modalhide} onClick={hideModal}></div>
+                        <div className={styles.modalwrapper}>
+
+                            {isDeleteModal &&
+                                <div className={styles.modaldelete}>
+                                    <div>
+                                        <span>از حذف محصول اطمینان دارید ؟</span>
                                     </div>
-                                </> :
+                                    <div className="d-flex align-items-center justify-content-between mt-4">
+                                        <button className={`${styles.ysebtn} ${styles.aciondelete}`}>بله</button>
+                                        <button className={`${styles.nobtn} ${styles.aciondelete}`} onClick={hideModal}>خیر</button>
+                                    </div>
+                                </div>
+                            }
+
+                            {
+                                !isDeleteModal && showModal &&
                                 <>
                                     <div className={styles.modalheader}>
                                         <span className={styles.model}>ADFG8745</span>
@@ -86,20 +94,16 @@ export default function Cart() {
                                             </div>
                                         </div>
                                         <div className='mt-5 text-center'>
-                                            <button className={styles.btnconfirm}>
+                                            <button className={styles.btnconfirm} >
                                                 تایید
                                                 <MdOutlineDone style={{ marginRight: "15px" }} />
                                             </button>
                                         </div>
                                     </div>
                                 </>
-                        }
+                            }
+                        </div>
                     </div>
-                </div>
-            }
-            <div className={styles.wrapperpage}>
-                <SideBar />
-                <div className={styles.pagecontent}>
                     <Header title={"سبد خرید"} />
                     <div className={styles.maincontent}>
                         {
@@ -118,11 +122,11 @@ export default function Cart() {
                                         }
                                         <div className={styles.cartItemMwrapper}>
                                             <div className={styles.scrollitem}>
-                                                <CartItemM showDeleteModal={showDeleteModal} />
-                                                <CartItemM showDeleteModal={showDeleteModal} />
-                                                <CartItemM showDeleteModal={showDeleteModal} />
-                                                <CartItemM showDeleteModal={showDeleteModal} />
-                                                <CartItemM showDeleteModal={showDeleteModal} />
+                                                <CartItemM showDeleteModal={showDeleteModal} isConfirmation={isConfirmation} />
+                                                <CartItemM showDeleteModal={showDeleteModal} isConfirmation={isConfirmation} />
+                                                <CartItemM showDeleteModal={showDeleteModal} isConfirmation={isConfirmation} />
+                                                <CartItemM showDeleteModal={showDeleteModal} isConfirmation={isConfirmation} />
+                                                <CartItemM showDeleteModal={showDeleteModal} isConfirmation={isConfirmation} />
                                             </div>
                                             <div className={styles.finalbtnwapper}>
                                                 <button className={`${isConfirmation ? styles.printbtn : styles.finalbtn}`} onClick={finalconfirmhandler}>
@@ -142,7 +146,6 @@ export default function Cart() {
                                             </div>
                                         </div>
                                     </div>
-
                                 </> :
 
                                 <>

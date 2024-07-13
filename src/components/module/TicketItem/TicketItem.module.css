@@ -1,9 +1,15 @@
-.TicketLine{
+.TicketLine {
     width: 100%;
-    background-color: #D9D9D9;
+    background-color: #f5f5f5;
     color: black;
     display: flex;
     justify-content: space-between;
-    padding: 30px 20px;
-    border-radius:5px ;
+    padding: 25px 20px;
+    border-radius: 5px;
+}
+
+.ticketicon {
+    margin-left: 15px;
+    font-size: 1.5rem;
+    color: var(--color-1);
 }

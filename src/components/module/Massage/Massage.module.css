@@ -1,11 +1,10 @@
-
 @media (max-width:900px) {
-    .MassageBoxSend{
+    .MassageBoxSend {
         max-width: 80%;
         min-width: 100px;
         height: auto;
         position: relative;
-        
+
         background-color: #fff;
         border: 2px solid var(--color-1);
         word-wrap: break-word;
@@ -13,21 +12,23 @@
         border-radius: 10px;
         padding: 10px;
     }
-    .MassageBoxReceive{
+
+    .MassageBoxReceive {
         max-width: 80%;
         min-width: 100px;
         height: auto;
-        background-color:var(--color-1);
+        background-color: var(--color-1);
         word-wrap: break-word;
         color: white;
-        margin: 20px;
+        margin: 10px;
         align-self: flex-end;
         border-radius: 10px;
         padding: 10px;
     }
 }
+
 @media (min-width:900px) {
-    .MassageBoxSend{
+    .MassageBoxSend {
         max-width: 27%;
         min-width: 100px;
         height: auto;
@@ -39,14 +40,15 @@
         border-radius: 10px;
         padding: 10px;
     }
-    .MassageBoxReceive{
+
+    .MassageBoxReceive {
         max-width: 27%;
         min-width: 100px;
         height: auto;
-        background-color:var(--color-1);
+        background-color: var(--color-1);
         word-wrap: break-word;
         color: white;
-        margin: 20px;
+        margin: 10px;
         align-self: flex-end;
         border-radius: 10px;
         padding: 10px;

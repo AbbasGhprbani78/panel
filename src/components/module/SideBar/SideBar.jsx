@@ -4,17 +4,20 @@ import styles from './Sidebar.module.css';
 import Link from 'next/link';
 import { MdWindow } from "react-icons/md";
 import { FaBoxArchive } from "react-icons/fa6";
-import { FaRegBookmark } from "react-icons/fa";
+import { FaBookmark } from "react-icons/fa";
 import { FaHeadphones } from "react-icons/fa6";
-import { CiLogin } from "react-icons/ci";
+import { FiLogOut } from "react-icons/fi";
 import { FaAngleDown, FaAngleUp } from "react-icons/fa";
-
+import { usePathname } from 'next/navigation';
 export default function SideBar() {
-    const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
+    const pathname = usePathname()
 
+    const [isSubMenuOpen, setIsSubMenuOpen] = useState(false);
     const toggleSubMenu = () => {
         setIsSubMenuOpen(!isSubMenuOpen);
     };
+
+
 
     return (
         <div className={styles.sidebarcontainer}>
@@ -24,7 +27,7 @@ export default function SideBar() {
                 </div>
                 <div className={styles.sidebarlistwrapper}>
                     <ul className={styles.sidebarlist}>
-                        <Link href={"/"} className={styles.listitem}>
+                        <Link href={"/"} className={`${styles.listitem} ${pathname === "/" ? styles.active : ""}`}>
                             <MdWindow className={styles.iconsidebar} />
                             <span className={styles.listitemtext}>خانه</span>
                         </Link>
@@ -38,28 +41,28 @@ export default function SideBar() {
                             </div>
                             {isSubMenuOpen && (
                                 <ul className={styles.submenu}>
-                                    <li className={styles.submenuitem}>
-                                        <Link href={"#"}>ثبت سفارش جدید</Link>
+                                    <li className={`${styles.submenuitem}  ${pathname === "/products" ? styles.active : ""}`}>
+                                        <Link href={"/products"}>ثبت سفارش جدید</Link>
                                     </li>
-                                    <li className={styles.submenuitem}>
-                                        <Link href={"#"}>تاریخچه سفارشات</Link>
+                                    <li className={`${styles.submenuitem}  ${pathname === "/orders" ? styles.active : ""}`}>
+                                        <Link href={"/orders"}>تاریخچه سفارشات</Link>
                                     </li>
-                                    <li className={styles.submenuitem}>
+                                    <li className={`${styles.submenuitem}  ${pathname === "/trackorders" ? styles.active : ""}`}>
                                         <Link href={"/trackorders"}>پیگیری سفارشات</Link>
                                     </li>
                                 </ul>
                             )}
                         </li>
-                        <Link href={"#"} className={styles.listitem}>
-                            <FaRegBookmark className={styles.iconsidebar} />
+                        <Link href={"/report"} className={`${styles.listitem} ${pathname === "/report" ? styles.active : ""} `}>
+                            <FaBookmark className={styles.iconsidebar} />
                             <span className={styles.listitemtext}>گزارشات</span>
                         </Link>
-                        <Link href={"#"} className={styles.listitem}>
+                        <Link href={"/ticket"} className={`${styles.listitem} ${pathname === "/ticket" ? styles.active : ""}`}>
                             <FaHeadphones className={styles.iconsidebar} />
                             <span className={styles.listitemtext}>پشتیبانی</span>
                         </Link>
                         <Link href={"#"} className={`${styles.listitem} ${styles.logoutsidebar}`}>
-                            <CiLogin className={styles.iconsidebar} />
+                            <FiLogOut className={styles.iconsidebar} />
                             <span className={styles.listitemtext}>خروج</span>
                         </Link>
                     </ul>

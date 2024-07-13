@@ -31,10 +31,13 @@
 }
 
 .detailbtn {
+    all: unset;
     color: #fff;
     background-color: var(--color-1);
     border-radius: 10px;
     padding: 3px 30px;
+    cursor: pointer;
+    width: max-content;
 }
 
 .wrapper {
@@ -84,13 +87,17 @@
     height: 30px;
     border-radius: 50%;
     border: 3px solid var(--color-21);
-    background-color: #fff;
+    background-color: #f5f5f5;
     color: var(--color-21);
     transition: .4s ease;
     z-index: 1;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.iconstatus {
+    font-size: 1.5rem;
 }
 
 .circle.active {
@@ -119,6 +126,7 @@
 
     .wrapper {
         overflow-x: scroll;
+        margin-left: 0;
     }
 
     .wrapper::-webkit-scrollbar {
@@ -133,7 +141,7 @@
     }
 
     .wrapper {
-        width: 90%;
+        width: 95%;
     }
 
     .detailbtn {

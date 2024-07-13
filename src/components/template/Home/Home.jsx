@@ -9,6 +9,7 @@ import Chart from '@/components/module/Chart/Chart'
 import StatusLastProduct from '@/components/module/StatusLastProduct/StatusLastProduct'
 import { FaPlus } from "react-icons/fa6";
 import ModalUser from '@/components/module/ModalUser/ModalUser'
+import Link from 'next/link'
 
 
 export default function Home() {
@@ -16,10 +17,7 @@ export default function Home() {
     const [showModal, setShowModal] = useState(false)
     return (
         <>
-            {
-                showModal &&
-                <ModalUser setShowModal={setShowModal} />
-            }
+            <ModalUser setShowModal={setShowModal} showModal={showModal} />
 
             <div className={styles.wrapperpage}>
                 <SideBar />
@@ -28,10 +26,10 @@ export default function Home() {
                     <div className={styles.maincontent}>
                         <div className={styles.hometop}>
                             <div className={styles.item1}>
-                                <button className={styles.oderbtn}>
+                                <Link href={"/products"} className={styles.oderbtn}>
                                     ثبت سفارش
                                     <FaPlus className={styles.iconplus} />
-                                </button>
+                                </Link>
                                 <Notifications />
                             </div>
                             <div className={styles.item2}>

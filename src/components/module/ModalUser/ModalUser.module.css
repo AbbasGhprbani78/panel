@@ -4,9 +4,17 @@
     min-height: 100vh;
     z-index: 10;
     backdrop-filter: blur(5px);
-    display: flex;
     align-items: center;
     justify-content: center;
+    display: flex;
+    transition: opacity 0.3s ease-in, visibility 0.5s ease-in;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.modalcontainer.show {
+    opacity: 1;
+    visibility: visible;
 }
 
 .modalclose {
@@ -59,6 +67,7 @@
     border-radius: 8px;
     padding: 5px 55px;
     text-align: center;
+    cursor: pointer;
 }
 
 .errorinput {

@@ -9,6 +9,7 @@
     padding: 0 3%;
     min-height: 100vh;
     background-color: var(--color-2);
+    background-color: #f5f5f5;
 }
 
 .carts {
@@ -53,9 +54,14 @@
     width: 100%;
     min-height: 100vh;
     z-index: 4;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all .3s ease-in;
+}
+
+.showmodal {
+    opacity: 1;
+    visibility: visible;
 }
 
 .modalhide {
@@ -71,6 +77,9 @@
     overflow: hidden;
     background-color: #fff;
     z-index: 6;
+    position: absolute;
+    left: 50%;
+    top: 40%;
 }
 
 .modalheader {
@@ -187,6 +196,12 @@
         margin-top: 90px;
     }
 
+    .modalwrapper {
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+
 }
 
 
@@ -197,11 +212,17 @@
 }
 
 @media (max-width:600px) {
+
     .finalbtnwapper>button {
         width: 100%;
         text-align: center;
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+
+    .modalwrapper {
+        display: flex;
+        width: 90%;
     }
 }

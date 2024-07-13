@@ -7,9 +7,9 @@ import Input from '../Input/Input';
 import Texteara from '../Texteara/Texteara';
 import { Formik } from 'formik'
 
-export default function ModalUser({ setShowModal }) {
+export default function ModalUser({ setShowModal, showModal }) {
     return (
-        <div className={styles.modalcontainer}>
+        <div className={`${styles.modalcontainer} ${showModal ? styles.show : ''}`}>
             <div className={styles.modalclose} onClick={() => setShowModal(false)}></div>
             <div className={styles.modalwrappper}>
                 <div className={styles.modalheader}>

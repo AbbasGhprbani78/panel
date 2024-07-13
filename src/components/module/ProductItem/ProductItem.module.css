@@ -1,3 +1,8 @@
+.number {
+    margin-left: 1rem;
+}
+
+
 @media (min-width:650px) {
     .ProductItem2 {
         display: none;

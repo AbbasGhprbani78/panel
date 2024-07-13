@@ -7,6 +7,9 @@
 .progressc {
     width: 100%;
 }
+.statustext{
+    
+}
 
 .pragressContainer {
     display: flex;
@@ -46,7 +49,7 @@
     height: 30px;
     border-radius: 50%;
     border: 3px solid var(--color-21);
-    background-color: #fff;
+    background-color: #f5f5f5;
     color: var(--color-21);
     transition: .4s ease;
     z-index: 1;
@@ -77,11 +80,16 @@
     padding-left: 20px;
 }
 
+.iconstatus {
+    font-size: 3.5rem;
+    padding: 0 5px;
+}
+
 
 @media (max-width:780px) {
     .pragresswrapper {
         width: 90%;
-        margin: 1.5rem auto 0 auto;
+        /* margin: 1.5rem auto 0 auto; */
         overflow-x: scroll;
         overflow-y: hidden;
     }
@@ -92,7 +100,9 @@
 }
 
 @media (max-width:658px) {
-
+    .pragresswrapper {
+        width: 95%;
+    }
 
     .progressc {
         width: 1000px;

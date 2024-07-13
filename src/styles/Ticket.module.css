@@ -3,13 +3,71 @@
     justify-content: space-between;
 }
 
+.pagecontent {
+    width: 82%;
+    margin-right: 18%;
+    padding: 0 3%;
+    min-height: 100vh;
+    background-color: #f5f5f5
+}
+
+.file {
+    color: #fff;
+    background-color: var(--color-1);
+    border-radius: 10px;
+    padding: 7px 12px;
+    cursor: pointer;
+
+}
+
+.newtticket {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.Buttonsend {
+    background-color: var(--color-3);
+    color: var(--color-1);
+    padding: 7px 15px;
+    border-radius: 8px;
+    font-size: 1rem;
+    margin: 20px 0;
+    width: 100%;
+    text-align: center;
+    width: max-content;
+}
+
+.title {
+    margin-bottom: 1.3rem;
+}
+
+.Button1 {
+    color: var(--color-1);
+    padding: 10px 30px;
+    border-radius: 8px;
+}
+
+.Button2 {
+    color: var(--color-1);
+    padding: 10px 40px;
+    border-radius: 8px;
+}
+
+.Button,
+.Button1,
+.Button2,
+.Buttonsend {
+    cursor: pointer;
+}
+
 @media (min-width:900px) {
     .pagecontent1 {
         width: 82%;
         margin-right: 18%;
         padding: 0 3%;
         min-height: 100vh;
-        background-color: var(--color-2);
+        background-color: #f5f5f5;
     }
 
     .ChatTitle {
@@ -40,10 +98,10 @@
         justify-content: start;
         align-items: center;
         gap: 20px;
+
     }
 
     .Button {
-        background-color: var(--color-1);
         color: white;
         display: flex;
         justify-content: center;
@@ -51,6 +109,13 @@
         gap: 10px;
         padding: 5px 15px;
         border-radius: 8px;
+        cursor: pointer;
+        color: var(--color-1);
+    }
+
+    .activetab {
+        background-color: var(--color-1);
+        color: #fff;
     }
 
     .TabBox {
@@ -91,7 +156,7 @@
         border-radius: 10px;
         display: flex;
         flex-direction: column;
-        gap: 40px;
+        gap: 30px;
         padding: 40px;
     }
 
@@ -160,17 +225,16 @@
         display: flex;
         flex-direction: row;
         gap: 15px;
+        margin-top: 1.4rem;
     }
 
     .Button1 {
-        background-color: var(--color-3);
         color: var(--color-1);
         padding: 10px 30px;
         border-radius: 8px;
     }
 
     .Button2 {
-        background-color: #b7b7b7;
         color: var(--color-1);
         padding: 10px 40px;
         border-radius: 8px;
@@ -227,7 +291,6 @@
         height: 500px;
         overflow-y: scroll;
         bottom: 10vh;
-
         display: flex;
         flex-direction: column;
 
@@ -244,14 +307,18 @@
     .pagecontent2 {
         display: none;
     }
+
+    .activetab {
+        background-color: var(--color-1);
+        color: #fff;
+    }
 }
 
 @media (max-width:1025px) {
-    .pagecontent1 {
+    .pagecontent {
         width: 100%;
         margin-right: 0;
         padding: 0;
-
     }
 
     .maincontent {
@@ -261,17 +328,15 @@
 }
 
 @media (max-width:900px) {
-    .pagecontent1 {
-        display: none;
 
-    }
-
-    .pagecontent2 {
+    .TicketMassageBox {
+        margin-top: 20px;
         width: 100%;
-        margin-right: 0;
-        padding: 0 0 30px 0;
-        background-color: #f5f5f5;
-
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 20px;
+        max-height: 70vh;
+        overflow-y: scroll;
     }
 
     .maincontent {
@@ -287,30 +352,34 @@
         flex-direction: row;
         gap: 20px;
         font-size: .9rem;
+        margin-bottom: 1.3rem;
     }
 
     .Button1 {
-        width: 30%;
-        background-color: var(--color-1);
-        color: #fff;
+        width: 100%;
+        color: var(--color-1);
         border-radius: 8px;
         padding: 10px;
         display: flex;
         justify-content: center;
         align-items: center;
         gap: 10px;
+        background-color: var(--color-3);
+        text-align: center;
+        margin-top: 1.5rem;
     }
 
     .Button2 {
         width: 70%;
-        background-color: var(--color-1);
-        color: #fff;
+        color: var(--color-1);
         display: flex;
         justify-content: center;
         align-items: center;
         border-radius: 8px;
         padding: 10px;
     }
+
+
 
     .noneBox {
         display: none;
@@ -388,7 +457,7 @@
     }
 
     .title {
-        font-size: .7rem;
+        font-size: .9rem;
         padding: 10px 0 20px 0;
     }
 
@@ -439,9 +508,7 @@
     .OptionButton {
         display: flex;
         flex-direction: column;
-
-        align-items: center;
-
+        align-items: end;
     }
 
     .checkbox {
@@ -467,16 +534,10 @@
         display: flex;
         flex-direction: row;
         gap: 15px;
+
     }
 
-    .Buttonsend {
-        background-color: var(--color-3);
-        color: var(--color-1);
-        padding: 5px 15px;
-        border-radius: 8px;
-        font-size: .8rem;
-        margin: 10px 0;
-    }
+
 
     .Buttonfile {
         width: 100%;
@@ -487,26 +548,37 @@
 
     }
 
-    .TicketMassageBox {
-        margin-top: 20px;
-        width: 100%;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 20px;
-        height: 70vh;
-    }
+
 
     .MassageBox {
         z-index: 0;
         width: 100%;
-        height: 400px;
-        overflow-y: scroll;
+        height: 100%;
         bottom: 10vh;
         display: flex;
         flex-direction: column;
     }
 
-    .MassageBox::-webkit-scrollbar {
+    .TicketMassageBox::-webkit-scrollbar {
         display: none;
     }
+
+    .Button {
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 15px;
+        border-radius: 8px;
+        cursor: pointer;
+        color: var(--color-1);
+    }
+
+    .activetab {
+        background-color: var(--color-1);
+        color: #fff;
+    }
+
+
 }
