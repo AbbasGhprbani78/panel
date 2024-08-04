@@ -110,18 +110,19 @@ export default function Cart() {
                             windowWidth < 600 ?
                                 <>
                                     <div className={styles.contnetcratwarpperm}>
-                                        <SearchBox
-                                            value={searchValue}
-                                            onChange={(e) => setSearchValue(e.target.value)}
-                                        />
-                                        {
-                                            isConfirmation &&
-                                            <div className={`${styles.status}`}>
-                                                <StatusProduct style={"paddingstyle"} />
-                                            </div>
-                                        }
-                                        <div className={styles.cartItemMwrapper}>
-                                            <div className={styles.scrollitem}>
+                                        <div>
+                                            <SearchBox
+                                                value={searchValue}
+                                                onChange={(e) => setSearchValue(e.target.value)}
+                                            />
+                                            {
+                                                isConfirmation &&
+                                                <div className={`${styles.status}`}>
+                                                    <StatusProduct style={"paddingstyle"} />
+                                                </div>
+                                            }
+                                        </div>              
+                                        <div className={`${styles.scrollitem}`}>
                                                 <CartItemM showDeleteModal={showDeleteModal} isConfirmation={isConfirmation} />
                                                 <CartItemM showDeleteModal={showDeleteModal} isConfirmation={isConfirmation} />
                                                 <CartItemM showDeleteModal={showDeleteModal} isConfirmation={isConfirmation} />
@@ -144,7 +145,6 @@ export default function Cart() {
 
                                                 </button>
                                             </div>
-                                        </div>
                                     </div>
                                 </> :
                                 <>

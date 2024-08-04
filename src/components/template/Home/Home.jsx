@@ -15,7 +15,7 @@ import Link from 'next/link'
 export default function Home() {
 
     const [showModal, setShowModal] = useState(false)
-    
+
     return (
         <>
             <ModalUser setShowModal={setShowModal} showModal={showModal} />
@@ -40,7 +40,9 @@ export default function Home() {
                                 <Chart />
                             </div>
                         </div>
-                        <StatusLastProduct />
+                        <div className='pb-4'>
+                            <StatusLastProduct />
+                        </div>
                     </div>
                 </div>
             </div>

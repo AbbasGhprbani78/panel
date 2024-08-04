@@ -47,6 +47,10 @@
     color: #49454f;
 }
 
+.dropdown::-webkit-scrollbar {
+    display: none;
+}
+
 .dropdownitem {
     padding: 10px;
     cursor: pointer;

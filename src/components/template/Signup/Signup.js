@@ -13,11 +13,17 @@ import { Formik } from 'formik';
 import Texteara from '@/components/module/Texteara/Texteara';
 import Link from 'next/link';
 import Select from '@/components/module/Select/Select';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
+
 export default function Signup() {
 
     const [windowWidth, setWindowWidth] = useState(window.innerWidth)
     const [isPrivate, setIsPerivate] = useState(true)
     const [province, setPovince] = useState("")
+    const router = useRouter()
 
     const handleToggle = () => {
         setIsPerivate((e) => !e);
@@ -92,8 +98,18 @@ export default function Signup() {
                                     }}
 
                                     onSubmit={async (values, { setSubmitting }) => {
-                                        console.log(values)
-                                        setSubmitting(false)
+                                        try {
+                                            const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/user/signup/`, values)
+                                            if (response.status === 200) {
+                                                setSubmitting(false)
+                                            }
+                                        } catch (error) {
+                                            console.log(error)
+                                            toast.error(error.response.data.message, {
+                                                position: "top-left"
+                                            })
+                                            setSubmitting(false);
+                                        }
                                     }}
                                 >
                                     {({ values, handleChange, handleSubmit, errors, touched, isSubmitting }) => (
@@ -231,8 +247,20 @@ export default function Signup() {
                                         }}
 
                                         onSubmit={async (values, { setSubmitting }) => {
-                                            console.log(values)
-                                            setSubmitting(false)
+                                            try {
+                                                const response = await axios.post(`https://behrizanpanel.ariisco.com/user/signup/`, values)
+                                                if (response.status === 201) {
+                                                    setSubmitting(false)
+                                                    router.push("/login")
+                                                }
+                                            } catch (error) {
+                                                console.log(error)
+                                                setSubmitting(false);
+                                                toast.error(error.response.data.message, {
+                                                    position: "top-left"
+                                                })
+
+                                            }
                                         }}
                                     >
                                         {({ values, handleChange, handleSubmit, setFieldValue, errors, touched, isSubmitting }) => (
@@ -321,10 +349,10 @@ export default function Signup() {
                         </div>
                     </>
             }
-
+            <ToastContainer />
         </>
     )
 }
 
 
-// 
+// ${process.env.REACT_APP_BASE_URL}

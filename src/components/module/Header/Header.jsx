@@ -30,11 +30,6 @@ export default function Header({ title }) {
         }
     }, [title]);
 
-
-
-
-
-
     return (
         <>
             {
@@ -43,13 +38,13 @@ export default function Header({ title }) {
                         <OffcanvasMenu setShowSideBar={setShowSideBar} showSideBar={showSideBar} />
                         <div className={styles.headermobile}>
                             <RxHamburgerMenu className={styles.iconham} onClick={() => setShowSideBar(true)} />
-                            <img src="/images/logo.svg" alt="logo" className={styles.logomobile} />
+                            <Link href={"/"}><img src="/images/logo.svg" alt="logo" className={styles.logomobile} /></Link>
                         </div>
                     </>
                     :
                     <div className={styles.headercontainer}>
                         <span className={styles.headertext} ref={titleRef}>{title}</span>
-                        <Link href={"/cart"}  className={styles.iconheaderwrap}>
+                        <Link href={"/cart"} className={styles.iconheaderwrap}>
                             <div> <IoCartOutline className={styles.iconheader} /></div>
                         </Link>
                     </div>

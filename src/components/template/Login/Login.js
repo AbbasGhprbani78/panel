@@ -11,16 +11,18 @@ import { IoEyeOff } from "react-icons/io5";
 import axios from 'axios'
 import { MdOutlineMail } from "react-icons/md";
 import Link from 'next/link'
+import { useRouter } from 'next/navigation';
 
 export default function Login() {
 
     const [windowWidth, setWindowWidth] = useState(window.innerWidth)
-    const [step, setStep] = useState(3)
+    const [step, setStep] = useState(2)
     const [isForget, setIsForget] = useState(false)
     const inputRefs = useRef([]);
     const [timeLeft, setTimeLeft] = useState(10);
     const [values, setValues] = useState(['', '', '', '']);
     const [showResendMessage, setShowResendMessage] = useState(false);
+    const router = useRouter()
 
     const handleInputChange = (e, index) => {
         const { value } = e.target;
@@ -343,7 +345,6 @@ export default function Login() {
                                                     }}
 
                                                     onSubmit={async (values, { setSubmitting }) => {
-                                                        console.log(values)
                                                         try {
                                                             const response = await axios.post(`http://localhost:4000/login`, values)
                                                             if (response.status === 200) {
@@ -372,7 +373,8 @@ export default function Login() {
                                                                 />
                                                                 {errors.phone_number && touched.phone_number && <span className={styles.errorinput}>{errors.phone_number}</span>}
                                                                 <div className='mt-1'><Link href="/signup" className={styles.linksignup}>هنوز ثبت نام نکرده اید؟</Link>
-                                                                </div>                                                            </div>
+                                                                </div>
+                                                            </div>
 
                                                             <div className={`${styles.btnwrapper}`}>
                                                                 <button
@@ -409,8 +411,18 @@ export default function Login() {
                                                         }}
 
                                                         onSubmit={async (values, { setSubmitting }) => {
-                                                            console.log(values)
-                                                            setSubmitting(false)
+                                                            try {
+                                                                const response = await axios.post(`${IP}/user/signup/`, values)
+                                                                if (response.status === 201) {
+                                                                    setSubmitting(false)
+                                                                    navigate("/login")
+                                                                }
+                                                            } catch (error) {
+                                                                toast.error(error.response.data.message, {
+                                                                    position: "top-left"
+                                                                })
+                                                                setSubmitting(false);
+                                                            }
                                                         }}
                                                     >
                                                         {({ values, handleChange, handleSubmit, errors, touched, isSubmitting }) => (
