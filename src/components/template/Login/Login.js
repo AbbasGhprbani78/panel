@@ -13,12 +13,13 @@ import { MdOutlineMail } from "react-icons/md";
 import Link from 'next/link'
 import { useRouter } from 'next/navigation';
 import { ToastContainer, toast } from 'react-toastify';
+import { MdEmail } from "react-icons/md";
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function Login() {
 
     const [windowWidth, setWindowWidth] = useState(window.innerWidth)
-    const [step, setStep] = useState(3)
+    const [step, setStep] = useState(1)
     const [isForget, setIsForget] = useState(false)
     const inputRefs = useRef([]);
     const [timeLeft, setTimeLeft] = useState(100000);
@@ -418,12 +419,13 @@ export default function Login() {
                                         ) :
                                         step === 2 ?
                                             (
-                                                
+
                                                 <div className={styles.passwordform}>
                                                     {
-                                                        showFiledEmail?
-                                                        <>
-                                                        <div className={styles.formpasswordcontent}>
+                                                        showFiledEmail ?
+                                                        
+                                                            <>
+                                                                <div className={styles.formpasswordcontent}>
                                                                     <Formik
                                                                         validate={(values) => {
                                                                             const emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/
@@ -437,14 +439,14 @@ export default function Login() {
                                                                         }}
 
                                                                         initialValues={{
-                                                                          email:""
+                                                                            email: ""
                                                                         }}
 
                                                                         onSubmit={async (values, { setSubmitting }) => {
                                                                             try {
                                                                                 const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}//`, values)
                                                                                 if (response.status === 200) {
-                                                                                   console.log(response.data)
+                                                                                    console.log(response.data)
                                                                                 }
                                                                             } catch (error) {
 
@@ -468,30 +470,26 @@ export default function Login() {
                                                                                         onChange={handleChange}
                                                                                         type={"text"}
                                                                                     />
-                                                                                    
+
                                                                                     {errors.email && touched.email && <span className={styles.errorinput}>{errors.email}</span>}
                                                                                 </div>
-                                                                                <p className={styles.helptext}>
-                                                                                    رمز عبوری را که از قبل، برای خود انتخاب کردید، وارد کنید یا با زدن دکمه زیر "کد ورود یک‌بار مصرف" دریافت کنید.
-                                                                                </p>
-
                                                                                 <div className='text-center mt-5'>
                                                                                     <button
                                                                                         className={`${styles.btnphoneform} ${isSubmitting ? styles.disablebtn : ""}`}
                                                                                         type='submit'
                                                                                         disabled={isSubmitting}
                                                                                     >
-                                                                                        ادامه
+                                                                                    ارسال
                                                                                         <FaArrowLeftLong className={styles.iconformphone} />
                                                                                     </button>
                                                                                 </div>
                                                                             </form>
                                                                         )}
                                                                     </Formik>
-                                                        </div>
-                                                        </>
-                                                        :
-                                                        <>
+                                                                </div>
+                                                            </>
+                                                            :
+                                                            <>
                                                                 <p className={styles.paneltext}>
                                                                     رمز عبور خود را وارد کنید
                                                                 </p>
@@ -514,8 +512,9 @@ export default function Login() {
                                                                             try {
                                                                                 const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/user/login/`, values)
                                                                                 if (response.status === 200) {
+                                                                                    console.log(response.data)
                                                                                     localStorage.setItem("refresh", response.data.refresh)
-                                                                                    localStorage.setItem("access", response.data.access)
+                                                                                    localStorage.setItem("access", response.data.access_token)
                                                                                     router.push('/')
                                                                                 }
                                                                             } catch (error) {
@@ -584,7 +583,7 @@ export default function Login() {
                                                                         </>
                                                                     }
                                                                 </div>
-                                                        </>
+                                                            </>
                                                     }
                                                 </div>
                                             ) :
