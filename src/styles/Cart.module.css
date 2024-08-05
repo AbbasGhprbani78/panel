@@ -213,8 +213,7 @@
 
     .finalbtnwapper {
         padding-bottom: 0;
-        position: fixed;
-        width: 90%;
+        width: 100%;
         transform: translate(0, -50%);
         background-color: #f5f5f5;
         bottom: 5px;
@@ -240,5 +239,6 @@
     .scrollitem {
         max-height: 75vh;
     }
-/* 55 */
+
+    /* 55 */
 }

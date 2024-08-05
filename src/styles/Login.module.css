@@ -106,6 +106,7 @@
     width: max-content;
     font-size: calc(.8rem + .1vw);
     cursor: pointer;
+    margin-top: 1rem
 }
 
 .sendcodebtn {
