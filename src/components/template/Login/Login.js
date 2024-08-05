@@ -12,16 +12,19 @@ import axios from 'axios'
 import { MdOutlineMail } from "react-icons/md";
 import Link from 'next/link'
 import { useRouter } from 'next/navigation';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Login() {
 
     const [windowWidth, setWindowWidth] = useState(window.innerWidth)
-    const [step, setStep] = useState(2)
+    const [step, setStep] = useState(3)
     const [isForget, setIsForget] = useState(false)
     const inputRefs = useRef([]);
-    const [timeLeft, setTimeLeft] = useState(10);
+    const [timeLeft, setTimeLeft] = useState(100000);
     const [values, setValues] = useState(['', '', '', '']);
     const [showResendMessage, setShowResendMessage] = useState(false);
+    const [showFiledEmail, setShowEmail] = useState(false)
     const router = useRouter()
 
     const handleInputChange = (e, index) => {
@@ -101,6 +104,23 @@ export default function Login() {
         startTimer();
     }, [step]);
 
+
+    const sendCodeToEmail = async () => {
+        try {
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}//`,)
+            if (response.status === 200) {
+
+                console.log(response.data)
+            }
+        } catch (error) {
+            toast.error(error.response.data.message, {
+                position: "top-left"
+            })
+            console.log(error)
+        }
+    }
+
+    const phone_number = localStorage.getItem('phone');
 
     return (
         <>
@@ -346,11 +366,16 @@ export default function Login() {
 
                                                     onSubmit={async (values, { setSubmitting }) => {
                                                         try {
-                                                            const response = await axios.post(`http://localhost:4000/login`, values)
+                                                            const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/user/check-number/`, values)
+                                                            localStorage.setItem("phone", values.phone_number)
                                                             if (response.status === 200) {
-                                                                setSubmitting(false)
+                                                                setStep(2)
                                                             }
                                                         } catch (error) {
+
+                                                            toast.error(error.response.data.message, {
+                                                                position: "top-left"
+                                                            })
                                                             console.log(error)
                                                             setSubmitting(false);
                                                         }
@@ -393,92 +418,174 @@ export default function Login() {
                                         ) :
                                         step === 2 ?
                                             (
+                                                
                                                 <div className={styles.passwordform}>
-                                                    <p className={styles.paneltext}>
-                                                        رمز عبور خود را وارد کنید
-                                                    </p>
-                                                    <Formik
-                                                        validate={(values) => {
-                                                            const errors = {};
-                                                            if (!values.password) {
-                                                                errors.password = "وارد کردن رمز عبور اجباری میباشد";
-                                                            }
-                                                            return errors;
-                                                        }}
+                                                    {
+                                                        showFiledEmail?
+                                                        <>
+                                                        <div className={styles.formpasswordcontent}>
+                                                                    <Formik
+                                                                        validate={(values) => {
+                                                                            const emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/
+                                                                            const errors = {};
+                                                                            if (values.email === "") {
+                                                                                errors.email = "وارد کردن ایمیل اجباری میباشد";
+                                                                            } else if (!emailRegex.test(values.email)) {
+                                                                                errors.email = "ایمیل معتبر نیست";
+                                                                            }
+                                                                            return errors;
+                                                                        }}
 
-                                                        initialValues={{
-                                                            password: ""
-                                                        }}
+                                                                        initialValues={{
+                                                                          email:""
+                                                                        }}
 
-                                                        onSubmit={async (values, { setSubmitting }) => {
-                                                            try {
-                                                                const response = await axios.post(`${IP}/user/signup/`, values)
-                                                                if (response.status === 201) {
-                                                                    setSubmitting(false)
-                                                                    navigate("/login")
-                                                                }
-                                                            } catch (error) {
-                                                                toast.error(error.response.data.message, {
-                                                                    position: "top-left"
-                                                                })
-                                                                setSubmitting(false);
-                                                            }
-                                                        }}
-                                                    >
-                                                        {({ values, handleChange, handleSubmit, errors, touched, isSubmitting }) => (
-                                                            <form className={styles.formpasswordcontent} onSubmit={handleSubmit}>
-                                                                <div>
-                                                                    <Input
-                                                                        name="password"
-                                                                        label="کلمه عبور"
-                                                                        icon={isPrivate ? IoEyeSharp : IoEyeOff}
-                                                                        value={values.password}
-                                                                        onChange={handleChange}
-                                                                        type={isPrivate ? "password" : "text"}
-                                                                        handleToggle={handleToggle}
-                                                                    />
-                                                                    {errors.password && touched.password && <span className={styles.errorinput}>{errors.password}</span>}
-                                                                </div>
-                                                                <p className={styles.helptext}>
-                                                                    رمز عبوری را که از قبل، برای خود انتخاب کردید، وارد کنید یا با زدن دکمه زیر "کد ورود یک‌بار مصرف" دریافت کنید.
-                                                                </p>
-                                                                <p className={styles.forgettext} onClick={() => setIsForget(true)}>فراموش کردید؟</p>
+                                                                        onSubmit={async (values, { setSubmitting }) => {
+                                                                            try {
+                                                                                const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}//`, values)
+                                                                                if (response.status === 200) {
+                                                                                   console.log(response.data)
+                                                                                }
+                                                                            } catch (error) {
 
-                                                                <div className='text-center'>
-                                                                    <button className={styles.sendcodebtn}>
-                                                                        <MdOutlineMail className={styles.mailicon} />
-                                                                        <span className={`mx-2 ${styles.texttosend}`}>
-                                                                            ارسال کد یکبار مصرف از طریق پیامک
-                                                                        </span>
-
-                                                                    </button>
-                                                                </div>
-                                                                {
-                                                                    isForget &&
-                                                                    <div className='text-center'>
-                                                                        <button className={styles.sendcodebtn}>
-                                                                            <MdOutlineMail className={styles.mailicon} />
-                                                                            <span className={`mx-2 ${styles.texttosend}`}>
-                                                                                ارسال کد یکبار مصرف به ایمیل
-                                                                            </span>
-
-                                                                        </button>
-                                                                    </div>
-                                                                }
-
-                                                                <div className='text-center mt-5'>
-                                                                    <button
-                                                                        className={`${styles.btnphoneform} ${isSubmitting ? styles.disablebtn : ""}`}
-                                                                        type='submit'
-                                                                        disabled={isSubmitting}
+                                                                                toast.error(error.response.data.message, {
+                                                                                    position: "top-left"
+                                                                                })
+                                                                                console.log(error)
+                                                                                setSubmitting(false);
+                                                                            }
+                                                                        }}
                                                                     >
-                                                                        ادامه
-                                                                        <FaArrowLeftLong className={styles.iconformphone} />
-                                                                    </button>
+                                                                        {({ values, handleChange, handleSubmit, errors, touched, isSubmitting }) => (
+                                                                            <form onSubmit={handleSubmit}>
+                                                                                <div>
+                                                                                    <Input
+                                                                                        Input
+                                                                                        name="email"
+                                                                                        label="ایمیل"
+                                                                                        icon={MdEmail}
+                                                                                        value={values.email}
+                                                                                        onChange={handleChange}
+                                                                                        type={"text"}
+                                                                                    />
+                                                                                    
+                                                                                    {errors.email && touched.email && <span className={styles.errorinput}>{errors.email}</span>}
+                                                                                </div>
+                                                                                <p className={styles.helptext}>
+                                                                                    رمز عبوری را که از قبل، برای خود انتخاب کردید، وارد کنید یا با زدن دکمه زیر "کد ورود یک‌بار مصرف" دریافت کنید.
+                                                                                </p>
+
+                                                                                <div className='text-center mt-5'>
+                                                                                    <button
+                                                                                        className={`${styles.btnphoneform} ${isSubmitting ? styles.disablebtn : ""}`}
+                                                                                        type='submit'
+                                                                                        disabled={isSubmitting}
+                                                                                    >
+                                                                                        ادامه
+                                                                                        <FaArrowLeftLong className={styles.iconformphone} />
+                                                                                    </button>
+                                                                                </div>
+                                                                            </form>
+                                                                        )}
+                                                                    </Formik>
+                                                        </div>
+                                                        </>
+                                                        :
+                                                        <>
+                                                                <p className={styles.paneltext}>
+                                                                    رمز عبور خود را وارد کنید
+                                                                </p>
+                                                                <div className={styles.formpasswordcontent}>
+                                                                    <Formik
+                                                                        validate={(values) => {
+                                                                            const errors = {};
+                                                                            if (!values.password) {
+                                                                                errors.password = "وارد کردن رمز عبور اجباری میباشد";
+                                                                            }
+                                                                            return errors;
+                                                                        }}
+
+                                                                        initialValues={{
+                                                                            password: "",
+                                                                            phone_number
+                                                                        }}
+
+                                                                        onSubmit={async (values, { setSubmitting }) => {
+                                                                            try {
+                                                                                const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/user/login/`, values)
+                                                                                if (response.status === 200) {
+                                                                                    localStorage.setItem("refresh", response.data.refresh)
+                                                                                    localStorage.setItem("access", response.data.access)
+                                                                                    router.push('/')
+                                                                                }
+                                                                            } catch (error) {
+
+                                                                                toast.error(error.response.data.message, {
+                                                                                    position: "top-left"
+                                                                                })
+                                                                                console.log(error)
+                                                                                setSubmitting(false);
+                                                                            }
+                                                                        }}
+                                                                    >
+                                                                        {({ values, handleChange, handleSubmit, errors, touched, isSubmitting }) => (
+                                                                            <form onSubmit={handleSubmit}>
+                                                                                <div>
+                                                                                    <Input
+                                                                                        name="password"
+                                                                                        label="کلمه عبور"
+                                                                                        icon={isPrivate ? IoEyeSharp : IoEyeOff}
+                                                                                        value={values.password}
+                                                                                        onChange={handleChange}
+                                                                                        type={isPrivate ? "password" : "text"}
+                                                                                        handleToggle={handleToggle}
+                                                                                    />
+                                                                                    {errors.password && touched.password && <span className={styles.errorinput}>{errors.password}</span>}
+                                                                                </div>
+                                                                                <p className={styles.helptext}>
+                                                                                    رمز عبوری را که از قبل، برای خود انتخاب کردید، وارد کنید یا با زدن دکمه زیر "کد ورود یک‌بار مصرف" دریافت کنید.
+                                                                                </p>
+
+                                                                                <div className='text-center mt-5'>
+                                                                                    <button
+                                                                                        className={`${styles.btnphoneform} ${isSubmitting ? styles.disablebtn : ""}`}
+                                                                                        type='submit'
+                                                                                        disabled={isSubmitting}
+                                                                                    >
+                                                                                        ادامه
+                                                                                        <FaArrowLeftLong className={styles.iconformphone} />
+                                                                                    </button>
+                                                                                </div>
+                                                                            </form>
+                                                                        )}
+                                                                    </Formik>
+                                                                    <p className={styles.forgettext} onClick={() => setIsForget(true)}>فراموش کردید؟</p>
+
+
+                                                                    {
+                                                                        isForget &&
+                                                                        <>
+                                                                            <div className='text-center'>
+                                                                                <button className={styles.sendcodebtn} >
+                                                                                    <MdOutlineMail className={styles.mailicon} />
+                                                                                    <span className={`mx-2 ${styles.texttosend}`}>
+                                                                                        ارسال کد یکبار مصرف از طریق پیامک
+                                                                                    </span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <div className='text-center' onClick={() => setShowEmail(true)}>
+                                                                                <button className={styles.sendcodebtn}>
+                                                                                    <MdOutlineMail className={styles.mailicon} />
+                                                                                    <span className={`mx-2 ${styles.texttosend}`}>
+                                                                                        ارسال کد یکبار مصرف به ایمیل
+                                                                                    </span>
+                                                                                </button>
+                                                                            </div>
+                                                                        </>
+                                                                    }
                                                                 </div>
-                                                            </form>
-                                                        )}
-                                                    </Formik>
+                                                        </>
+                                                    }
                                                 </div>
                                             ) :
                                             (
@@ -540,9 +647,10 @@ export default function Login() {
                                 <img className={styles.logo} src="/images/logo.svg" alt="logo" />
                                 <p className={styles.textco}>Powered By ARIISCO</p>
                             </Col>
-                        </div>
+                        </div >
                     </>
             }
+            < ToastContainer />
         </>
 
     )
@@ -550,3 +658,4 @@ export default function Login() {
 
 
 
+//
