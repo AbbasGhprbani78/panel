@@ -11,7 +11,6 @@ import axios from 'axios'
 import ModalBuy from '@/components/module/ModalBuy/ModalBuy'
 
 
-
 export default function Products() {
     const router = useRouter()
     const [search, setSearch] = useState("")
@@ -38,7 +37,7 @@ export default function Products() {
             Authorization: `Bearer ${access}`
         };
         try {
-            const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}//`, {
+            const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/app/get-products/`, {
                 headers,
             })
 
@@ -49,7 +48,7 @@ export default function Products() {
         } catch (e) {
             if (e.response.status === 401) {
                 localStorage.clear()
-                navigate("/login")
+                router.push("/login")
             }
         }
     }

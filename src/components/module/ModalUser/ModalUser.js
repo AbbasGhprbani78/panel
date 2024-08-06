@@ -9,8 +9,11 @@ import { Formik } from 'formik'
 import Select from '../Select/Select';
 import { TbBuildingEstate } from "react-icons/tb";
 import axios from 'axios';
-
+import { useRouter } from 'next/navigation';
 export default function ModalUser({ setShowModal, showModal, userInfo, getUserHandler }) {
+
+
+    const router = useRouter()
 
     const handleClose = (resetForm) => {
         setShowModal(false);
@@ -77,7 +80,7 @@ export default function ModalUser({ setShowModal, showModal, userInfo, getUserHa
                 } catch (e) {
                     if (e.response.status === 401) {
                         localStorage.clear()
-                        navigate("/login")
+                        router.push("/login")
 
                     }
                 }

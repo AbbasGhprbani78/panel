@@ -80,5 +80,3 @@ export default function Chat() {
 
 
 
-// user/complete-user-information
-//   user / get-user-informmation

@@ -1,9 +1,8 @@
 import React from 'react'
 import styles from './CartItemM.module.css'
 import { IoCloseSharp } from "react-icons/io5";
-import { FaPlus } from "react-icons/fa6";
-import { FaMinus } from "react-icons/fa6";
-export default function CartItemM({ showDeleteModal, isConfirmation }) {
+import { MdModeEditOutline } from "react-icons/md";
+export default function CartItemM({ showDeleteModal, isConfirmation, setShowModalBuy }) {
     return (
 
         <div className={styles.CartItemmwrapper}>
@@ -32,24 +31,17 @@ export default function CartItemM({ showDeleteModal, isConfirmation }) {
                 </div>
                 <div className={styles.cartinfoitem}>
                     <span className={styles.infoitem}>مقدار</span>
-                    <div className={styles.boxchangecount}>
-                        {
-                            !isConfirmation &&
-                            <span className={styles.plus}>
-                                <FaPlus />
-                            </span>
-                        }
-
-                        <div style={{ padding: "0 10px" }}>1</div>
-                        {
-                            !isConfirmation &&
-                            <span className={styles.min}>
-                                <FaMinus />
-                            </span>
-                        }
-
+                    <div className={""}>
+                        <div >1</div>
                     </div>
                 </div>
+            </div>
+
+            <div className='text-center d-flex justify-content-center mt-3'>
+                <button className={styles.add_btn} onClick={() => setShowModalBuy(true)}>
+                    <MdModeEditOutline className='mx-2' />
+                    ویرایش
+                </button>
             </div>
         </div>
     )

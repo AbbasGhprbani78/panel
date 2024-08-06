@@ -3,11 +3,13 @@ import React, { useEffect, useState } from 'react'
 import styles from './InfoUser.module.css'
 import { CiUser } from "react-icons/ci";
 import ModalUser from '../ModalUser/ModalUser';
+import { useRouter } from 'next/navigation';
 import axios from 'axios';
 export default function Infouser() {
 
     const [showModal, setShowModal] = useState(false)
     const [userInfo, setUserInfo] = useState("")
+    const router = useRouter()
 
     const getUserHandler = async () => {
 
@@ -27,7 +29,7 @@ export default function Infouser() {
         } catch (e) {
             if (e.response.status === 401) {
                 localStorage.clear()
-                navigate("/login")
+                router.push("/login")
             }
         }
     }

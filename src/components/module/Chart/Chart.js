@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import { BarChart, Bar, ResponsiveContainer, Tooltip } from 'recharts';
 import styles from './Chart.module.css'
 import axios from 'axios';
+import { useRouter } from 'next/navigation'
 
 const data = [
     {
@@ -49,7 +50,11 @@ const data = [
     },
 ];
 
+
+
 export default function Chart() {
+
+    const router = useRouter()
 
     const getDataChart = async () => {
 
@@ -70,15 +75,15 @@ export default function Chart() {
         } catch (e) {
             if (e.response.status === 401) {
                 localStorage.clear()
-                navigate("/login")
+                router.push("/login")
             }
         }
     }
 
-
     useEffect(() => {
         getDataChart()
     }, [])
+
     return (
         <div className={styles.chartcontainer}>
             <p className={styles.titlesole}>فروش در هر ماه</p>

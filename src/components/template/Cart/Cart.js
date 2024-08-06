@@ -74,7 +74,7 @@ export default function Cart() {
                                             }
                                         </div>
                                         <div className={`${styles.scrollitem}`}>
-                                            <CartItemM showDeleteModal={showDeleteModal} isConfirmation={isConfirmation} />
+                                            <CartItemM showDeleteModal={showDeleteModal} isConfirmation={isConfirmation} setShowModalBuy={setShowModalBuy} />
                                             <CartItemM showDeleteModal={showDeleteModal} isConfirmation={isConfirmation} />
                                             <CartItemM showDeleteModal={showDeleteModal} isConfirmation={isConfirmation} />
                                             <CartItemM showDeleteModal={showDeleteModal} isConfirmation={isConfirmation} />
@@ -173,4 +173,3 @@ export default function Cart() {
 }
 
 
-// app/get/products

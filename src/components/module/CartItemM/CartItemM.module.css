@@ -62,6 +62,16 @@
     padding: 0 5px;
 }
 
+.add_btn {
+    display: flex;
+    align-items: center;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+    padding: 5px 10px;
+    color: var(--color-1);
+    background-color: var(--color-3);
+}
 
 
 @media (max-width:600px) {

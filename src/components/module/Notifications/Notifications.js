@@ -4,9 +4,11 @@ import styles from './Notifications.module.css'
 import NotifItem from '../NotifItem/NotifItem'
 import { FaBell } from "react-icons/fa";
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 export default function Notifications() {
 
     const [notifications, setNotifications] = useState([])
+    const router = useRouter()
 
     const getNotifications = async () => {
 
@@ -27,7 +29,7 @@ export default function Notifications() {
         } catch (e) {
             if (e.response.status === 401) {
                 localStorage.clear()
-                navigate("/login")
+                router.push("/login")
             }
         }
     }
