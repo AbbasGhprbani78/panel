@@ -1,7 +1,8 @@
 "use client"
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BarChart, Bar, ResponsiveContainer, Tooltip } from 'recharts';
 import styles from './Chart.module.css'
+import axios from 'axios';
 
 const data = [
     {
@@ -49,6 +50,35 @@ const data = [
 ];
 
 export default function Chart() {
+
+    const getDataChart = async () => {
+
+        const access = localStorage.getItem("access")
+        const headers = {
+            Authorization: `Bearer ${access}`
+        };
+
+        try {
+            const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/app/orders-per-month/`, {
+                headers,
+            })
+
+            if (response.status === 200) {
+                console.log(response.data)
+            }
+
+        } catch (e) {
+            if (e.response.status === 401) {
+                localStorage.clear()
+                navigate("/login")
+            }
+        }
+    }
+
+
+    useEffect(() => {
+        getDataChart()
+    }, [])
     return (
         <div className={styles.chartcontainer}>
             <p className={styles.titlesole}>فروش در هر ماه</p>

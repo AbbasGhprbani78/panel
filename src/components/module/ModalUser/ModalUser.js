@@ -8,17 +8,24 @@ import Texteara from '../Texteara/Texteara';
 import { Formik } from 'formik'
 import Select from '../Select/Select';
 import { TbBuildingEstate } from "react-icons/tb";
+import axios from 'axios';
 
-export default function ModalUser({ setShowModal, showModal }) {
+export default function ModalUser({ setShowModal, showModal, userInfo, getUserHandler }) {
 
     const handleClose = (resetForm) => {
         setShowModal(false);
         resetForm();
     }
 
+    const initialValues = {
+        full_name: userInfo?.full_name || "",
+        phone_number: userInfo?.phone_number || "",
+        email: userInfo?.email || "",
+        address: userInfo?.address || "",
+        state: userInfo?.state || ""
+    };
 
     return (
-
         <Formik
             validate={(values) => {
                 const errors = {};
@@ -47,17 +54,33 @@ export default function ModalUser({ setShowModal, showModal }) {
                 return errors;
             }}
 
-            initialValues={{
-                full_name: "",
-                phone_number: "",
-                email: "",
-                address: "",
-                state: ""
-            }}
+            initialValues={initialValues}
+
+            enableReinitialize={true}
 
             onSubmit={async (values, { setSubmitting }) => {
-                console.log(values)
-                setSubmitting(false)
+                try {
+                    const access = localStorage.getItem("access")
+                    const headers = {
+                        Authorization: `Bearer ${access}`
+                    };
+                    const response = await axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/user/complete-user-informations/`, values, {
+                        headers,
+                    })
+
+                    if (response.status === 200) {
+                        console.log(response.data)
+                        getUserHandler()
+                        setShowModal(false)
+                    }
+
+                } catch (e) {
+                    if (e.response.status === 401) {
+                        localStorage.clear()
+                        navigate("/login")
+
+                    }
+                }
             }}
         >
             {({ values, handleChange, handleSubmit, setFieldValue, errors, touched, isSubmitting, resetForm }) => (
@@ -131,4 +154,3 @@ export default function ModalUser({ setShowModal, showModal }) {
         </Formik>
     )
 }
-

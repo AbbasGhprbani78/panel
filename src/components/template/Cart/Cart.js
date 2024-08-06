@@ -11,28 +11,27 @@ import Input from '@/components/module/Input/Input'
 import StatusProduct from '@/components/module/StatusProdcut/StatusProduct'
 import CartItemM from '@/components/module/CartItemM/CartItemM'
 
+import ModalDelete from '@/components/module/ModalDelete/ModalDelete'
+import ModalBuy from '@/components/module/ModalBuy/ModalBuy'
+
 export default function Cart() {
 
-    const [showModal, setShowModal] = useState(false)
-    const [isDeleteModal, setIsDeleteodal] = useState(false)
+    const [showModalBuy, setShowModalBuy] = useState(false)
+    const [showDeleteModal, setShowDeleteModal] = useState(false)
     const [isConfirmation, setIsConfirmation] = useState(false)
     const [windowWidth, setWindowWidth] = useState(window.innerWidth)
     const [value, setValue] = useState("")
     const [searchValue, setSearchValue] = useState("")
 
-    const hideModal = () => {
-        setIsDeleteodal(false)
-        setShowModal(false)
-    }
 
     const finalconfirmhandler = () => {
         setIsConfirmation(true)
     }
 
-    const showDeleteModal = () => {
-        setShowModal(true)
-        setIsDeleteodal(true)
-    }
+    // const showDeleteModal = () => {
+    //     setShowModalBuy(true)
+    //     setIsDeleteodal(true)
+    // }
 
 
     useEffect(() => {
@@ -53,57 +52,9 @@ export default function Cart() {
             <div className={styles.wrapperpage}>
                 <SideBar />
                 <div className={styles.pagecontent}>
-                    <div className={`${styles.modalcontainer} ${showModal ? styles.showmodal : ""}`}>
-                        <div className={styles.modalhide} onClick={hideModal}></div>
-                        <div className={styles.modalwrapper}>
 
-                            {isDeleteModal &&
-                                <div className={styles.modaldelete}>
-                                    <div>
-                                        <span>از حذف محصول اطمینان دارید ؟</span>
-                                    </div>
-                                    <div className="d-flex align-items-center justify-content-between mt-4">
-                                        <button className={`${styles.ysebtn} ${styles.aciondelete}`}>بله</button>
-                                        <button className={`${styles.nobtn} ${styles.aciondelete}`} onClick={hideModal}>خیر</button>
-                                    </div>
-                                </div>
-                            }
-
-                            {
-                                !isDeleteModal && showModal &&
-                                <>
-                                    <div className={styles.modalheader}>
-                                        <span className={styles.model}>ADFG8745</span>
-                                        <span className={styles.name}>دستگیره 8400 کروم مشکی مات سوئچی رزت</span>
-                                    </div>
-                                    <div className={styles.modalcontent}>
-                                        <div className={styles.modaldetail}>
-                                            <div className='d-flex align-items-end'>
-                                                <Input
-                                                    name="value"
-                                                    label="مقدار"
-                                                    value={value}
-                                                    onChange={(e) => setValue(e.target.value)}
-                                                    type={"text"}
-                                                />
-                                                <span className={`${styles.unit}`}>کارتن</span>
-                                            </div>
-                                            <div className={styles.detailtext}>
-                                                <span>گنجایش کارتن :</span>
-                                                <span>12 عدد</span>
-                                            </div>
-                                        </div>
-                                        <div className='mt-5 text-center'>
-                                            <button className={styles.btnconfirm} >
-                                                تایید
-                                                <MdOutlineDone style={{ marginRight: "15px" }} />
-                                            </button>
-                                        </div>
-                                    </div>
-                                </>
-                            }
-                        </div>
-                    </div>
+                    <ModalBuy showModalBuy={showModalBuy} setShowModalBuy={setShowModalBuy} value={value} setValue={setValue} />
+                    <ModalDelete showDeleteModal={showDeleteModal} setShowDeleteModal={setShowDeleteModal} />
                     <Header title={"سبد خرید"} />
                     <div className={styles.maincontent}>
                         {
@@ -121,30 +72,30 @@ export default function Cart() {
                                                     <StatusProduct style={"paddingstyle"} />
                                                 </div>
                                             }
-                                        </div>              
+                                        </div>
                                         <div className={`${styles.scrollitem}`}>
-                                                <CartItemM showDeleteModal={showDeleteModal} isConfirmation={isConfirmation} />
-                                                <CartItemM showDeleteModal={showDeleteModal} isConfirmation={isConfirmation} />
-                                                <CartItemM showDeleteModal={showDeleteModal} isConfirmation={isConfirmation} />
-                                                <CartItemM showDeleteModal={showDeleteModal} isConfirmation={isConfirmation} />
-                                                <CartItemM showDeleteModal={showDeleteModal} isConfirmation={isConfirmation} />
-                                            </div>
-                                            <div className={styles.finalbtnwapper}>
-                                                <button className={`${isConfirmation ? styles.printbtn : styles.finalbtn}`} onClick={finalconfirmhandler}>
-                                                    {
-                                                        isConfirmation ?
-                                                            <span>چاپ درخواست</span> :
-                                                            <span>تایید نهایی</span>
-                                                    }
-                                                    {
-                                                        isConfirmation ?
+                                            <CartItemM showDeleteModal={showDeleteModal} isConfirmation={isConfirmation} />
+                                            <CartItemM showDeleteModal={showDeleteModal} isConfirmation={isConfirmation} />
+                                            <CartItemM showDeleteModal={showDeleteModal} isConfirmation={isConfirmation} />
+                                            <CartItemM showDeleteModal={showDeleteModal} isConfirmation={isConfirmation} />
+                                            <CartItemM showDeleteModal={showDeleteModal} isConfirmation={isConfirmation} />
+                                        </div>
+                                        <div className={styles.finalbtnwapper}>
+                                            <button className={`${isConfirmation ? styles.printbtn : styles.finalbtn}`} onClick={finalconfirmhandler}>
+                                                {
+                                                    isConfirmation ?
+                                                        <span>چاپ درخواست</span> :
+                                                        <span>تایید نهایی</span>
+                                                }
+                                                {
+                                                    isConfirmation ?
 
-                                                            < MdOutlinePrint style={{ marginRight: "15px" }} /> :
-                                                            <MdOutlineDone style={{ marginRight: "15px" }} />
-                                                    }
+                                                        < MdOutlinePrint style={{ marginRight: "15px" }} /> :
+                                                        <MdOutlineDone style={{ marginRight: "15px" }} />
+                                                }
 
-                                                </button>
-                                            </div>
+                                            </button>
+                                        </div>
                                     </div>
                                 </> :
                                 <>
@@ -163,34 +114,36 @@ export default function Cart() {
                                         }
                                         <div className={styles.carts}>
                                             <CartItem
-                                                setShowEditModal={setShowModal}
+                                                setShowModalBuy={setShowModalBuy}
                                                 isConfirmation={isConfirmation}
-                                                showDeleteModal={showDeleteModal}
+                                                setShowDeleteModal={setShowDeleteModal}
                                             />
                                             <CartItem
-                                                setShowEditModal={setShowModal}
+                                                setShowModalBuy={setShowModalBuy}
                                                 isConfirmation={isConfirmation}
-                                                showDeleteModal={showDeleteModal}
+                                                setShowDeleteModal={setShowDeleteModal}
                                             />
                                             <CartItem
-                                                setShowEditModal={setShowModal}
+                                                setShowModalBuy={setShowModalBuy}
                                                 isConfirmation={isConfirmation}
-                                                showDeleteModal={showDeleteModal}
+                                                setShowDeleteModal={setShowDeleteModal}
                                             />
                                             <CartItem
-                                                setShowEditModal={setShowModal}
+                                                setShowModalBuy={setShowModalBuy}
                                                 isConfirmation={isConfirmation}
-                                                showDeleteModal={showDeleteModal}
+                                                setShowDeleteModal={setShowDeleteModal}
                                             />
                                             <CartItem
-                                                setShowEditModal={setShowModal}
+                                                setShowModalBuy={setShowModalBuy}
                                                 isConfirmation={isConfirmation}
-                                                showDeleteModal={showDeleteModal}
+                                                setShowDeleteModal={setShowDeleteModal}
+
                                             />
                                             <CartItem
-                                                setShowEditModal={setShowModal}
+                                                setShowModalBuy={setShowModalBuy}
                                                 isConfirmation={isConfirmation}
-                                                showDeleteModal={showDeleteModal}
+                                                setShowDeleteModal={setShowDeleteModal}
+
                                             />
                                         </div>
                                         <div className={styles.finalbtnwapper}>
@@ -218,3 +171,6 @@ export default function Cart() {
         </>
     )
 }
+
+
+// app/get/products

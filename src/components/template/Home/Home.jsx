@@ -1,5 +1,5 @@
-"use client"
-import React, { useState } from 'react'
+
+import React from 'react'
 import styles from '@/styles/Home.module.css'
 import SideBar from '@/components/module/SideBar/SideBar'
 import Header from '@/components/module/Header/Header'
@@ -8,17 +8,14 @@ import Notifications from '@/components/module/Notifications/Notifications'
 import Chart from '@/components/module/Chart/Chart'
 import StatusLastProduct from '@/components/module/StatusLastProduct/StatusLastProduct'
 import { FaPlus } from "react-icons/fa6";
-import ModalUser from '@/components/module/ModalUser/ModalUser'
 import Link from 'next/link'
+import Chat from '../Chat/Chat'
 
 
 export default function Home() {
-
-    const [showModal, setShowModal] = useState(false)
-
     return (
         <>
-            <ModalUser setShowModal={setShowModal} showModal={showModal} />
+           
 
             <div className={styles.wrapperpage}>
                 <SideBar />
@@ -34,7 +31,7 @@ export default function Home() {
                                 <Notifications />
                             </div>
                             <div className={styles.item2}>
-                                <Infouser setShowModal={setShowModal} />
+                                <Infouser />
                             </div>
                             <div className={styles.item3}>
                                 <Chart />
@@ -45,6 +42,7 @@ export default function Home() {
                         </div>
                     </div>
                 </div>
+                <Chat />
             </div>
         </>
 

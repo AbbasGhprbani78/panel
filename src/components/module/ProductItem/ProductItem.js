@@ -3,11 +3,12 @@ import React, { useState } from 'react'
 import styles from "@/components/module/ProductItem/ProductItem.module.css"
 import { BsCart2 } from "react-icons/bs";
 import { FaCheck } from "react-icons/fa6";
-export default function ProductItem({ setIsAdd }) {
+export default function ProductItem({ setIsAdd, setShowModalBuy }) {
   const [addItem, setAddItem] = useState(false)
 
 
   const addToCart = () => {
+    setShowModalBuy(true)
     setIsAdd(true)
     setAddItem(true)
   }
@@ -15,6 +16,7 @@ export default function ProductItem({ setIsAdd }) {
 
   return (
     <>
+
       <div className={styles.ProductItem1}>
         <table class="table text-center " >
           <thead className={styles.thead}>
@@ -31,25 +33,12 @@ export default function ProductItem({ setIsAdd }) {
             <tr className={styles.Tr}>
               <td colspan="2" className={styles.Td}>
                 <div className={styles.Button} onClick={addToCart}>
-                  {
-                    addItem ?
-                      <>
-                        <div className={styles.text}>
-                          <span> افزوده شد</span>
-                        </div>
-                        <div className={styles.icon2}>
-                          <FaCheck />
-                        </div>
-                      </> :
-                      <>
-                        <div className={styles.text}>
-                          <span>افزودن</span>
-                        </div>
-                        <div className={styles.icon1}>
-                          <BsCart2 style={{ fontSize: "1rem" }} />
-                        </div>
-                      </>
-                  }
+                  <div className={styles.text}>
+                    <span>افزودن</span>
+                  </div>
+                  <div className={styles.icon1}>
+                    <BsCart2 style={{ fontSize: "1rem" }} />
+                  </div>
                 </div>
               </td>
               <td scope="col" colspan="2" className={styles.Td}>ADFG8745</td>
@@ -94,30 +83,22 @@ export default function ProductItem({ setIsAdd }) {
         </div>
         <div className={styles.Box3}>
           <div className={styles.Button} onClick={addToCart}>
-            {
-              addItem ?
-                <>
-                  <div className={styles.text}>
-                    <span> افزوده شد</span>
-                  </div>
-                  <div className={styles.iconT}>
-                    <FaCheck />
-                  </div>
-                </> :
-                <>
-                  <div className={styles.text}>
-                    <span> افزودن</span>
-                  </div>
-                  <div className={styles.iconF}>
-                    <BsCart2 />
-                  </div>
-                </>
-            }
+            <div className={styles.text}>
+              <span> افزودن</span>
+            </div>
+            <div className={styles.iconF}>
+              <BsCart2 />
+            </div>
           </div>
-
         </div>
-
       </div >
     </>
   )
 }
+
+{/* <div className={styles.text}>
+                    <span> افزوده شد</span>
+                  </div>
+                  <div className={styles.iconT}>
+                    <FaCheck />
+                  </div> */}

@@ -3,7 +3,7 @@ import styles from './CartItem.module.css'
 import Table from 'react-bootstrap/Table';
 import { IoCloseSharp } from "react-icons/io5";
 import { MdModeEditOutline } from "react-icons/md";
-export default function CartItem({ setShowEditModal, isConfirmation, showDeleteModal }) {
+export default function CartItem({ setShowModalBuy, isConfirmation, setShowDeleteModal }) {
     return (
         <div className={styles.cartItemwrappper}>
             <Table className='text-center'>
@@ -11,7 +11,7 @@ export default function CartItem({ setShowEditModal, isConfirmation, showDeleteM
                     <tr>
                         {
                             !isConfirmation &&
-                            <th>< IoCloseSharp className={styles.deleteicon} onClick={showDeleteModal} /></th>
+                            <th>< IoCloseSharp className={styles.deleteicon} onClick={() => setShowDeleteModal(true)} /></th>
                         }
 
                         <th className={styles.itemhead}>کد کالا</th>
@@ -26,7 +26,7 @@ export default function CartItem({ setShowEditModal, isConfirmation, showDeleteM
                         {
                             !isConfirmation &&
                             <td>
-                                <MdModeEditOutline className={styles.editicon} onClick={() => setShowEditModal(true)} />
+                                <MdModeEditOutline className={styles.editicon} onClick={() => setShowModalBuy(true)} />
                             </td>
                         }
 

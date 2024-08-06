@@ -85,7 +85,6 @@
     z-index: 5;
 }
 
-
 .modalbtn {
     border: none;
     margin-top: 2rem;
@@ -94,6 +93,10 @@
     color: var(--color-1);
     background-color: var(--color-3);
 }
+
+/*  */
+
+
 
 @media (max-width:1025px) {
     .pagecontent {
