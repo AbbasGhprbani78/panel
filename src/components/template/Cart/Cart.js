@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useContext } from 'react'
 import styles from '@/styles/Cart.module.css'
 import SideBar from '@/components/module/SideBar/SideBar'
 import Header from '@/components/module/Header/Header'
@@ -7,12 +7,11 @@ import SearchBox from '@/components/module/SearchBox/SearchBox'
 import CartItem from '@/components/module/CartItem/CartItem'
 import { MdOutlineDone } from "react-icons/md";
 import { MdOutlinePrint } from "react-icons/md";
-import Input from '@/components/module/Input/Input'
 import StatusProduct from '@/components/module/StatusProdcut/StatusProduct'
 import CartItemM from '@/components/module/CartItemM/CartItemM'
-
 import ModalDelete from '@/components/module/ModalDelete/ModalDelete'
 import ModalBuy from '@/components/module/ModalBuy/ModalBuy'
+import { CountContext } from '@/context/CartContext' 
 
 export default function Cart() {
 
@@ -22,17 +21,46 @@ export default function Cart() {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth)
     const [value, setValue] = useState("")
     const [searchValue, setSearchValue] = useState("")
-
+    const [cart, setCart] = useState([])
+    const [inCart, setInCart] = useState(true)
+    const [mainCode, setMainCode] = useState("")
+    const { setCountProduct } = useContext(CountContext)
 
     const finalconfirmhandler = () => {
         setIsConfirmation(true)
     }
 
-    // const showDeleteModal = () => {
-    //     setShowModalBuy(true)
-    //     setIsDeleteodal(true)
-    // }
 
+    const updateLocalStorage = (updatedCart) => {
+        localStorage.setItem("cart", JSON.stringify(updatedCart));
+    };
+
+
+    const updateCountProduct = () => {
+        const updatedCart = cart.map(product =>
+            product.code === mainCode ? { ...product, count: value } : product
+        );
+        setCart(updatedCart);
+        updateLocalStorage(updatedCart);
+        setShowModalBuy(false)
+    }
+
+
+    const handleDelete = () => {
+        const updatedCart = cart.filter(product => product.code !== mainCode);
+        setCart(updatedCart);
+        updateLocalStorage(updatedCart);
+        setShowDeleteModal(false)
+        const countproduct = JSON.parse(localStorage.getItem('cart')).length
+        setCountProduct(countproduct)
+    };
+
+
+
+    useEffect(() => {
+        let localCart = JSON.parse(localStorage.getItem("cart")) || []
+        setCart(localCart)
+    }, [])
 
     useEffect(() => {
         const handleWindowResize = () => {
@@ -52,9 +80,19 @@ export default function Cart() {
             <div className={styles.wrapperpage}>
                 <SideBar />
                 <div className={styles.pagecontent}>
-
-                    <ModalBuy showModalBuy={showModalBuy} setShowModalBuy={setShowModalBuy} value={value} setValue={setValue} />
-                    <ModalDelete showDeleteModal={showDeleteModal} setShowDeleteModal={setShowDeleteModal} />
+                    <ModalBuy
+                        showModalBuy={showModalBuy}
+                        setShowModalBuy={setShowModalBuy}
+                        value={value}
+                        setValue={setValue}
+                        updateCountProduct={updateCountProduct}
+                        inCart={inCart}
+                    />
+                    <ModalDelete
+                        showDeleteModal={showDeleteModal}
+                        setShowDeleteModal={setShowDeleteModal}
+                        handleDelete={handleDelete}
+                    />
                     <Header title={"سبد خرید"} />
                     <div className={styles.maincontent}>
                         {
@@ -74,11 +112,21 @@ export default function Cart() {
                                             }
                                         </div>
                                         <div className={`${styles.scrollitem}`}>
-                                            <CartItemM showDeleteModal={showDeleteModal} isConfirmation={isConfirmation} setShowModalBuy={setShowModalBuy} />
-                                            <CartItemM showDeleteModal={showDeleteModal} isConfirmation={isConfirmation} />
-                                            <CartItemM showDeleteModal={showDeleteModal} isConfirmation={isConfirmation} />
-                                            <CartItemM showDeleteModal={showDeleteModal} isConfirmation={isConfirmation} />
-                                            <CartItemM showDeleteModal={showDeleteModal} isConfirmation={isConfirmation} />
+                                            {
+                                                cart.length > 0 &&
+                                                cart.map(item => (
+                                                    <CartItemM
+                                                        key={item.code}
+                                                        setShowDeleteModal={setShowDeleteModal}
+                                                        isConfirmation={isConfirmation}
+                                                        setShowModalBuy={setShowModalBuy}
+                                                        prodcut={item}
+                                                        setValue={setValue}
+                                                        setMainCode={setMainCode}
+                                                    />
+                                                ))
+                                            }
+
                                         </div>
                                         <div className={styles.finalbtnwapper}>
                                             <button className={`${isConfirmation ? styles.printbtn : styles.finalbtn}`} onClick={finalconfirmhandler}>
@@ -113,38 +161,20 @@ export default function Cart() {
                                             </div>
                                         }
                                         <div className={styles.carts}>
-                                            <CartItem
-                                                setShowModalBuy={setShowModalBuy}
-                                                isConfirmation={isConfirmation}
-                                                setShowDeleteModal={setShowDeleteModal}
-                                            />
-                                            <CartItem
-                                                setShowModalBuy={setShowModalBuy}
-                                                isConfirmation={isConfirmation}
-                                                setShowDeleteModal={setShowDeleteModal}
-                                            />
-                                            <CartItem
-                                                setShowModalBuy={setShowModalBuy}
-                                                isConfirmation={isConfirmation}
-                                                setShowDeleteModal={setShowDeleteModal}
-                                            />
-                                            <CartItem
-                                                setShowModalBuy={setShowModalBuy}
-                                                isConfirmation={isConfirmation}
-                                                setShowDeleteModal={setShowDeleteModal}
-                                            />
-                                            <CartItem
-                                                setShowModalBuy={setShowModalBuy}
-                                                isConfirmation={isConfirmation}
-                                                setShowDeleteModal={setShowDeleteModal}
-
-                                            />
-                                            <CartItem
-                                                setShowModalBuy={setShowModalBuy}
-                                                isConfirmation={isConfirmation}
-                                                setShowDeleteModal={setShowDeleteModal}
-
-                                            />
+                                            {
+                                                cart.length > 0 &&
+                                                cart.map(item => (
+                                                    <CartItem
+                                                        key={item.code}
+                                                        setShowModalBuy={setShowModalBuy}
+                                                        isConfirmation={isConfirmation}
+                                                        setShowDeleteModal={setShowDeleteModal}
+                                                        prodcut={item}
+                                                        setValue={setValue}
+                                                        setMainCode={setMainCode}
+                                                    />
+                                                ))
+                                            }
                                         </div>
                                         <div className={styles.finalbtnwapper}>
                                             <button className={`${isConfirmation ? styles.printbtn : styles.finalbtn}`} onClick={finalconfirmhandler}>

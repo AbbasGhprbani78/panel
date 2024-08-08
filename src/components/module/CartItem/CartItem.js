@@ -3,7 +3,12 @@ import styles from './CartItem.module.css'
 import Table from 'react-bootstrap/Table';
 import { IoCloseSharp } from "react-icons/io5";
 import { MdModeEditOutline } from "react-icons/md";
-export default function CartItem({ setShowModalBuy, isConfirmation, setShowDeleteModal }) {
+export default function CartItem({ setShowModalBuy,
+    isConfirmation,
+    setShowDeleteModal,
+    prodcut,
+    setValue,
+    setMainCode }) {
     return (
         <div className={styles.cartItemwrappper}>
             <Table className='text-center'>
@@ -11,14 +16,16 @@ export default function CartItem({ setShowModalBuy, isConfirmation, setShowDelet
                     <tr>
                         {
                             !isConfirmation &&
-                            <th>< IoCloseSharp className={styles.deleteicon} onClick={() => setShowDeleteModal(true)} /></th>
+                            <th>< IoCloseSharp className={styles.deleteicon} onClick={() => {
+                                setShowDeleteModal(true)
+                                setMainCode(prodcut.code)
+                            }} /></th>
                         }
 
                         <th className={styles.itemhead}>کد کالا</th>
                         <th className={styles.itemhead}>شرح محصول</th>
-                        <th className={styles.itemhead}>کارتن</th>
-                        <th className={styles.itemhead}>گنجایش کارتن</th>
                         <th className={styles.itemhead}>مقدار</th>
+                        <th sclassName={styles.itemhead}></th>
                     </tr>
                 </thead>
                 <tbody className={styles.bodytable}>
@@ -26,24 +33,26 @@ export default function CartItem({ setShowModalBuy, isConfirmation, setShowDelet
                         {
                             !isConfirmation &&
                             <td>
-                                <MdModeEditOutline className={styles.editicon} onClick={() => setShowModalBuy(true)} />
+                                <MdModeEditOutline className={styles.editicon} onClick={() => {
+                                    setValue(prodcut.count)
+                                    setMainCode(prodcut.code)
+                                    setShowModalBuy(true)
+                                }
+                                } />
                             </td>
                         }
 
                         <td className={styles.bodyitem}>
-                            ADFG8745
+                            {prodcut.code}
                         </td>
                         <td className={styles.bodyitem}>
-                            دستگیره 8400 کروم مشکی مات سوئچی رزت
+                            {prodcut.description}
                         </td>
                         <td className={styles.bodyitem}>
-                            1/0
+                            {prodcut.count}
                         </td>
-                        <td className={styles.bodyitem}>
-                            12/0
-                        </td>
-                        <td className={styles.bodyitem}>
-                            12/0
+                        <td className={styles.bodyitemimage}>
+                            <img src={prodcut.img} className={styles.image} />
                         </td>
                     </tr>
                 </tbody>

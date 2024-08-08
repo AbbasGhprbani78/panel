@@ -6,6 +6,7 @@
     border-bottom: 1px solid var(--color-1);
     padding-bottom: 5px;
     padding-top: 10px;
+
 }
 
 .headertext {
@@ -23,6 +24,7 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    position: relative;
 }
 
 .iconheader {
@@ -62,4 +64,20 @@
     top: 28.5px;
     left: 0;
     position: absolute;
+}
+
+.countproduct {
+    position: absolute;
+    right: -10px;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    color: #fff;
+    overflow: hidden;
+    background-color: var(--color-1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .9rem;
 }

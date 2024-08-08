@@ -21,6 +21,11 @@
     padding-top: 25px !important;
 }
 
+.bodyitemimage>img {
+    width: 70px;
+    padding-top: 0 !important;
+}
+
 @media (max-width:768px) {
 
     .itemhead,

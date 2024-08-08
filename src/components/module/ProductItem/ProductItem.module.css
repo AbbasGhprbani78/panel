@@ -2,6 +2,19 @@
     margin-left: 1rem;
 }
 
+.imagecart {
+    width: 100%;
+    height: 200px;
+}
+
+.imagecart>img {
+    width: 100%;
+    height: 100%;
+}
+
+.product_des {
+    margin-top: 1.3rem;
+}
 
 @media (min-width:650px) {
     .ProductItem2 {

@@ -1,5 +1,6 @@
 import "./globals.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { CountProvaider } from "../context/CartContext";
 export const metadata = {
   title: "panel",
 };
@@ -7,7 +8,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="fa" dir="rtl">
-      <body>{children}</body>
+      <body>
+        <CountProvaider>
+          {children}
+        </CountProvaider>
+      </body>
     </html>
   );
 }

@@ -1,18 +1,9 @@
-'use client'
-import React, { useState } from 'react'
+
+import React from 'react'
 import styles from "@/components/module/ProductItem/ProductItem.module.css"
 import { BsCart2 } from "react-icons/bs";
-import { FaCheck } from "react-icons/fa6";
-export default function ProductItem({ setIsAdd, setShowModalBuy }) {
-  const [addItem, setAddItem] = useState(false)
 
-
-  const addToCart = () => {
-    setShowModalBuy(true)
-    setIsAdd(true)
-    setAddItem(true)
-  }
-
+export default function ProductItem({ setShowModalBuy, product, setMainProduct }) {
 
   return (
     <>
@@ -24,7 +15,6 @@ export default function ProductItem({ setIsAdd, setShowModalBuy }) {
               <th scope="col" colspan="2"></th>
               <th scope="col" colspan="2" className={styles.Th}>کد کالا</th>
               <th scope="col" colspan="2" className={styles.Th}>شرح محصول</th>
-              <th scope="col" colspan="2" className={styles.Th}>مقدار</th>
               <th scope="col" colspan="2"></th>
 
             </tr>
@@ -32,7 +22,10 @@ export default function ProductItem({ setIsAdd, setShowModalBuy }) {
           <tbody className={styles.Tbody}>
             <tr className={styles.Tr}>
               <td colspan="2" className={styles.Td}>
-                <div className={styles.Button} onClick={addToCart}>
+                <div className={styles.Button} onClick={() => {
+                  setShowModalBuy(true)
+                  setMainProduct(product)
+                }}>
                   <div className={styles.text}>
                     <span>افزودن</span>
                   </div>
@@ -41,48 +34,30 @@ export default function ProductItem({ setIsAdd, setShowModalBuy }) {
                   </div>
                 </div>
               </td>
-              <td scope="col" colspan="2" className={styles.Td}>ADFG8745</td>
-              <td colspan="2" className={styles.Td}>دستگیره 8400 کروم مشکی مات سوئچی رزت</td>
-              <td colspan="2" className={styles.Td}>12/0</td>
+              <td scope="col" colspan="2" className={styles.Td}>{product.code}</td>
+              <td colspan="2" className={styles.Td}>{product.description}</td>
               <td colspan="2" className={styles.imageBox}>
-                <img src='images/frame 36.png' className={styles.image} />
+                <img src={product.img} className={styles.image} />
               </td>
-
             </tr>
           </tbody>
         </table>
       </div>
-      <div className={styles.ProductItem2}>
-        <div className={styles.Box1}>
-          <div className={styles.TitleBox}>
-            <span className={styles.TitleDetailes}>شرح محصول</span>
-            <span className={styles.detailes}>دستگیره 8400 کروم مشکی مات سوئچی رزت</span>
-          </div>
-          <div className={styles.imageBox}>
-            <img src='images/frame 36.png' />
-          </div>
-        </div>
-        <div className={styles.Box2}>
-          <div className={styles.LineBox}>
-            <span>کد کالا</span>
-            <span>ADFG8745</span>
 
-          </div>
-          <div className={styles.LineBox}>
-            <span>کارتن</span>
-            <span className={styles.number}>124</span>
-          </div>
-          <div className={styles.LineBox}>
-            <span>گنجایش کارتن</span>
-            <span className={styles.number}>125</span>
-          </div>
-          <div className={styles.LineBox}>
-            <span>مقدار</span>
-            <span className={styles.number}>2666</span>
-          </div>
+      <div className={styles.ProductItem2}>
+        <div className={styles.imagecart}>
+          <img src={product.img} alt="product" />
         </div>
+        <div className='d-flex align-items-center justify-content-between mt-3'>
+          <span>کد کالا</span>
+          <span>{product.code}</span>
+        </div>
+        <p className={styles.product_des}>{product.description}</p>
         <div className={styles.Box3}>
-          <div className={styles.Button} onClick={addToCart}>
+          <div className={styles.Button} onClick={() => {
+            setShowModalBuy(true)
+            setMainProduct(product)
+          }}>
             <div className={styles.text}>
               <span> افزودن</span>
             </div>

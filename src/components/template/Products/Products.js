@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import styles from "@/styles/Products.module.css"
 import SideBar from '@/components/module/SideBar/SideBar'
 import Header from '@/components/module/Header/Header'
@@ -9,25 +9,23 @@ import ProductItem from '@/components/module/ProductItem/ProductItem'
 import { useRouter } from 'next/navigation'
 import axios from 'axios'
 import ModalBuy from '@/components/module/ModalBuy/ModalBuy'
-
+import data from '../../../../Data'
+import { CountContext } from '@/context/CartContext'
 
 export default function Products() {
     const router = useRouter()
     const [search, setSearch] = useState("")
-    const [isAdd, setIsAdd] = useState(false)
     const [showmodal, setShowmodal] = useState(false)
-    const [value, setValue] = useState("")
+    const [value, setValue] = useState(1)
     const [showModalBuy, setShowModalBuy] = useState(false)
+    const [mainProduct, setMainProduct] = useState("")
     const [products, setProducts] = useState([])
     const [filterProduct, setFilterProduct] = useState([])
+    const { setCountProduct } = useContext(CountContext)
 
 
     const gotocart = () => {
-        if (isAdd) {
-            router.replace("/cart")
-        } else {
-            setShowmodal(true)
-        }
+        router.replace("/cart")
     }
 
     const getAllProducts = async () => {
@@ -53,6 +51,51 @@ export default function Products() {
         }
     }
 
+    const addToCartHandler = () => {
+        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        if (cart.length) {
+            const isInCart = cart.some(item => item.code === mainProduct.code);
+
+            if (isInCart) {
+                cart.forEach((item) => {
+                    if (item.code === mainProduct.code) {
+                        item.count = Number(item.count) + Number(value);
+                    }
+                });
+                localStorage.setItem("cart", JSON.stringify(cart));
+                alert("Product added to cart successfully");
+            } else {
+                const cartItem = {
+                    code: mainProduct.code,
+                    count: Number(value),
+                    description: mainProduct.description,
+                    img: mainProduct.img
+                };
+
+                cart.push(cartItem);
+                localStorage.setItem("cart", JSON.stringify(cart));
+                alert("Product added to cart successfully");
+            }
+        }
+        else {
+            const cartItem = {
+                code: mainProduct.code,
+                count: Number(value),
+                description: mainProduct.description,
+                img: mainProduct.img
+            };
+
+            cart.push(cartItem);
+            localStorage.setItem("cart", JSON.stringify(cart));
+            alert("Product added to cart successfully");
+        }
+
+        const countproduct = JSON.parse(localStorage.getItem('cart')).length
+        setCountProduct(countproduct)
+        setShowModalBuy(false)
+    }
+
 
     useEffect(() => {
         getAllProducts()
@@ -65,7 +108,14 @@ export default function Products() {
             <div className={styles.wrapperpage}>
                 <SideBar />
                 <div className={styles.pagecontent}>
-                    <ModalBuy showModalBuy={showModalBuy} setShowModalBuy={setShowModalBuy} value={value} setValue={setValue} />
+                    <ModalBuy
+                        showModalBuy={showModalBuy}
+                        setShowModalBuy={setShowModalBuy}
+                        value={value}
+                        setValue={setValue}
+                        addToCartHandler={addToCartHandler}
+                    />
+
                     <div className={`${styles.modalcontainer} ${showmodal ? styles.show : ""}`}>
                         <div className={styles.modalhide} onClick={() => setShowmodal(false)}></div>
                         <div className={styles.modalcontent}>
@@ -83,10 +133,17 @@ export default function Products() {
                         </div>
                         <div className={styles.ProductsPage}>
                             <div className={styles.ProductsBox}>
-                                <ProductItem setIsAdd={setIsAdd} setShowModalBuy={setShowModalBuy} />
-                                <ProductItem setIsAdd={setIsAdd} setShowModalBuy={setShowModalBuy} />
-                                <ProductItem setIsAdd={setIsAdd} setShowModalBuy={setShowModalBuy} />
-                                <ProductItem setIsAdd={setIsAdd} setShowModalBuy={setShowModalBuy} />
+                                {
+                                    data.map(item => (
+                                        <ProductItem
+                                            product={item}
+                                            key={item.code}
+                                            setShowModalBuy={setShowModalBuy}
+                                            setMainProduct={setMainProduct}
+                                        />
+                                    ))
+                                }
+
                             </div>
                             <div>
                                 <button className={styles.ButtonBox} onClick={gotocart}>

@@ -2,7 +2,13 @@ import React from 'react'
 import styles from './CartItemM.module.css'
 import { IoCloseSharp } from "react-icons/io5";
 import { MdModeEditOutline } from "react-icons/md";
-export default function CartItemM({ showDeleteModal, isConfirmation, setShowModalBuy }) {
+export default function CartItemM({ setShowDeleteModal,
+    isConfirmation,
+    setShowModalBuy,
+    prodcut,
+    setValue,
+    setMainCode
+}) {
     return (
 
         <div className={styles.CartItemmwrapper}>
@@ -11,34 +17,34 @@ export default function CartItemM({ showDeleteModal, isConfirmation, setShowModa
                     <p className={styles.carttitle}>شرح محصول</p>
                     {
                         !isConfirmation &&
-                        <IoCloseSharp className={styles.delete} onClick={showDeleteModal} />
+                        <IoCloseSharp className={styles.delete} onClick={() => {
+                            setShowDeleteModal(true)
+                            setMainCode(prodcut.code)
+                        }} />
                     }
                 </div>
-                <span className={styles.carttext}>دستگیره 8400 کروم مشکی مات سوئچی رزت</span>
+                <span className={styles.carttext}>{prodcut.description}</span>
             </div>
             <div className={styles.cartinfowrapper}>
                 <div className={styles.cartinfoitem}>
                     <span className={styles.infoitem}>کد کالا</span>
-                    <span>ADFG8745</span>
-                </div>
-                <div className={styles.cartinfoitem}>
-                    <span className={styles.infoitem}>کارتن</span>
-                    <span>12</span>
-                </div>
-                <div className={styles.cartinfoitem}>
-                    <span className={styles.infoitem}>گنجایش کارتن</span>
-                    <span>12</span>
+                    <span>{prodcut.code}</span>
                 </div>
                 <div className={styles.cartinfoitem}>
                     <span className={styles.infoitem}>مقدار</span>
                     <div className={""}>
-                        <div >1</div>
+                        <div>{prodcut.count}</div>
                     </div>
                 </div>
             </div>
 
             <div className='text-center d-flex justify-content-center mt-3'>
-                <button className={styles.add_btn} onClick={() => setShowModalBuy(true)}>
+                <button className={styles.add_btn} onClick={() => {
+                    setValue(prodcut.count)
+                    setMainCode(prodcut.code)
+                    setShowModalBuy(true)
+                }
+                }>
                     <MdModeEditOutline className='mx-2' />
                     ویرایش
                 </button>
