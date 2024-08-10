@@ -62,3 +62,33 @@
     padding-bottom: 1.5rem;
     cursor: pointer;
 }
+
+.chatbody_admin {
+    position: relative;
+    height: 100%;
+}
+
+.action {
+    position: absolute;
+    bottom: 50px;
+    width: 100%;
+}
+
+.inputwrapper {
+    width: 95%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    border: 1px solid lightgray;
+    border-radius: 20px;
+    padding: 10px 15px;
+}
+
+.inputchat {
+    width: 100%;
+}
+
+.iconsend {
+    transform: rotate(180deg);
+}

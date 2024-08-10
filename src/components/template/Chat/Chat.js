@@ -1,6 +1,7 @@
 "use client"
 import React, { useState } from 'react'
 import styles from '@/styles/Chat.module.css'
+import { IoSend } from "react-icons/io5";
 
 export default function Chat() {
 
@@ -64,7 +65,16 @@ export default function Chat() {
 
                                 </div> :
                                 <div className={styles.chatbody_admin}>
+                                    {/* <div className={styles.chat_message_container}>
 
+                                    </div>
+                                    */}
+                                    <div className={styles.action}>
+                                        <div className={styles.inputwrapper}>
+                                            <input type="text" className={styles.inputchat} />
+                                            <IoSend  className={styles.iconsend}/>
+                                        </div>
+                                    </div>
                                 </div>
                     }
                 </div>

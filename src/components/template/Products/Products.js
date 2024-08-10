@@ -9,7 +9,6 @@ import ProductItem from '@/components/module/ProductItem/ProductItem'
 import { useRouter } from 'next/navigation'
 import axios from 'axios'
 import ModalBuy from '@/components/module/ModalBuy/ModalBuy'
-import data from '../../../../Data'
 import { CountContext } from '@/context/CartContext'
 
 export default function Products() {
@@ -19,14 +18,15 @@ export default function Products() {
     const [value, setValue] = useState(1)
     const [showModalBuy, setShowModalBuy] = useState(false)
     const [mainProduct, setMainProduct] = useState("")
-    const [products, setProducts] = useState([])
+    const [products, setProducts] = useState("")
     const [filterProduct, setFilterProduct] = useState([])
     const { setCountProduct } = useContext(CountContext)
-
+    console.log(mainProduct.id)
 
     const gotocart = () => {
         router.replace("/cart")
     }
+
 
     const getAllProducts = async () => {
 
@@ -40,7 +40,7 @@ export default function Products() {
             })
 
             if (response.status === 200) {
-                console.log(response.data)
+                setProducts(response.data)
             }
 
         } catch (e) {
@@ -52,25 +52,28 @@ export default function Products() {
     }
 
     const addToCartHandler = () => {
+
         const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        console.log(cart)
 
         if (cart.length) {
-            const isInCart = cart.some(item => item.code === mainProduct.code);
+            const isInCart = cart.some(item => item.id == mainProduct.id);
 
             if (isInCart) {
                 cart.forEach((item) => {
-                    if (item.code === mainProduct.code) {
+                    if (item.id == mainProduct.id) {
                         item.count = Number(item.count) + Number(value);
                     }
                 });
                 localStorage.setItem("cart", JSON.stringify(cart));
                 alert("Product added to cart successfully");
             } else {
+                
                 const cartItem = {
-                    code: mainProduct.code,
+                    id: mainProduct.id,
                     count: Number(value),
-                    description: mainProduct.description,
-                    img: mainProduct.img
+                    description: mainProduct.descriptions,
+                    img: mainProduct.image
                 };
 
                 cart.push(cartItem);
@@ -80,10 +83,10 @@ export default function Products() {
         }
         else {
             const cartItem = {
-                code: mainProduct.code,
+                id: mainProduct.id,
                 count: Number(value),
-                description: mainProduct.description,
-                img: mainProduct.img
+                description: mainProduct.descriptions,
+                img: mainProduct.image
             };
 
             cart.push(cartItem);
@@ -133,14 +136,18 @@ export default function Products() {
                         </div>
                         <div className={styles.ProductsPage}>
                             <div className={styles.ProductsBox}>
+
                                 {
-                                    data.map(item => (
+                                    products.length > 0 &&
+                                    products.map(product => (
                                         <ProductItem
-                                            product={item}
-                                            key={item.code}
+                                            product={product}
+                                            key={product.id}
                                             setShowModalBuy={setShowModalBuy}
                                             setMainProduct={setMainProduct}
+
                                         />
+
                                     ))
                                 }
 

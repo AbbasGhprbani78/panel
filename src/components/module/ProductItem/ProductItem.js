@@ -34,10 +34,10 @@ export default function ProductItem({ setShowModalBuy, product, setMainProduct }
                   </div>
                 </div>
               </td>
-              <td scope="col" colspan="2" className={styles.Td}>{product.code}</td>
-              <td colspan="2" className={styles.Td}>{product.description}</td>
+              <td scope="col" colspan="2" className={styles.Td}>{product.item_code}</td>
+              <td colspan="2" className={styles.Td}>{product.descriptions}</td>
               <td colspan="2" className={styles.imageBox}>
-                <img src={product.img} className={styles.image} />
+                <img src={`${process.env.NEXT_PUBLIC_BASE_URL}${product.image}`} className={styles.image} />
               </td>
             </tr>
           </tbody>
@@ -46,13 +46,13 @@ export default function ProductItem({ setShowModalBuy, product, setMainProduct }
 
       <div className={styles.ProductItem2}>
         <div className={styles.imagecart}>
-          <img src={product.img} alt="product" />
+          <img src={`${process.env.NEXT_PUBLIC_BASE_URL}${product.image}`} alt="product" />
         </div>
         <div className='d-flex align-items-center justify-content-between mt-3'>
           <span>کد کالا</span>
-          <span>{product.code}</span>
+          <span>{product.item_code}</span>
         </div>
-        <p className={styles.product_des}>{product.description}</p>
+        <p className={styles.product_des}>{product.descriptions}</p>
         <div className={styles.Box3}>
           <div className={styles.Button} onClick={() => {
             setShowModalBuy(true)
