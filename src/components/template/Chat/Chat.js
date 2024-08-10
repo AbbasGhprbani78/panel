@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import styles from '@/styles/Chat.module.css'
 import { IoSend } from "react-icons/io5";
+import Message from '@/components/module/Massage/Massage'
 
 export default function Chat() {
 
@@ -38,7 +39,7 @@ export default function Chat() {
                         }
                         {
                             step !== 1 &&
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class={`bi bi-arrow-left `} viewBox="0 0 16 16" onClick={() => setStep(1)}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class={`bi bi-arrow-left `} viewBox="0 0 16 16" onClick={() => setStep(1)} style={{ cursor: "pointer" }}>
                                 <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
                             </svg>
                         }
@@ -62,17 +63,36 @@ export default function Chat() {
                             </div> :
                             step === 2 ?
                                 <div className={styles.chatbody_ai}>
-
+                                    <div className={styles.chatbody_ai}>
+                                        <div className={styles.chat_message_container}>
+                                            <Message sender={true} />
+                                            <Message sender={false} />
+                                            <Message sender={true} />
+                                            <Message sender={false} />
+                                            <Message sender={true} />
+                                            <Message sender={false} />
+                                        </div>
+                                        <div className={styles.action}>
+                                            <div className={styles.inputwrapper}>
+                                                <input type="text" className={styles.inputchat} />
+                                                <IoSend className={styles.iconsend} />
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div> :
                                 <div className={styles.chatbody_admin}>
-                                    {/* <div className={styles.chat_message_container}>
-
+                                    <div className={styles.chat_message_container}>
+                                        <Message sender={true} />
+                                        <Message sender={false} />
+                                        <Message sender={true} />
+                                        <Message sender={false} />
+                                        <Message sender={true} />
+                                        <Message sender={false} />
                                     </div>
-                                    */}
                                     <div className={styles.action}>
                                         <div className={styles.inputwrapper}>
                                             <input type="text" className={styles.inputchat} />
-                                            <IoSend  className={styles.iconsend}/>
+                                            <IoSend className={styles.iconsend} />
                                         </div>
                                     </div>
                                 </div>

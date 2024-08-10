@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation'
 import axios from 'axios'
 import ModalBuy from '@/components/module/ModalBuy/ModalBuy'
 import { CountContext } from '@/context/CartContext'
+import swal from 'sweetalert'
 
 export default function Products() {
     const router = useRouter()
@@ -21,7 +22,6 @@ export default function Products() {
     const [products, setProducts] = useState("")
     const [filterProduct, setFilterProduct] = useState([])
     const { setCountProduct } = useContext(CountContext)
-    console.log(mainProduct.id)
 
     const gotocart = () => {
         router.replace("/cart")
@@ -54,7 +54,6 @@ export default function Products() {
     const addToCartHandler = () => {
 
         const cart = JSON.parse(localStorage.getItem("cart")) || [];
-        console.log(cart)
 
         if (cart.length) {
             const isInCart = cart.some(item => item.id == mainProduct.id);
@@ -66,11 +65,16 @@ export default function Products() {
                     }
                 });
                 localStorage.setItem("cart", JSON.stringify(cart));
-                alert("Product added to cart successfully");
+                swal({
+                    title: "به سبد خرید اضافه شد",
+                    icon: "success",
+                    button: "باشه"
+                })
             } else {
-                
+
                 const cartItem = {
                     id: mainProduct.id,
+                    code: mainProduct.item_code,
                     count: Number(value),
                     description: mainProduct.descriptions,
                     img: mainProduct.image
@@ -78,12 +82,17 @@ export default function Products() {
 
                 cart.push(cartItem);
                 localStorage.setItem("cart", JSON.stringify(cart));
-                alert("Product added to cart successfully");
+                swal({
+                    title: "به سبد خرید اضافه شد",
+                    icon: "success",
+                    buttons: "باشه"
+                })
             }
         }
         else {
             const cartItem = {
                 id: mainProduct.id,
+                code: mainProduct.item_code,
                 count: Number(value),
                 description: mainProduct.descriptions,
                 img: mainProduct.image
@@ -91,7 +100,11 @@ export default function Products() {
 
             cart.push(cartItem);
             localStorage.setItem("cart", JSON.stringify(cart));
-            alert("Product added to cart successfully");
+            swal({
+                title: "به سبد خرید اضافه شد",
+                icon: "success",
+                buttons: "باشه"
+            })
         }
 
         const countproduct = JSON.parse(localStorage.getItem('cart')).length

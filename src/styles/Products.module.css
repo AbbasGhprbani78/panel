@@ -96,7 +96,9 @@
 
 /*  */
 
-
+.swal-footer {
+    text-align: center !important;
+}
 
 @media (max-width:1025px) {
     .pagecontent {

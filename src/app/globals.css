@@ -457,3 +457,7 @@ thead {
     background: var(--color-3);
     border-radius: 6px;
 }
+
+.swal-footer {
+    text-align: center;
+}

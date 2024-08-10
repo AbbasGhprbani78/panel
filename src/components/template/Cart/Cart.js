@@ -40,7 +40,7 @@ export default function Cart() {
 
     const updateCountProduct = () => {
         const updatedCart = cart.map(product =>
-            product.code === mainCode ? { ...product, count: value } : product
+            product.id === mainCode ? { ...product, count: value } : product
         );
         setCart(updatedCart);
         updateLocalStorage(updatedCart);
@@ -49,7 +49,7 @@ export default function Cart() {
 
 
     const handleDelete = () => {
-        const updatedCart = cart.filter(product => product.code !== mainCode);
+        const updatedCart = cart.filter(product => product.id !== mainCode);
         setCart(updatedCart);
         updateLocalStorage(updatedCart);
         setShowDeleteModal(false)
@@ -121,7 +121,7 @@ export default function Cart() {
                                                             cart.length > 0 &&
                                                             cart.map(item => (
                                                                 <CartItemM
-                                                                    key={item.code}
+                                                                    key={item.id}
                                                                     setShowDeleteModal={setShowDeleteModal}
                                                                     isConfirmation={isConfirmation}
                                                                     setShowModalBuy={setShowModalBuy}
@@ -188,7 +188,7 @@ export default function Cart() {
                                                             cart.length > 0 &&
                                                             cart.map(item => (
                                                                 <CartItem
-                                                                    key={item.code}
+                                                                    key={item.id}
                                                                     setShowModalBuy={setShowModalBuy}
                                                                     isConfirmation={isConfirmation}
                                                                     setShowDeleteModal={setShowDeleteModal}

@@ -9,6 +9,8 @@ export default function CartItem({ setShowModalBuy,
     prodcut,
     setValue,
     setMainCode }) {
+
+    console.log(prodcut)
     return (
         <div className={styles.cartItemwrappper}>
             <Table className='text-center'>
@@ -18,7 +20,7 @@ export default function CartItem({ setShowModalBuy,
                             !isConfirmation &&
                             <th>< IoCloseSharp className={styles.deleteicon} onClick={() => {
                                 setShowDeleteModal(true)
-                                setMainCode(prodcut.code)
+                                setMainCode(prodcut.id)
                             }} /></th>
                         }
 
@@ -35,7 +37,7 @@ export default function CartItem({ setShowModalBuy,
                             <td>
                                 <MdModeEditOutline className={styles.editicon} onClick={() => {
                                     setValue(prodcut.count)
-                                    setMainCode(prodcut.code)
+                                    setMainCode(prodcut.id)
                                     setShowModalBuy(true)
                                 }
                                 } />
@@ -52,7 +54,7 @@ export default function CartItem({ setShowModalBuy,
                             {prodcut.count}
                         </td>
                         <td className={styles.bodyitemimage}>
-                            <img src={prodcut.img} className={styles.image} />
+                            <img src={`${process.env.NEXT_PUBLIC_BASE_URL}${prodcut.img}`} className={styles.image} />
                         </td>
                     </tr>
                 </tbody>

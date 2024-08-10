@@ -12,34 +12,16 @@ export default function CartItemM({ setShowDeleteModal,
     return (
 
         <div className={styles.CartItemmwrapper}>
-            {/* <div className={styles.headercart}>
-                <div className='d-flex justify-content-between align-items-center mb-2'>
-                   
-                </div>
-                <span className={styles.carttext}>{prodcut.description}</span>
-            </div>
-            <div className={styles.cartinfowrapper}>
-                <div className={styles.cartinfoitem}>
-                    <span className={styles.infoitem}>کد کالا</span>
-                    <span>{prodcut.code}</span>
-                </div>
-                <div className={styles.cartinfoitem}>
-                    <span className={styles.infoitem}>مقدار</span>
-                    <div className={""}>
-                        <div>{prodcut.count}</div>
-                    </div>
-                </div>
-            </div> */}
             {
                 !isConfirmation &&
                 <IoCloseSharp className={styles.delete} onClick={() => {
                     setShowDeleteModal(true)
-                    setMainCode(prodcut.code)
+                    setMainCode(prodcut.id)
                 }} />
             }
 
             <div className={styles.imagecart}>
-                <img src={prodcut.img} alt="" className={""} />
+                <img src={`${process.env.NEXT_PUBLIC_BASE_URL}${prodcut.img}`} alt="" className={""} />
             </div>
             <div className={`${styles.cart_item_content} mt-3`}>
                 <p className={`${styles.carttext} mb-4`}>{prodcut.description}</p>
@@ -56,7 +38,7 @@ export default function CartItemM({ setShowDeleteModal,
             <div className='text-center d-flex justify-content-center mt-3'>
                 <button className={styles.add_btn} onClick={() => {
                     setValue(prodcut.count)
-                    setMainCode(prodcut.code)
+                    setMainCode(prodcut.id)
                     setShowModalBuy(true)
                 }
                 }>
