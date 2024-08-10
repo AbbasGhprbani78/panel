@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect, useState,useContext } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import styles from '@/styles/Cart.module.css'
 import SideBar from '@/components/module/SideBar/SideBar'
 import Header from '@/components/module/Header/Header'
@@ -11,7 +11,9 @@ import StatusProduct from '@/components/module/StatusProdcut/StatusProduct'
 import CartItemM from '@/components/module/CartItemM/CartItemM'
 import ModalDelete from '@/components/module/ModalDelete/ModalDelete'
 import ModalBuy from '@/components/module/ModalBuy/ModalBuy'
-import { CountContext } from '@/context/CartContext' 
+import { CountContext } from '@/context/CartContext'
+import Link from 'next/link'
+import { FaPlus } from "react-icons/fa6";
 
 export default function Cart() {
 
@@ -99,100 +101,137 @@ export default function Cart() {
                             windowWidth < 600 ?
                                 <>
                                     <div className={styles.contnetcratwarpperm}>
-                                        <div>
-                                            <SearchBox
-                                                value={searchValue}
-                                                onChange={(e) => setSearchValue(e.target.value)}
-                                            />
-                                            {
-                                                isConfirmation &&
-                                                <div className={`${styles.status}`}>
-                                                    <StatusProduct style={"paddingstyle"} />
-                                                </div>
-                                            }
-                                        </div>
-                                        <div className={`${styles.scrollitem}`}>
-                                            {
-                                                cart.length > 0 &&
-                                                cart.map(item => (
-                                                    <CartItemM
-                                                        key={item.code}
-                                                        setShowDeleteModal={setShowDeleteModal}
-                                                        isConfirmation={isConfirmation}
-                                                        setShowModalBuy={setShowModalBuy}
-                                                        prodcut={item}
-                                                        setValue={setValue}
-                                                        setMainCode={setMainCode}
-                                                    />
-                                                ))
-                                            }
+                                        {
+                                            cart.length > 0 ?
+                                                <>
+                                                    <div>
+                                                        <SearchBox
+                                                            value={searchValue}
+                                                            onChange={(e) => setSearchValue(e.target.value)}
+                                                        />
+                                                        {
+                                                            isConfirmation &&
+                                                            <div className={`${styles.status}`}>
+                                                                <StatusProduct style={"paddingstyle"} />
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                    <div className={`${styles.scrollitem}`}>
+                                                        {
+                                                            cart.length > 0 &&
+                                                            cart.map(item => (
+                                                                <CartItemM
+                                                                    key={item.code}
+                                                                    setShowDeleteModal={setShowDeleteModal}
+                                                                    isConfirmation={isConfirmation}
+                                                                    setShowModalBuy={setShowModalBuy}
+                                                                    prodcut={item}
+                                                                    setValue={setValue}
+                                                                    setMainCode={setMainCode}
+                                                                />
+                                                            ))
+                                                        }
 
-                                        </div>
-                                        <div className={styles.finalbtnwapper}>
-                                            <button className={`${isConfirmation ? styles.printbtn : styles.finalbtn}`} onClick={finalconfirmhandler}>
-                                                {
-                                                    isConfirmation ?
-                                                        <span>چاپ درخواست</span> :
-                                                        <span>تایید نهایی</span>
-                                                }
-                                                {
-                                                    isConfirmation ?
+                                                    </div>
+                                                    <div className={styles.finalbtnwapper}>
+                                                        <button className={`${isConfirmation ? styles.printbtn : styles.finalbtn}`} onClick={finalconfirmhandler}>
+                                                            {
+                                                                isConfirmation ?
+                                                                    <span>چاپ درخواست</span> :
+                                                                    <span>تایید نهایی</span>
+                                                            }
+                                                            {
+                                                                isConfirmation ?
 
-                                                        < MdOutlinePrint style={{ marginRight: "15px" }} /> :
-                                                        <MdOutlineDone style={{ marginRight: "15px" }} />
-                                                }
+                                                                    < MdOutlinePrint style={{ marginRight: "15px" }} /> :
+                                                                    <MdOutlineDone style={{ marginRight: "15px" }} />
+                                                            }
 
-                                            </button>
-                                        </div>
+                                                        </button>
+                                                    </div>
+                                                </> :
+                                                <>
+                                                    <div className={styles.cartempty}>
+                                                        <div className={styles.imgcartwrapper}>
+                                                            <img src="/images/carticon.svg" alt="basket" />
+                                                        </div>
+                                                        <p className={styles.text_empty}>فعلا سفارش جدیدی وجود ندارد</p>
+                                                        <Link href={"/products"} className={styles.btnempty}>
+                                                            ثبت سفارش
+                                                            <FaPlus className={styles.iconplus} />
+                                                        </Link>
+                                                    </div>
+                                                </>
+                                        }
+
                                     </div>
                                 </> :
                                 <>
-                                    <div className={`${styles.cartItemwrapper}`}>
-                                        <div className={styles.wrapper}>
-                                            <SearchBox
-                                                value={searchValue}
-                                                onChange={(e) => setSearchValue(e.target.value)}
-                                            />
-                                        </div>
-                                        {
-                                            isConfirmation &&
-                                            <div className={`${styles.status}`}>
-                                                <StatusProduct />
-                                            </div>
-                                        }
-                                        <div className={styles.carts}>
-                                            {
-                                                cart.length > 0 &&
-                                                cart.map(item => (
-                                                    <CartItem
-                                                        key={item.code}
-                                                        setShowModalBuy={setShowModalBuy}
-                                                        isConfirmation={isConfirmation}
-                                                        setShowDeleteModal={setShowDeleteModal}
-                                                        prodcut={item}
-                                                        setValue={setValue}
-                                                        setMainCode={setMainCode}
-                                                    />
-                                                ))
-                                            }
-                                        </div>
-                                        <div className={styles.finalbtnwapper}>
-                                            <button className={`${isConfirmation ? styles.printbtn : styles.finalbtn}`} onClick={finalconfirmhandler}>
-                                                {
-                                                    isConfirmation ?
-                                                        <span>چاپ درخواست</span> :
-                                                        <span>تایید نهایی</span>
-                                                }
-                                                {
-                                                    isConfirmation ?
+                                    {
+                                        cart.length > 0 ?
+                                            <>
+                                                <div className={`${styles.cartItemwrapper}`}>
+                                                    <div className={styles.wrapper}>
+                                                        <SearchBox
+                                                            value={searchValue}
+                                                            onChange={(e) => setSearchValue(e.target.value)}
+                                                        />
+                                                    </div>
+                                                    {
+                                                        isConfirmation &&
+                                                        <div className={`${styles.status}`}>
+                                                            <StatusProduct />
+                                                        </div>
+                                                    }
+                                                    <div className={styles.carts}>
+                                                        {
+                                                            cart.length > 0 &&
+                                                            cart.map(item => (
+                                                                <CartItem
+                                                                    key={item.code}
+                                                                    setShowModalBuy={setShowModalBuy}
+                                                                    isConfirmation={isConfirmation}
+                                                                    setShowDeleteModal={setShowDeleteModal}
+                                                                    prodcut={item}
+                                                                    setValue={setValue}
+                                                                    setMainCode={setMainCode}
+                                                                />
+                                                            ))
+                                                        }
+                                                    </div>
+                                                    <div className={styles.finalbtnwapper}>
+                                                        <button className={`${isConfirmation ? styles.printbtn : styles.finalbtn}`} onClick={finalconfirmhandler}>
+                                                            {
+                                                                isConfirmation ?
+                                                                    <span>چاپ درخواست</span> :
+                                                                    <span>تایید نهایی</span>
+                                                            }
+                                                            {
+                                                                isConfirmation ?
 
-                                                        < MdOutlinePrint style={{ marginRight: "15px" }} /> :
-                                                        <MdOutlineDone style={{ marginRight: "15px" }} />
-                                                }
+                                                                    < MdOutlinePrint style={{ marginRight: "15px" }} /> :
+                                                                    <MdOutlineDone style={{ marginRight: "15px" }} />
+                                                            }
 
-                                            </button>
-                                        </div>
-                                    </div>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </> :
+                                            <>
+                                                <div className={styles.cartempty}>
+                                                    <div className={styles.imgcartwrapper}>
+                                                        <img src="/images/carticon.svg" alt="basket" />
+                                                    </div>
+                                                    <p className={styles.text_empty}>فعلا سفارش جدیدی وجود ندارد</p>
+                                                    <Link href={"/products"} className={styles.btnempty}>
+                                                        ثبت سفارش
+                                                        <FaPlus className={styles.iconplus} />
+                                                    </Link>
+                                                </div>
+                                            </>
+
+                                    }
+
                                 </>
                         }
                     </div>

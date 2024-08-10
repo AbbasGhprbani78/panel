@@ -51,7 +51,11 @@ export default function Header({ title }) {
                             <div>
                                 <IoCartOutline className={styles.iconheader} />
                             </div>
-                            <div className={styles.countproduct}> {countProduct}</div>
+                            {
+                                countProduct &&
+                                <div className={styles.countproduct}> {countProduct}</div>
+                            }
+
                         </Link>
 
                     </div>
