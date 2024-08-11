@@ -7,7 +7,8 @@ export default function CartItemM({ setShowDeleteModal,
     setShowModalBuy,
     prodcut,
     setValue,
-    setMainCode
+    setMainCode,
+    setMainProduct
 }) {
     return (
 
@@ -24,10 +25,10 @@ export default function CartItemM({ setShowDeleteModal,
                 <img src={`${process.env.NEXT_PUBLIC_BASE_URL}${prodcut.img}`} alt="" className={""} />
             </div>
             <div className={`${styles.cart_item_content} mt-3`}>
-                <p className={`${styles.carttext} mb-4`}>{prodcut.description}</p>
+                <p className={`${styles.carttext} mb-4`}>{prodcut.descriptions}</p>
                 <div className='d-flex align-items-center justify-content-between'>
                     <span className={styles.infoitem}>کد کالا</span>
-                    <span>{prodcut.code}</span>
+                    <span>{prodcut.item_code}</span>
                 </div>
                 <div className={`${styles.cartinfoitem} align-items-center justify-content-between  mb-4`}>
                     <span className={styles.infoitem}>مقدار</span>
@@ -39,7 +40,9 @@ export default function CartItemM({ setShowDeleteModal,
                 <button className={styles.add_btn} onClick={() => {
                     setValue(prodcut.count)
                     setMainCode(prodcut.id)
+                    setMainProduct(prodcut)
                     setShowModalBuy(true)
+
                 }
                 }>
                     ویرایش

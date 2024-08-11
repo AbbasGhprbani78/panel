@@ -71,9 +71,3 @@ export default function ProductItem({ setShowModalBuy, product, setMainProduct }
   )
 }
 
-{/* <div className={styles.text}>
-                    <span> افزوده شد</span>
-                  </div>
-                  <div className={styles.iconT}>
-                    <FaCheck />
-                  </div> */}

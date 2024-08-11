@@ -14,6 +14,8 @@ import ModalBuy from '@/components/module/ModalBuy/ModalBuy'
 import { CountContext } from '@/context/CartContext'
 import Link from 'next/link'
 import { FaPlus } from "react-icons/fa6";
+import axios from 'axios'
+import swal from 'sweetalert'
 
 export default function Cart() {
 
@@ -27,9 +29,45 @@ export default function Cart() {
     const [inCart, setInCart] = useState(true)
     const [mainCode, setMainCode] = useState("")
     const { setCountProduct } = useContext(CountContext)
+    const [mainProduct, setMainProduct] = useState("")
+
+
+
+    const sendProduct = async () => {
+        const access = localStorage.getItem("access")
+        const headers = {
+            Authorization: `Bearer ${access}`
+        };
+        try {
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/app/add-product/`, cart, {
+                headers,
+            })
+
+            if (response.status === 201) {
+                localStorage.removeItem("cart")
+                swal({
+                    title: "خرید با موفقیت انجام  شد",
+                    icon: "success",
+                    button: "باشه"
+                })
+
+                setCart([])
+
+                setCountProduct(null)
+
+            }
+
+        } catch (e) {
+            if (e.response.status === 401) {
+                localStorage.clear()
+                router.push("/login")
+            }
+        }
+    }
 
     const finalconfirmhandler = () => {
-        setIsConfirmation(true)
+        // setIsConfirmation(true)
+        sendProduct()
     }
 
 
@@ -89,6 +127,7 @@ export default function Cart() {
                         setValue={setValue}
                         updateCountProduct={updateCountProduct}
                         inCart={inCart}
+                        mainProduct={mainProduct}
                     />
                     <ModalDelete
                         showDeleteModal={showDeleteModal}
@@ -128,6 +167,7 @@ export default function Cart() {
                                                                     prodcut={item}
                                                                     setValue={setValue}
                                                                     setMainCode={setMainCode}
+                                                                    setMainProduct={setMainProduct}
                                                                 />
                                                             ))
                                                         }
@@ -195,12 +235,13 @@ export default function Cart() {
                                                                     prodcut={item}
                                                                     setValue={setValue}
                                                                     setMainCode={setMainCode}
+                                                                    setMainProduct={setMainProduct}
                                                                 />
                                                             ))
                                                         }
                                                     </div>
                                                     <div className={styles.finalbtnwapper}>
-                                                        <button className={`${isConfirmation ? styles.printbtn : styles.finalbtn}`} onClick={finalconfirmhandler}>
+                                                        <button className={` ${isConfirmation ? styles.printbtn : styles.finalbtn}`} onClick={finalconfirmhandler}>
                                                             {
                                                                 isConfirmation ?
                                                                     <span>چاپ درخواست</span> :

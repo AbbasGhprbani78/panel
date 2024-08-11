@@ -9,7 +9,8 @@ export default function ModalBuy({
     setValue,
     addToCartHandler,
     inCart,
-    updateCountProduct
+    updateCountProduct,
+    mainProduct
 }) {
 
     const handleInputChange = (e) => {
@@ -25,8 +26,8 @@ export default function ModalBuy({
             <div className={styles.modalwrapper}>
 
                 <div className={styles.modalheader}>
-                    <span className={styles.model}>ADFG8745</span>
-                    <span className={styles.name}>دستگیره 8400 کروم مشکی مات سوئچی رزت</span>
+                    <span className={styles.model}>{mainProduct.item_code}</span>
+                    <span className={styles.name}>{mainProduct.descriptions}</span>
                 </div>
                 <div className={styles.modalcontent}>
                     <div className={styles.modaldetail}>

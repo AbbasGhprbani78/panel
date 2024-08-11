@@ -8,9 +8,10 @@ export default function CartItem({ setShowModalBuy,
     setShowDeleteModal,
     prodcut,
     setValue,
-    setMainCode }) {
+    setMainCode,
+    setMainProduct
+}) {
 
-    console.log(prodcut)
     return (
         <div className={styles.cartItemwrappper}>
             <Table className='text-center'>
@@ -21,6 +22,7 @@ export default function CartItem({ setShowModalBuy,
                             <th>< IoCloseSharp className={styles.deleteicon} onClick={() => {
                                 setShowDeleteModal(true)
                                 setMainCode(prodcut.id)
+
                             }} /></th>
                         }
 
@@ -38,17 +40,19 @@ export default function CartItem({ setShowModalBuy,
                                 <MdModeEditOutline className={styles.editicon} onClick={() => {
                                     setValue(prodcut.count)
                                     setMainCode(prodcut.id)
+                                    setMainProduct(prodcut)
                                     setShowModalBuy(true)
+
                                 }
                                 } />
                             </td>
                         }
 
                         <td className={styles.bodyitem}>
-                            {prodcut.code}
+                            {prodcut.item_code}
                         </td>
                         <td className={styles.bodyitem}>
-                            {prodcut.description}
+                            {prodcut.descriptions}
                         </td>
                         <td className={styles.bodyitem}>
                             {prodcut.count}

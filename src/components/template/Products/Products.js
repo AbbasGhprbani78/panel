@@ -40,6 +40,7 @@ export default function Products() {
             })
 
             if (response.status === 200) {
+                // console.log(response.data)
                 setProducts(response.data)
             }
 
@@ -74,9 +75,9 @@ export default function Products() {
 
                 const cartItem = {
                     id: mainProduct.id,
-                    code: mainProduct.item_code,
+                    item_code: mainProduct.item_code,
                     count: Number(value),
-                    description: mainProduct.descriptions,
+                    descriptions: mainProduct.descriptions,
                     img: mainProduct.image
                 };
 
@@ -92,9 +93,9 @@ export default function Products() {
         else {
             const cartItem = {
                 id: mainProduct.id,
-                code: mainProduct.item_code,
+                item_code: mainProduct.item_code,
                 count: Number(value),
-                description: mainProduct.descriptions,
+                descriptions: mainProduct.descriptions,
                 img: mainProduct.image
             };
 
@@ -130,6 +131,7 @@ export default function Products() {
                         value={value}
                         setValue={setValue}
                         addToCartHandler={addToCartHandler}
+                        mainProduct={mainProduct}
                     />
 
                     <div className={`${styles.modalcontainer} ${showmodal ? styles.show : ""}`}>
@@ -149,7 +151,6 @@ export default function Products() {
                         </div>
                         <div className={styles.ProductsPage}>
                             <div className={styles.ProductsBox}>
-
                                 {
                                     products.length > 0 &&
                                     products.map(product => (
@@ -158,14 +159,13 @@ export default function Products() {
                                             key={product.id}
                                             setShowModalBuy={setShowModalBuy}
                                             setMainProduct={setMainProduct}
-
                                         />
 
                                     ))
                                 }
 
                             </div>
-                            <div>
+                            <div className={`${styles.wrapper_btn}`}>
                                 <button className={styles.ButtonBox} onClick={gotocart}>
                                     <span>ادامه</span>
                                     <IoIosArrowBack />
