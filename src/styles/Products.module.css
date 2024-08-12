@@ -103,6 +103,9 @@
     text-align: center !important;
 }
 
+
+
+
 @media (max-width:1025px) {
     .pagecontent {
         width: 100%;
@@ -132,12 +135,17 @@
         justify-content: center;
     }
 
-    .ButtonBox {
-        margin: 30px auto 10px auto;
-        width: 250px;
+    .wrapper_btn>button {
+        width: 90% !important;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        padding: 5px 0;
     }
 
-
+    /* .ButtonBox {
+        width: 90%;
+    } */
 
     .ProductsBo {
         max-height: 72vh;

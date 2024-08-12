@@ -31,8 +31,6 @@ export default function Cart() {
     const { setCountProduct } = useContext(CountContext)
     const [mainProduct, setMainProduct] = useState("")
 
-
-
     const sendProduct = async () => {
         const access = localStorage.getItem("access")
         const headers = {
@@ -84,6 +82,8 @@ export default function Cart() {
         updateLocalStorage(updatedCart);
         setShowModalBuy(false)
     }
+
+
 
 
     const handleDelete = () => {

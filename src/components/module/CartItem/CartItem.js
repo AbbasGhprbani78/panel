@@ -12,6 +12,9 @@ export default function CartItem({ setShowModalBuy,
     setMainProduct
 }) {
 
+
+    console.log(prodcut)
+
     return (
         <div className={styles.cartItemwrappper}>
             <Table className='text-center'>

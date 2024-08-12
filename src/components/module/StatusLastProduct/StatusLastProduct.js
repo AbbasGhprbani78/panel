@@ -5,9 +5,8 @@ import StatusProduct from '../StatusProdcut/StatusProduct';
 import Link from 'next/link';
 import axios from 'axios';
 export default function StatusLastProduct() {
+    const [product, setProduct] = useState(null);
 
-    const [product, setProduct] = useState("")
-    
     const getLastStatusProduct = async () => {
         const access = localStorage.getItem("access");
         const headers = {
@@ -19,28 +18,26 @@ export default function StatusLastProduct() {
             });
 
             if (response.status === 200) {
-                console.log(response.data)
-                setProduct(response.data.order_details?.order_details[0])
+                setProduct(response.data);
             }
 
         } catch (e) {
-            console.log(e)
-            if (e.response.status === 401) {
+            console.log(e);
+            if (e.response?.status === 401) {
                 localStorage.clear();
                 router.push("/login");
             }
         }
     };
 
-
     useEffect(() => {
-        getLastStatusProduct()
-    }, [])
+        getLastStatusProduct();
+    }, []);
 
-
-    // console.log(product?.order_details?.order_details[0]?.number_sold)
-    console.log(product)
-
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString();
+    };
 
     return (
         <div className={styles.statusproduct}>
@@ -50,15 +47,19 @@ export default function StatusLastProduct() {
                 <div className={styles.orderdeatil}>
                     <div className={styles.orderdetailitem}>
                         <span className={styles.orderdetailtitle}>تعداد سفارش :</span>
-                        {/* <span className={styles.orderdetailtext}>{product?.order_details[0]?.number_sold}</span> */}
+                        <span className={styles.orderdetailtext}>
+                            {product?.order_details?.[0]?.number_sold}
+                        </span>
                     </div>
                     <div className={styles.orderdetailitem}>
                         <span className={styles.orderdetailtitle}>تاریخ سفارش :</span>
-                        {/* <span className={styles.orderdetailtext}>{product?.order_details[0]?.date}</span> */}
+                        <span className={styles.orderdetailtext}>
+                            {product?.order_details?.[0]?.date ? formatDate(product.order_details[0].date) : "N/A"}
+                        </span>
                     </div>
                 </div>
                 <Link href={"/orders"} className={styles.historybtn}>تاریخچه</Link>
             </div>
         </div>
-    )
+    );
 }

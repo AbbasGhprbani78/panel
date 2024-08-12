@@ -11,6 +11,8 @@ import axios from 'axios'
 import ModalBuy from '@/components/module/ModalBuy/ModalBuy'
 import { CountContext } from '@/context/CartContext'
 import swal from 'sweetalert'
+import NoneSearch from '@/components/module/NoneSearch/NoneSearch'
+
 
 export default function Products() {
     const router = useRouter()
@@ -21,6 +23,8 @@ export default function Products() {
     const [mainProduct, setMainProduct] = useState("")
     const [products, setProducts] = useState("")
     const [filterProduct, setFilterProduct] = useState([])
+    const [propetyId, setPropetyId] = useState(null)
+    const [errorSelect, setErrorSelect] = useState(false)
     const { setCountProduct } = useContext(CountContext)
 
     const gotocart = () => {
@@ -40,8 +44,9 @@ export default function Products() {
             })
 
             if (response.status === 200) {
-                // console.log(response.data)
+                console.log(response.data)
                 setProducts(response.data)
+                setFilterProduct(response.data)
             }
 
         } catch (e) {
@@ -54,31 +59,58 @@ export default function Products() {
 
     const addToCartHandler = () => {
 
-        const cart = JSON.parse(localStorage.getItem("cart")) || [];
+        if (!propetyId) {
+            setErrorSelect(true)
+            return false
+        }
+        else {
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-        if (cart.length) {
-            const isInCart = cart.some(item => item.id == mainProduct.id);
+            if (cart.length) {
+                const isInCart = cart.some(item => item.id == mainProduct.id);
 
-            if (isInCart) {
-                cart.forEach((item) => {
-                    if (item.id == mainProduct.id) {
-                        item.count = Number(item.count) + Number(value);
-                    }
-                });
-                localStorage.setItem("cart", JSON.stringify(cart));
-                swal({
-                    title: "به سبد خرید اضافه شد",
-                    icon: "success",
-                    button: "باشه"
-                })
-            } else {
+                if (isInCart) {
+                    cart.forEach((item) => {
+                        if (item.id == mainProduct.id) {
+                            item.count = Number(item.count) + Number(value);
+                        }
+                    });
+                    localStorage.setItem("cart", JSON.stringify(cart));
+                    swal({
+                        title: "به سبد خرید اضافه شد",
+                        icon: "success",
+                        button: "باشه"
+                    })
+                } else {
 
+                    const cartItem = {
+                        id: mainProduct.id,
+                        item_code: mainProduct.item_code,
+                        count: Number(value),
+                        descriptions: mainProduct.descriptions,
+                        img: mainProduct.image,
+                        property_id: propetyId,
+                        propertyItems: mainProduct.properties
+                    };
+
+                    cart.push(cartItem);
+                    localStorage.setItem("cart", JSON.stringify(cart));
+                    swal({
+                        title: "به سبد خرید اضافه شد",
+                        icon: "success",
+                        buttons: "باشه"
+                    })
+                }
+            }
+            else {
                 const cartItem = {
                     id: mainProduct.id,
                     item_code: mainProduct.item_code,
                     count: Number(value),
                     descriptions: mainProduct.descriptions,
-                    img: mainProduct.image
+                    img: mainProduct.image,
+                    property_id: propetyId,
+                    properties: mainProduct.properties
                 };
 
                 cart.push(cartItem);
@@ -89,34 +121,31 @@ export default function Products() {
                     buttons: "باشه"
                 })
             }
-        }
-        else {
-            const cartItem = {
-                id: mainProduct.id,
-                item_code: mainProduct.item_code,
-                count: Number(value),
-                descriptions: mainProduct.descriptions,
-                img: mainProduct.image
-            };
 
-            cart.push(cartItem);
-            localStorage.setItem("cart", JSON.stringify(cart));
-            swal({
-                title: "به سبد خرید اضافه شد",
-                icon: "success",
-                buttons: "باشه"
-            })
+            const countproduct = JSON.parse(localStorage.getItem('cart')).length
+            setCountProduct(countproduct)
+            setShowModalBuy(false)
         }
 
-        const countproduct = JSON.parse(localStorage.getItem('cart')).length
-        setCountProduct(countproduct)
-        setShowModalBuy(false)
     }
-
 
     useEffect(() => {
         getAllProducts()
     }, [])
+
+
+    const searchHandler = (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        setSearch(searchTerm);
+
+        const filterProducts = products.filter(
+            (product) =>
+                product.item_code.includes(searchTerm) ||
+                product.descriptions.toLowerCase().includes(searchTerm)
+        );
+
+        setFilterProduct(filterProducts);
+    };
 
 
     return (
@@ -132,6 +161,9 @@ export default function Products() {
                         setValue={setValue}
                         addToCartHandler={addToCartHandler}
                         mainProduct={mainProduct}
+                        setPropetyId={setPropetyId}
+                        errorSelect={errorSelect}
+                        setErrorSelect={setErrorSelect}
                     />
 
                     <div className={`${styles.modalcontainer} ${showmodal ? styles.show : ""}`}>
@@ -146,31 +178,36 @@ export default function Products() {
                         <div className={styles.wrapper}>
                             <SearchBox
                                 value={search}
-                                onChange={(e) => setSearch(e.target.value)}
+                                onChange={searchHandler}
                             />
                         </div>
                         <div className={styles.ProductsPage}>
                             <div className={styles.ProductsBox}>
                                 {
-                                    products.length > 0 &&
-                                    products.map(product => (
-                                        <ProductItem
-                                            product={product}
-                                            key={product.id}
-                                            setShowModalBuy={setShowModalBuy}
-                                            setMainProduct={setMainProduct}
-                                        />
+                                    filterProduct.length > 0 ?
+                                        filterProduct.map(product => (
+                                            <ProductItem
+                                                product={product}
+                                                key={product.id}
+                                                setShowModalBuy={setShowModalBuy}
+                                                setMainProduct={setMainProduct}
+                                            />
 
-                                    ))
+                                        )) :
+                                        <>
+                                            <NoneSearch />
+                                        </>
                                 }
 
                             </div>
+
                             <div className={`${styles.wrapper_btn}`}>
                                 <button className={styles.ButtonBox} onClick={gotocart}>
                                     <span>ادامه</span>
                                     <IoIosArrowBack />
                                 </button>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -179,5 +216,3 @@ export default function Products() {
     )
 }
 
-
-//app/add-product

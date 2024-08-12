@@ -243,11 +243,13 @@
     }
 
     .finalbtnwapper>button {
-        width: 90%;
+        width: 90% !important;
         text-align: center;
         display: flex;
         justify-content: center;
     }
+
+
 
     .modalwrapper {
         display: flex;
