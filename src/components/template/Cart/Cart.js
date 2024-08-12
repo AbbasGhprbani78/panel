@@ -31,6 +31,7 @@ export default function Cart() {
     const { setCountProduct } = useContext(CountContext)
     const [mainProduct, setMainProduct] = useState("")
 
+
     const sendProduct = async () => {
         const access = localStorage.getItem("access")
         const headers = {
@@ -57,7 +58,8 @@ export default function Cart() {
 
         } catch (e) {
             if (e.response.status === 401) {
-                localStorage.clear()
+                localStorage.removeItem("refresh")
+                localStorage.removeItem("access")
                 router.push("/login")
             }
         }

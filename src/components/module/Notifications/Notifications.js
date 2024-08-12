@@ -28,7 +28,8 @@ export default function Notifications() {
 
         } catch (e) {
             if (e.response.status === 401) {
-                localStorage.clear()
+                localStorage.removeItem("refresh")
+                localStorage.removeItem("access")
                 router.push("/login")
             }
         }

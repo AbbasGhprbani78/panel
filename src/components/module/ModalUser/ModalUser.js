@@ -79,7 +79,8 @@ export default function ModalUser({ setShowModal, showModal, userInfo, getUserHa
 
                 } catch (e) {
                     if (e.response.status === 401) {
-                        localStorage.clear()
+                        localStorage.removeItem("refresh")
+                        localStorage.removeItem("access")
                         router.push("/login")
 
                     }

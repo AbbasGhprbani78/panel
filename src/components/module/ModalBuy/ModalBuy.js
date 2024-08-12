@@ -18,22 +18,30 @@ export default function ModalBuy({
 
 }) {
 
-    // const [prppertyVlaue,setProperyValue]=useState("")
+    const [propertyValue, setPropertyValue] = useState(null)
 
     const handleInputChange = (e) => {
         const newValue = e.target.value;
         if (newValue >= 0) {
             setValue(newValue);
-            setErrorSelect(false)
         }
     };
 
-    const handleChangeUnit = (e) => {
-        setPropetyId(e.target.value)
-        setErrorSelect
-    }
 
-    console.log(mainProduct)
+    const handleChangeUnit = (e) => {
+        const selectedPropertyId = e.target.value;
+        const selectedProperty = mainProduct.properties.find(item => item.property_id == selectedPropertyId);
+
+        if (selectedProperty) {
+            setPropertyValue(selectedProperty.property_value);
+        }
+
+        if (setPropetyId && setErrorSelect) {
+            setPropetyId(selectedPropertyId);
+            setErrorSelect(false);
+        }
+    };
+
     return (
 
         <div className={`${styles.modalcontainer} ${showModalBuy ? styles.showmodal : ""}`}>
@@ -82,7 +90,11 @@ export default function ModalBuy({
                     </div>
                     <div className={styles.count_product_modal}>
                         <span>مقدار :</span>
-                        <span></span>
+                        {
+                            value && propertyValue &&
+                            <span>{value * propertyValue}</span>
+                        }
+
                     </div>
                     <div className='mt-4 text-center'>
                         <button className={styles.btnconfirm} onClick={() => {
