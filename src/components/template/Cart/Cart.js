@@ -16,6 +16,8 @@ import Link from 'next/link'
 import { FaPlus } from "react-icons/fa6";
 import axios from 'axios'
 import swal from 'sweetalert'
+import { useRouter } from 'next/navigation';
+
 
 export default function Cart() {
 
@@ -30,7 +32,10 @@ export default function Cart() {
     const [mainCode, setMainCode] = useState("")
     const { setCountProduct } = useContext(CountContext)
     const [mainProduct, setMainProduct] = useState("")
-
+    const [propetyId, setPropetyId] = useState(null)
+    const [propertyValue, setPropertyValue] = useState(null)
+    const [propertName, setPropertName] = useState(null)
+    const router = useRouter()
 
     const sendProduct = async () => {
         const access = localStorage.getItem("access")
@@ -78,14 +83,21 @@ export default function Cart() {
 
     const updateCountProduct = () => {
         const updatedCart = cart.map(product =>
-            product.id === mainCode ? { ...product, count: value } : product
+            product.id === mainCode
+                ? {
+                    ...product,
+                    count: value,
+                    property_id: propetyId || product.property_id,
+                    property_name: propertName || product.property_name,
+                    property_value: propertyValue || product.property_value
+
+                }
+                : product
         );
         setCart(updatedCart);
         updateLocalStorage(updatedCart);
-        setShowModalBuy(false)
-    }
-
-
+        setShowModalBuy(false);
+    };
 
 
     const handleDelete = () => {
@@ -130,6 +142,11 @@ export default function Cart() {
                         updateCountProduct={updateCountProduct}
                         inCart={inCart}
                         mainProduct={mainProduct}
+                        setPropetyId={setPropetyId}
+                        setPropertyValue={setPropertyValue}
+                        setPropertName={setPropertName}
+                        propertyValue={propertyValue}
+
                     />
                     <ModalDelete
                         showDeleteModal={showDeleteModal}
@@ -163,9 +180,9 @@ export default function Cart() {
                                                             cart.map(item => (
                                                                 <CartItemM
                                                                     key={item.id}
-                                                                    setShowDeleteModal={setShowDeleteModal}
-                                                                    isConfirmation={isConfirmation}
                                                                     setShowModalBuy={setShowModalBuy}
+                                                                    isConfirmation={isConfirmation}
+                                                                    setShowDeleteModal={setShowDeleteModal}
                                                                     prodcut={item}
                                                                     setValue={setValue}
                                                                     setMainCode={setMainCode}

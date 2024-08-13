@@ -34,6 +34,10 @@ export default function CartItemM({ setShowDeleteModal,
                     <span className={styles.infoitem}>مقدار</span>
                     <div>{prodcut.count}</div>
                 </div>
+                <div className='d-flex align-items-center justify-content-between'>
+                    <span className={styles.infoitem}> واحد {`(${prodcut.property_name})`}</span>
+                    <span> {prodcut.property_value}عدد</span>
+                </div>
             </div>
 
             <div className='text-center d-flex justify-content-center mt-3'>

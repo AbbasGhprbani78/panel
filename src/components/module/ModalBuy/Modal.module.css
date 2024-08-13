@@ -58,10 +58,15 @@
     justify-content: space-between;
     font-size: .9rem;
     font-weight: bold;
-
+    position: relative;
 }
 
-
+.iconinfo {
+    position: absolute;
+    top: 5px;
+    left: 0;
+    cursor: pointer;
+}
 
 .unit {
     margin-right: 15px;

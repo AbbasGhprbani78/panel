@@ -12,8 +12,7 @@ export default function CartItem({ setShowModalBuy,
     setMainProduct
 }) {
 
-
-    console.log(prodcut)
+  
 
     return (
         <div className={styles.cartItemwrappper}>
@@ -32,6 +31,7 @@ export default function CartItem({ setShowModalBuy,
                         <th className={styles.itemhead}>کد کالا</th>
                         <th className={styles.itemhead}>شرح محصول</th>
                         <th className={styles.itemhead}>مقدار</th>
+                        <th className={styles.itemhead}>واحد {`(${prodcut.property_name})`}</th>
                         <th sclassName={styles.itemhead}></th>
                     </tr>
                 </thead>
@@ -59,6 +59,9 @@ export default function CartItem({ setShowModalBuy,
                         </td>
                         <td className={styles.bodyitem}>
                             {prodcut.count}
+                        </td>
+                        <td className={styles.bodyitem}>
+                            {prodcut.property_value}عدد
                         </td>
                         <td className={styles.bodyitemimage}>
                             <img src={`${process.env.NEXT_PUBLIC_BASE_URL}${prodcut.img}`} className={styles.image} />

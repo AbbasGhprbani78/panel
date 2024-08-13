@@ -7,7 +7,7 @@ export default function ProductItem({ setShowModalBuy, product, setMainProduct }
 
   return (
     <>
-
+    
       <div className={styles.ProductItem1}>
         <table class="table text-center " >
           <thead className={styles.thead}>

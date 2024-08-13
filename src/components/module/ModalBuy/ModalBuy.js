@@ -3,6 +3,7 @@ import Input from '../Input/Input'
 import styles from './Modal.module.css'
 import { MdOutlineDone } from "react-icons/md";
 import { Col } from 'react-bootstrap';
+import { IoMdInformationCircleOutline } from "react-icons/io";
 export default function ModalBuy({
     showModalBuy,
     setShowModalBuy,
@@ -14,11 +15,15 @@ export default function ModalBuy({
     mainProduct,
     setPropetyId,
     setErrorSelect,
-    errorSelect
-
+    errorSelect,
+    propertyValue,
+    setPropertyValue,
+    setPropertName,
 }) {
 
-    const [propertyValue, setPropertyValue] = useState(null)
+
+    const [infoProduct, setInfoProduct] = useState("")
+
 
     const handleInputChange = (e) => {
         const newValue = e.target.value;
@@ -34,13 +39,16 @@ export default function ModalBuy({
 
         if (selectedProperty) {
             setPropertyValue(selectedProperty.property_value);
+            setPropertName(selectedProperty.property_name)
+            setInfoProduct(selectedProperty.property_description)
         }
 
-        if (setPropetyId && setErrorSelect) {
+        if (setPropetyId) {
             setPropetyId(selectedPropertyId);
-            setErrorSelect(false);
+            // setErrorSelect(false);
         }
     };
+
 
     return (
 
@@ -54,7 +62,7 @@ export default function ModalBuy({
                 </div>
                 <div className={styles.modalcontent}>
                     <div className={styles.modaldetail}>
-
+                        <IoMdInformationCircleOutline className={styles.iconinfo} />
                         <Col xs={12} sm={6}>
                             <div style={{ width: "95%", margin: "0 auto" }}>
                                 <Input
@@ -100,6 +108,7 @@ export default function ModalBuy({
                         <button className={styles.btnconfirm} onClick={() => {
                             if (inCart) {
                                 updateCountProduct()
+
                             } else {
                                 addToCartHandler()
                             }

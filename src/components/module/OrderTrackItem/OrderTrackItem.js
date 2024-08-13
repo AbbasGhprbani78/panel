@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './OrderTrackItem.module.css'
 import { IoBagAddOutline } from "react-icons/io5";
 import { MdOutlineShoppingCartCheckout } from "react-icons/md";
@@ -11,26 +11,63 @@ import { FaWpforms } from "react-icons/fa6";
 import { AiOutlineFileDone } from "react-icons/ai";
 import Link from 'next/link';
 
-export default function OrderTrackItem() {
-    const [currentStep, setCurrentStep] = useState(7);
+export default function OrderTrackItem({ order, number }) {
+    const [currentStep, setCurrentStep] = useState(1);
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString();
+    };
+
+    const statusName = order?.order_details[0]?.status_details[0]?.status_name;
+
+    useEffect(() => {
+        switch (statusName) {
+            case 'Issuance of request':
+                setCurrentStep(1);
+                break;
+            case 'Issuance of request':
+                setCurrentStep(2);
+                break;
+            case 'Order issuance':
+                setCurrentStep(3);
+                break;
+            case 'Order issuance':
+                setCurrentStep(4);
+                break;
+            case 'Final approval':
+                setCurrentStep(5);
+                break;
+            case 'Sending':
+                setCurrentStep(6);
+                break;
+            case 'Complete sent':
+                setCurrentStep(7);
+                break;
+            case 'Closed':
+                setCurrentStep(8);
+                break;
+        }
+    }, [statusName]);
+
+
     return (
         <div className={styles.ordertrackitemwrappper}>
             <div className={styles.ordertrackdetail}>
                 <div className={styles.rightdetail}>
-                    <span className={styles.titlebold}>سفارش 1</span>
+                    <span className={styles.titlebold}>سفارش {number + 1}</span>
                     <div className={styles.reqnumberwrapper} style={{ marginRight: "30px" }}>
                         <span className={styles.titlebold}>شماره درخواست :</span>
-                        <span style={{ marginRight: "10px" }}>1525164</span>
+                        <span style={{ marginRight: "10px" }}>{order?.cart_id}</span>
                     </div>
                 </div>
                 <div className={styles.leftdetail}>
                     <div className={`${styles.numberorder} mx-5`}>
                         <span style={{ marginLeft: "15px" }}>تعداد سفارش :</span>
-                        <span>100 عدد </span>
+                        <span>{order?.order_details[0]?.number_sold}</span>
                     </div>
                     <div>
                         <span style={{ marginLeft: "15px" }}>تاریخ سفارش :</span>
-                        <span>01/02/23</span>
+                        <span>{formatDate(order?.order_details[0]?.date)}</span>
                     </div>
                 </div>
             </div>

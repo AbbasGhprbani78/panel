@@ -25,6 +25,8 @@ export default function Products() {
     const [filterProduct, setFilterProduct] = useState([])
     const [propetyId, setPropetyId] = useState(null)
     const [errorSelect, setErrorSelect] = useState(false)
+    const [propertyValue, setPropertyValue] = useState(null)
+    const [propertName, setPropertName] = useState(null)
     const { setCountProduct } = useContext(CountContext)
 
     const gotocart = () => {
@@ -74,6 +76,10 @@ export default function Products() {
                     cart.forEach((item) => {
                         if (item.id == mainProduct.id) {
                             item.count = Number(item.count) + Number(value);
+                            item.property_id = propetyId
+                            item.properties = mainProduct.properties,
+                            item.property_value = propertyValue,
+                            item.property_name = propertName
                         }
                     });
                     localStorage.setItem("cart", JSON.stringify(cart));
@@ -91,7 +97,9 @@ export default function Products() {
                         descriptions: mainProduct.descriptions,
                         img: mainProduct.image,
                         property_id: propetyId,
-                        propertyItems: mainProduct.properties
+                        properties: mainProduct.properties,
+                        property_value: propertyValue,
+                        property_name: propertName
                     };
 
                     cart.push(cartItem);
@@ -111,7 +119,9 @@ export default function Products() {
                     descriptions: mainProduct.descriptions,
                     img: mainProduct.image,
                     property_id: propetyId,
-                    properties: mainProduct.properties
+                    properties: mainProduct.properties,
+                    property_value: propertyValue,
+                    property_name: propertName
                 };
 
                 cart.push(cartItem);
@@ -165,6 +175,9 @@ export default function Products() {
                         setPropetyId={setPropetyId}
                         errorSelect={errorSelect}
                         setErrorSelect={setErrorSelect}
+                        propertyValue={propertyValue}
+                        setPropertyValue={setPropertyValue}
+                        setPropertName={setPropertName}
                     />
 
                     <div className={`${styles.modalcontainer} ${showmodal ? styles.show : ""}`}>
