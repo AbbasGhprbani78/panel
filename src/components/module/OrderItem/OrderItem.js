@@ -2,9 +2,11 @@
 import React, { useEffect, useState } from 'react'
 import styles from './OrderItem.module.css'
 import { Table } from 'react-bootstrap'
-export default function OrderItem({ date }) {
+export default function OrderItem({ item }) {
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+
+
 
   useEffect(() => {
     const handleWindowResize = () => {
@@ -24,27 +26,24 @@ export default function OrderItem({ date }) {
         windowWidth < 600 ?
           <>
             <div className={styles.CartItemmwrapper}>
-              <div className={styles.headercart}>
-                <div>
-                  <div className='d-flex justify-content-between align-items-center mb-2'>
-                    <p className={styles.carttitle}>شرح محصول</p>
-                  </div>
-                  <span className={styles.carttext}>دستگیره 8400 کروم مشکی مات سوئچی رزت</span>
-                </div>
-                <img src="/images/Frame 36.png" alt="" style={{ width: "70px", height: "auto" }} />
+              <div className={styles.imageorder_wrapper}>
+                <img src={`${process.env.NEXT_PUBLIC_BASE_URL}${item?.product?.image}`} alt="" />
               </div>
+              <div className='mt-4'>
+                <span className={styles.carttext}> {item?.product?.descriptions}</span>
+              </div >
               <div className={styles.cartinfowrapper}>
                 <div className={styles.cartinfoitem}>
                   <span className={styles.infoitem}>کد کالا</span>
-                  <span>ADFG8745</span>
+                  <span> {item?.product?.item_code}</span>
                 </div>
                 <div className={styles.cartinfoitem}>
-                  <span className={styles.infoitem}>کارتن</span>
-                  <span>12</span>
+                  <span className={styles.infoitem}>مقدار</span>
+                  <span>{item?.number_sold}</span>
                 </div>
                 <div className={styles.cartinfoitem}>
-                  <span className={styles.infoitem}>گنجایش کارتن</span>
-                  <span>12</span>
+                  <span className={styles.infoitem}>واحد {`(${item?.product?.specifications[0]?.property_name})`}</span>
+                  <span> {item?.product?.specifications[0]?.value}</span>
                 </div>
               </div>
             </div>
@@ -57,37 +56,32 @@ export default function OrderItem({ date }) {
                     <tr>
                       <th className={styles.itemhead}>کد کالا</th>
                       <th className={styles.itemhead}>شرح محصول</th>
-                      <th className={styles.itemhead}>کارتن</th>
-                      <th className={styles.itemhead}>گنجایش کارتن</th>
                       <th className={styles.itemhead}>مقدار</th>
+                      <th className={styles.itemhead}>واحد {`(${item?.product?.specifications[0]?.property_name})`}</th>
                       <th className={styles.itemhead}>تصویر</th>
                     </tr>
                   </thead>
                   <tbody className={styles.bodytable}>
                     <tr >
                       <td className={styles.bodyitem}>
-                        ADFG8745
+                        {item?.product?.item_code}
                       </td>
                       <td className={styles.bodyitem}>
-                        دستگیره 8400 کروم مشکی مات سوئچی رزت
+                        {item?.product?.descriptions}
                       </td>
                       <td className={styles.bodyitem}>
-                        1/0
+                        {item?.number_sold}
                       </td>
                       <td className={styles.bodyitem}>
-                        12/0
-                      </td>
-                      <td className={styles.bodyitem}>
-                        12/0
+                        {item?.product?.specifications[0]?.value}
                       </td>
                       <td >
-                        <img src="/images/Frame 36.png" alt="" style={{ width: "70px", height: "auto" }} />
+                        <img src={`${process.env.NEXT_PUBLIC_BASE_URL}${item?.product?.image}`} alt="" style={{ width: "70px", height: "auto" }} />
                       </td>
                     </tr>
                   </tbody>
                 </Table>
               </div >
-              <p className='text-start w-100 mb-0 mt-1'>{date}</p>
             </div>
 
           </>
@@ -96,3 +90,7 @@ export default function OrderItem({ date }) {
 
   )
 }
+
+
+
+

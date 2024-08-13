@@ -67,9 +67,6 @@ export default function OffcanvasMenu({ setShowSideBar, showSideBar }) {
                                 <li className={`${styles.submenuitem}  ${pathname === "/products" ? styles.active : ""}`}>
                                     <Link href={"/products"}>ثبت سفارش جدید</Link>
                                 </li>
-                                <li className={`${styles.submenuitem}  ${pathname === "/orders" ? styles.active : ""}`}>
-                                    <Link href={"/orders"}>تاریخچه سفارشات</Link>
-                                </li>
                                 <li className={`${styles.submenuitem}  ${pathname === "/trackorders" ? styles.active : ""}`}>
                                     <Link href={"/trackorders"}>پیگیری سفارشات</Link>
                                 </li>

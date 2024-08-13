@@ -12,7 +12,7 @@ export default function CartItem({ setShowModalBuy,
     setMainProduct
 }) {
 
-  
+
 
     return (
         <div className={styles.cartItemwrappper}>
@@ -24,8 +24,8 @@ export default function CartItem({ setShowModalBuy,
                             <th>< IoCloseSharp className={styles.deleteicon} onClick={() => {
                                 setShowDeleteModal(true)
                                 setMainCode(prodcut.id)
-
-                            }} /></th>
+                            }} />
+                            </th>
                         }
 
                         <th className={styles.itemhead}>کد کالا</th>

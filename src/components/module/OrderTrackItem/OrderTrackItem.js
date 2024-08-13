@@ -72,7 +72,7 @@ export default function OrderTrackItem({ order, number }) {
                 </div>
             </div>
             <div className={`${styles.mapstatus} mt-4`}>
-                <Link href={"/orders/1"} className={styles.detailbtn}>
+                <Link href={`/orders/${order.cart_id}`} className={styles.detailbtn}>
                     جزئیات
                 </Link>
                 <div className={styles.wrapper} style={{ direction: "ltr" }}>
