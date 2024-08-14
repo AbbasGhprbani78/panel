@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState ,useRef} from 'react'
 import styles from '@/styles/signup.module.css'
 import { Col } from 'react-bootstrap'
 import { FaUser, FaArrowLeftLong } from "react-icons/fa6";
@@ -40,6 +40,14 @@ export default function Signup() {
             window.removeEventListener('resize', handleWindowResize);
         };
     }, [])
+
+    const firstInputRef = useRef(null);
+
+    useEffect(() => {
+        if (firstInputRef.current) {
+            firstInputRef.current.focus();
+        }
+    }, []);
 
 
     return (
@@ -273,6 +281,7 @@ export default function Signup() {
                                                         value={values.full_name}
                                                         onChange={handleChange}
                                                         type={"text"}
+                                                        ref={firstInputRef} 
                                                     />
                                                     {errors.full_name && touched.full_name && <span className={styles.errorinput}>{errors.full_name}</span>}
                                                 </div>

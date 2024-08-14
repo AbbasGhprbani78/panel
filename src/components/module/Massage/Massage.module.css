@@ -1,7 +1,47 @@
+.message_wrapper_snder {
+    align-self: flex-end;
+}
+
+.message_wrapper_receiver {
+    align-self: flex-start;
+}
+
+.message_content {
+    display: flex;
+    flex-direction: column;
+}
+
+.file_sender {
+    align-items: end;
+}
+
+.date_message_snder {
+    text-align: end;
+    margin-left: 10px;
+    font-size: .9rem;
+}
+
+.date_message_receiver {
+    margin-right: 10px;
+    font-size: .9rem;
+}
+
+.fileIcon_receiver,
+.fileIcon {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 5px;
+    color: var(--color-1);
+}
+
+.fileIcon {
+    color: var(--color-3);
+}
+
+
 @media (min-width:900px) {
     .MassageBoxSend {
-        max-width: 40%;
-        min-width: 100px;
+        width: max-content;
         height: auto;
         position: relative;
         background-color: #fff;
@@ -13,14 +53,12 @@
     }
 
     .MassageBoxReceive {
-        max-width: 40%;
-        min-width: 100px;
+        width: max-content;
         height: auto;
         background-color: var(--color-1);
         word-wrap: break-word;
         color: white;
         margin: 10px;
-        align-self: flex-end;
         border-radius: 10px;
         padding: 10px;
     }
@@ -29,7 +67,7 @@
 @media (max-width:900px) {
     .MassageBoxSend {
         max-width: 80%;
-        min-width: 100px;
+        width: max-content;
         height: auto;
         position: relative;
 
@@ -43,7 +81,7 @@
 
     .MassageBoxReceive {
         max-width: 80%;
-        min-width: 100px;
+        width: max-content;
         height: auto;
         background-color: var(--color-1);
         word-wrap: break-word;
@@ -54,4 +92,3 @@
         padding: 10px;
     }
 }
-

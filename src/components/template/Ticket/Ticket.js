@@ -11,10 +11,11 @@ import { FaFileAlt } from "react-icons/fa";
 import { IoSend } from "react-icons/io5";
 import axios from 'axios'
 import swal from 'sweetalert'
+import { useRouter } from 'next/navigation';
+import { MdAttachFile } from "react-icons/md";
 export default function Ticket() {
 
   const [tab, setTab] = useState(1)
-  const [tickets, setTickets] = useState([0])
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
   const [title, SetTitle] = useState("")
   const [text, setText] = useState("")
@@ -22,6 +23,12 @@ export default function Ticket() {
   const [check, setCheck] = useState(false)
   const [disable, SetDisable] = useState(false)
   const [allTickets, setAllTickets] = useState([])
+  const [openTicket, setOpenTicket] = useState(0)
+  const [selectedTicket, setSelectedTicket] = useState([])
+  const [textInput, setTextInput] = useState("")
+  const router = useRouter()
+  const [ticket, setTicket] = useState("")
+  const [uploadPercentage, setUploadPercentage] = useState(0);
 
 
   const sendTicket = async () => {
@@ -60,7 +67,7 @@ export default function Ticket() {
 
       if (response.status === 201) {
         swal({
-          title: "تیکت با موفقیت انجام  شد",
+          title: "تیکت با موفقیت ارسال شد",
           icon: "success",
           button: {
             text: "باشه",
@@ -94,12 +101,12 @@ export default function Ticket() {
     };
 
     try {
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/chat//`, {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/chat/get-ticket/`, {
         headers,
       })
 
       if (response.status === 200) {
-        console.log(response.data)
+        setAllTickets(response.data)
       }
 
     } catch (e) {
@@ -112,10 +119,114 @@ export default function Ticket() {
     }
   }
 
+  const getSelectedTicket = async (ticket) => {
+    setTicket(ticket)
+    setSelectedTicket(ticket.informations)
+    setTab(3)
+  }
+
+  const sendmessage = async () => {
+
+    const access = localStorage.getItem("access")
+    const headers = {
+      Authorization: `Bearer ${access}`
+    };
+
+    const formData = new FormData()
+    formData.append("message", textInput)
+    formData.append("ticket_id", ticket.ticket_id)
+
+    try {
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/chat/send-ticket/`, formData, {
+        headers,
+      })
+
+      if (response.status === 201) {
+
+        const newMessage = {
+          message: textInput,
+          date: new Date(),
+          is_admin: false
+        }
+
+        selectedTicket.push(newMessage)
+
+        swal({
+          title: "تیکت با موفقیت ارسال  شد",
+          icon: "success",
+          button: {
+            text: "باشه",
+          }
+        })
+
+        setTextInput("")
+
+      }
+
+    } catch (e) {
+      console.log(e)
+      if (e.response.status === 401) {
+        localStorage.removeItem("refresh")
+        localStorage.removeItem("access")
+        router.push("/login")
+      }
+
+    }
+  }
+
+  const sendFile = async (e) => {
+    const access = localStorage.getItem("access")
+
+    const fileMessage = e.target.files[0]
+    const formData = new FormData()
+    formData.append("ticket_id", ticket.ticket_id)
+    formData.append("file", fileMessage)
+
+    const headers = {
+      Authorization: `Bearer ${access}`
+    };
+
+    try {
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/chat/send-ticket/`, formData, {
+        headers,
+        onUploadProgress: (progressEvent) => {
+          const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+          setUploadPercentage(progress);
+        },
+      })
+
+      if (response.status === 201) {
+        const newMessage = {
+          file: URL.createObjectURL(fileMessage),
+          date: new Date(),
+          is_admin: false
+        }
+
+        selectedTicket.push(newMessage)
+        swal({
+          title: "تیکت با موفقیت ارسال  شد",
+          icon: "success",
+          button: {
+            text: "باشه",
+          }
+        })
+      }
+
+    } catch (e) {
+      console.log(e)
+      if (e.response.status === 401) {
+        localStorage.removeItem("refresh")
+        localStorage.removeItem("access")
+        router.push("/login")
+      }
+
+    }
+  }
 
   useEffect(() => {
     getAllTicket()
   }, [])
+
 
   useEffect(() => {
     const handleWindowResize = () => {
@@ -128,6 +239,13 @@ export default function Ticket() {
       window.removeEventListener('resize', handleWindowResize);
     };
   }, [])
+
+
+  useEffect(() => {
+    const allOpenTicket = allTickets?.filter(ticket => ticket.close == false)
+    setOpenTicket(allOpenTicket.length)
+  }, [allTickets])
+
 
   return (
     <div className={styles.wrapperpage}>
@@ -217,7 +335,7 @@ export default function Ticket() {
 
                     <div className={`${tab === 3 ? styles.TicketMassageBox : styles.noneBox}`}>
                       <div className={styles.MassageBox}>
-                        <Massage sender={true} />
+                        <Massage />
                         <Massage sender={false} />
                         <Massage sender={true} />
                         <Massage sender={false} />
@@ -249,22 +367,22 @@ export default function Ticket() {
                   tab === 1 &&
                   <div>
                     {
-                      tickets.length > 0 ?
-
+                      allTickets.length > 0 ?
                         <div className={styles.TicketListBox}>
                           <div className={styles.text}>
-                            <span>تعداد کل تیکت‌ها: 0 </span>
-                            <span>تیکت‌های باز: 0</span>
+                            <span>تعداد کل تیکت‌ها: {allTickets.length} </span>
+                            <span>تیکت‌های باز: {openTicket}</span>
                           </div>
                           <div className={styles.TicketItemBox}>
-                            <TicketItem onClick={() => setTab(3)} />
-                            <TicketItem onClick={() => setTab(3)} />
-                            <TicketItem onClick={() => setTab(3)} />
-                            <TicketItem onClick={() => setTab(3)} />
-                            <TicketItem onClick={() => setTab(3)} />
-                            <TicketItem onClick={() => setTab(3)} />
-                            <TicketItem onClick={() => setTab(3)} />
-                            <TicketItem onClick={() => setTab(3)} />
+                            {
+                              allTickets.map(ticket => (
+                                <TicketItem
+                                  onClick={() => getSelectedTicket(ticket)}
+                                  key={ticket.ticket_id}
+                                  ticket={ticket}
+                                />
+                              ))
+                            }
                           </div>
                         </div>
                         :
@@ -338,21 +456,33 @@ export default function Ticket() {
                 </div>
                 <div className={`${tab === 3 ? styles.TicketMassageBox : styles.noneBox}`}>
                   <div className={styles.MassageBox}>
-                    <Massage sender={true} />
-                    <Massage sender={false} />
-                    <Massage sender={true} />
-                    <Massage sender={false} />
-                    <Massage sender={true} />
-                    <Massage sender={false} />
-                    <Massage sender={true} />
-                    <Massage sender={false} />
-                    <Massage sender={true} />
-                    <Massage sender={false} />
-                    <Massage sender={false} />
+                    {
+                      selectedTicket.length > 0 &&
+                      selectedTicket.map(ticket => (
+                        <Massage key={ticket?.ticket_id} tikectmsg={ticket} />
+                      ))
+                    }
                   </div>
-                  <div className={styles.input_ticket_wrap}>
-                    <input className={styles.input_ticket} type="text" />
-                    <IoSend className={styles.iconsend} />
+                  <div className='d-flex'>
+                    <div className={styles.file_wrapper}>
+                      <label htmlFor="file" className={styles.labelfile}>
+                        <MdAttachFile className={styles.fileicon_m} />
+                      </label>
+                      <input
+                        type="file"
+                        id='file'
+                        // style={{ display: "none" }}
+                        onChange={(e) => sendFile(e)} />
+                    </div>
+                    <div className={styles.input_ticket_wrap}>
+                      <input
+                        className={styles.input_ticket}
+                        type="text"
+                        value={textInput}
+                        onChange={e => setTextInput(e.target.value)}
+                      />
+                      <IoSend className={styles.iconsend} onClick={sendmessage} />
+                    </div>
                   </div>
                 </div>
 
@@ -367,7 +497,10 @@ export default function Ticket() {
 
 
 
-
-const data = [
-
-]
+{/* <TicketItem onClick={() => setTab(3)} />
+                            <TicketItem onClick={() => setTab(3)} />
+                            <TicketItem onClick={() => setTab(3)} />
+                            <TicketItem onClick={() => setTab(3)} />
+                            <TicketItem onClick={() => setTab(3)} />
+                            <TicketItem onClick={() => setTab(3)} />
+                            <TicketItem onClick={() => setTab(3)} /> */}

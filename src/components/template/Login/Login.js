@@ -110,8 +110,6 @@ export default function Login() {
     }, [step]);
 
 
-
-
     const handlePasswordSubmit = async (e) => {
         e.preventDefault()
         if (password.trim()) {
@@ -139,6 +137,15 @@ export default function Login() {
         }
 
     }
+
+
+    const firstInputRef = useRef(null);
+
+    useEffect(() => {
+        if (firstInputRef.current) {
+            firstInputRef.current.focus();
+        }
+    }, []);
 
 
     return (
@@ -201,6 +208,7 @@ export default function Login() {
                                                                 value={values.phone_number}
                                                                 onChange={handleChange}
                                                                 type={"text"}
+                                                                ref={firstInputRef}
                                                             />
                                                             {errors.phone_number && touched.phone_number && <span className={styles.errorinput}>{errors.phone_number}</span>}
                                                             <div className='mt-1'><Link href="/signup" className={styles.linksignup}>هنوز ثبت نام نکرده اید؟</Link>
@@ -275,6 +283,7 @@ export default function Login() {
                                                                                     value={values.email}
                                                                                     onChange={handleChange}
                                                                                     type={"text"}
+                                                                                    ref={firstInputRef}
                                                                                 />
                                                                                 {errors.email && touched.email && <span className={styles.errorinput}>{errors.email}</span>}
                                                                             </div>
@@ -308,6 +317,7 @@ export default function Login() {
                                                                             onChange={(e) => setPassword(e.target.value)}
                                                                             type={isPrivate ? "password" : "text"}
                                                                             handleToggle={handleToggle}
+                                                                            ref={firstInputRef}
                                                                         />
                                                                         {/* {errors.password && touched.password && <span className={styles.errorinput}>{errors.password}</span>} */}
                                                                     </div>
@@ -414,6 +424,7 @@ export default function Login() {
                                                                     value={values.email}
                                                                     onChange={handleChange}
                                                                     type={"text"}
+                                                                    ref={firstInputRef}
                                                                 />
                                                                 {errors.email && touched.email && <span className={styles.errorinput}>{errors.email}</span>}
                                                             </div>
@@ -536,6 +547,7 @@ export default function Login() {
                                                                     value={values.phone_number}
                                                                     onChange={handleChange}
                                                                     type={"text"}
+                                                                    ref={firstInputRef}
                                                                 />
                                                                 {errors.phone_number && touched.phone_number && <span className={styles.errorinput}>{errors.phone_number}</span>}
                                                                 <div className='mt-1'><Link href="/signup" className={styles.linksignup}>هنوز ثبت نام نکرده اید؟</Link>
@@ -610,6 +622,7 @@ export default function Login() {
                                                                                         value={values.email}
                                                                                         onChange={handleChange}
                                                                                         type={"text"}
+                                                                                        ref={firstInputRef}
                                                                                     />
 
                                                                                     {errors.email && touched.email && <span className={styles.errorinput}>{errors.email}</span>}
@@ -646,6 +659,7 @@ export default function Login() {
                                                                                 onChange={(e) => setPassword(e.target.value)}
                                                                                 type={isPrivate ? "password" : "text"}
                                                                                 handleToggle={handleToggle}
+                                                                                ref={firstInputRef}
                                                                             />
                                                                             {/* {errors.password && touched.password && <span className={styles.errorinput}>{errors.password}</span>} */}
                                                                         </div>
@@ -752,6 +766,7 @@ export default function Login() {
                                                                             value={values.email}
                                                                             onChange={handleChange}
                                                                             type={"text"}
+                                                                            ref={firstInputRef}
                                                                         />
                                                                         {errors.email && touched.email && <span className={styles.errorinput}>{errors.email}</span>}
                                                                     </div>

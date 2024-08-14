@@ -1,6 +1,7 @@
-import React from 'react'
-import styles from './Input.module.css'
-export default function Input({ label, value, onChange, name, type, icon: Icon, handleToggle }) {
+import React, { forwardRef } from 'react';
+import styles from './Input.module.css';
+
+const Input = forwardRef(({ label, value, onChange, name, type, icon: Icon, handleToggle }, ref) => {
     return (
         <div className={`${styles.inputwrapper} mt-4`}>
             <label className={styles.lableinput}>{label}</label>
@@ -11,12 +12,15 @@ export default function Input({ label, value, onChange, name, type, icon: Icon, 
                 autoComplete='off'
                 value={value}
                 onChange={onChange}
-            />{
-                handleToggle ?
-                    Icon && <Icon className={styles.icon} onClick={handleToggle} /> :
-                    Icon && <Icon className={styles.icon} />
-            }
-
+                ref={ref} 
+            />
+            {handleToggle ? (
+                Icon && <Icon className={styles.icon} onClick={handleToggle} />
+            ) : (
+                Icon && <Icon className={styles.icon} />
+            )}
         </div>
-    )
-}
+    );
+});
+
+export default Input;
