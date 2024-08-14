@@ -12,12 +12,11 @@ import CartItemM from '@/components/module/CartItemM/CartItemM'
 import ModalDelete from '@/components/module/ModalDelete/ModalDelete'
 import ModalBuy from '@/components/module/ModalBuy/ModalBuy'
 import { CountContext } from '@/context/CartContext'
-import Link from 'next/link'
-import { FaPlus } from "react-icons/fa6";
 import axios from 'axios'
 import swal from 'sweetalert'
 import { useRouter } from 'next/navigation';
 import NoneSearch from '@/components/module/NoneSearch/NoneSearch'
+import EmptyProduct from '@/components/module/EmptyProduct/EmptyProduct'
 
 
 export default function Cart() {
@@ -37,6 +36,7 @@ export default function Cart() {
     const [propertyValue, setPropertyValue] = useState(null)
     const [propertName, setPropertName] = useState(null)
     const [filterProduct, setFilterProduct] = useState([])
+    const [errorSelect, setErrorSelect] = useState(false)
     const router = useRouter()
 
     const sendProduct = async () => {
@@ -44,6 +44,8 @@ export default function Cart() {
         const headers = {
             Authorization: `Bearer ${access}`
         };
+
+        console.log(cart)
         try {
             const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/app/add-product/`, cart, {
                 headers,
@@ -58,6 +60,7 @@ export default function Cart() {
                 })
 
                 setCart([])
+                setFilterProduct([])
                 setCountProduct(null)
 
             }
@@ -83,6 +86,7 @@ export default function Cart() {
 
 
     const updateCountProduct = () => {
+
         const updatedCart = cart.map(product =>
             product.id === mainCode
                 ? {
@@ -95,23 +99,45 @@ export default function Cart() {
                 }
                 : product
         );
+        const updatedFilter = filterProduct.map(product =>
+            product.id === mainCode
+                ? {
+                    ...product,
+                    count: value,
+                    property_id: propetyId || product.property_id,
+                    property_name: propertName || product.property_name,
+                    property_value: propertyValue || product.property_value
+
+                }
+                : product
+        );
+
+
         setCart(updatedCart);
+        setFilterProduct(updatedFilter)
         updateLocalStorage(updatedCart);
         setShowModalBuy(false);
     };
 
 
     const handleDelete = () => {
-        const updatedCart = cart.filter(product => product.id !== mainCode);
-        setCart(updatedCart);
-        updateLocalStorage(updatedCart);
-        setShowDeleteModal(false)
-        const countproduct = JSON.parse(localStorage.getItem('cart')).length
-        setCountProduct(countproduct)
+        if (cart.length === 1) {
+            localStorage.removeItem("cart")
+            setShowDeleteModal(false)
+            setFilterProduct([])
+            setCart([]);
+            setCountProduct(null)
+        } else {
+            const updatedCart = cart.filter(product => product.id !== mainCode);
+            setCart(updatedCart);
+            setFilterProduct(prevProduct => prevProduct.filter(product => product.id !== mainCode))
+            updateLocalStorage(updatedCart);
+            setShowDeleteModal(false)
+            const countproduct = JSON.parse(localStorage.getItem('cart')).length
+            setCountProduct(countproduct)
+        }
     };
 
-
-    console.log(cart)
 
     const searchHandler = (e) => {
         const searchTerm = e.target.value.toLowerCase();
@@ -135,6 +161,7 @@ export default function Cart() {
         setCart(localCart)
         setFilterProduct(localCart)
     }, [])
+
 
     useEffect(() => {
         const handleWindowResize = () => {
@@ -166,6 +193,8 @@ export default function Cart() {
                         setPropertyValue={setPropertyValue}
                         setPropertName={setPropertName}
                         propertyValue={propertyValue}
+                        errorSelect={errorSelect}
+                        setErrorSelect={setErrorSelect}
 
                     />
                     <ModalDelete
@@ -181,67 +210,58 @@ export default function Cart() {
                                     <div className={styles.contnetcratwarpperm}>
                                         {
                                             cart.length > 0 ?
-                                                <>  
-                                                        <div>
-                                                            <SearchBox
-                                                                value={search}
-                                                                onChange={searchHandler}
-                                                            />
-                                                        </div>
-                                                        {
-                                                            filterProduct.length > 0 ?
-                                                                <>
-                                                                    <div className={`${styles.scrollitem}`}>
+                                                <>
+                                                    <div>
+                                                        <SearchBox
+                                                            value={search}
+                                                            onChange={searchHandler}
+                                                        />
+                                                    </div>
+                                                    {
+                                                        filterProduct.length > 0 ?
+                                                            <>
+                                                                <div className={`${styles.scrollitem}`}>
+                                                                    {
+                                                                        cart.length > 0 &&
+                                                                        cart.map(item => (
+                                                                            <CartItemM
+                                                                                key={item.id}
+                                                                                setShowModalBuy={setShowModalBuy}
+                                                                                isConfirmation={isConfirmation}
+                                                                                setShowDeleteModal={setShowDeleteModal}
+                                                                                prodcut={item}
+                                                                                setValue={setValue}
+                                                                                setMainCode={setMainCode}
+                                                                                setMainProduct={setMainProduct}
+                                                                            />
+                                                                        ))
+                                                                    }
+
+                                                                </div>
+                                                                <div className={styles.finalbtnwapper}>
+                                                                    <button className={`${isConfirmation ? styles.printbtn : styles.finalbtn}`} onClick={finalconfirmhandler}>
                                                                         {
-                                                                            cart.length > 0 &&
-                                                                            cart.map(item => (
-                                                                                <CartItemM
-                                                                                    key={item.id}
-                                                                                    setShowModalBuy={setShowModalBuy}
-                                                                                    isConfirmation={isConfirmation}
-                                                                                    setShowDeleteModal={setShowDeleteModal}
-                                                                                    prodcut={item}
-                                                                                    setValue={setValue}
-                                                                                    setMainCode={setMainCode}
-                                                                                    setMainProduct={setMainProduct}
-                                                                                />
-                                                                            ))
+                                                                            isConfirmation ?
+                                                                                <span>چاپ درخواست</span> :
+                                                                                <span>تایید نهایی</span>
+                                                                        }
+                                                                        {
+                                                                            isConfirmation ?
+
+                                                                                < MdOutlinePrint style={{ marginRight: "15px" }} /> :
+                                                                                <MdOutlineDone style={{ marginRight: "15px" }} />
                                                                         }
 
-                                                                    </div>
-                                                                    <div className={styles.finalbtnwapper}>
-                                                                        <button className={`${isConfirmation ? styles.printbtn : styles.finalbtn}`} onClick={finalconfirmhandler}>
-                                                                            {
-                                                                                isConfirmation ?
-                                                                                    <span>چاپ درخواست</span> :
-                                                                                    <span>تایید نهایی</span>
-                                                                            }
-                                                                            {
-                                                                                isConfirmation ?
-
-                                                                                    < MdOutlinePrint style={{ marginRight: "15px" }} /> :
-                                                                                    <MdOutlineDone style={{ marginRight: "15px" }} />
-                                                                            }
-
-                                                                        </button>
-                                                                    </div>
-                                                                </> :
-                                                                <>
-                                                                    <NoneSearch />
-                                                                </>
-                                                        }
+                                                                    </button>
+                                                                </div>
+                                                            </> :
+                                                            <>
+                                                                <NoneSearch />
+                                                            </>
+                                                    }
                                                 </> :
                                                 <>
-                                                    <div className={styles.cartempty}>
-                                                        <div className={styles.imgcartwrapper}>
-                                                            <img src="/images/carticon.svg" alt="basket" />
-                                                        </div>
-                                                        <p className={styles.text_empty}>فعلا سفارش جدیدی وجود ندارد</p>
-                                                        <Link href={"/products"} className={styles.btnempty}>
-                                                            ثبت سفارش
-                                                            <FaPlus className={styles.iconplus} />
-                                                        </Link>
-                                                    </div>
+                                                    <EmptyProduct />
                                                 </>
                                         }
 
@@ -269,8 +289,8 @@ export default function Cart() {
                                                                 }
                                                                 <div className={styles.carts}>
                                                                     {
-                                                                        cart.length > 0 &&
-                                                                        cart.map(item => (
+                                                                        filterProduct.length > 0 &&
+                                                                        filterProduct.map(item => (
                                                                             <CartItem
                                                                                 key={item.id}
                                                                                 setShowModalBuy={setShowModalBuy}
@@ -309,16 +329,7 @@ export default function Cart() {
                                                 </div>
                                             </> :
                                             <>
-                                                <div className={styles.cartempty}>
-                                                    <div className={styles.imgcartwrapper}>
-                                                        <img src="/images/carticon.svg" alt="basket" />
-                                                    </div>
-                                                    <p className={styles.text_empty}>فعلا سفارش جدیدی وجود ندارد</p>
-                                                    <Link href={"/products"} className={styles.btnempty}>
-                                                        ثبت سفارش
-                                                        <FaPlus className={styles.iconplus} />
-                                                    </Link>
-                                                </div>
+                                                <EmptyProduct />
                                             </>
 
                                     }
@@ -339,3 +350,5 @@ export default function Cart() {
                                                                             <StatusProduct style={"paddingstyle"} />
                                                                         </div>
                                                                     } */}
+
+

@@ -36,6 +36,12 @@
     width: 100%;
     text-align: center;
     width: max-content;
+    border: none;
+    outline: none;
+}
+
+.dis {
+    cursor: not-allowed;
 }
 
 .title {
@@ -59,6 +65,31 @@
 .Button2,
 .Buttonsend {
     cursor: pointer;
+}
+
+.input_ticket_wrap {
+    width: 100%;
+    border: 1px solid;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.input_ticket {
+    width: 100%;
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+.iconsend {
+    transform: rotate(180deg);
+}
+
+.swal-footer {
+    text-align: center !important;
 }
 
 @media (min-width:900px) {
@@ -201,7 +232,8 @@
         resize: none;
         width: 100%;
         background: none;
-        padding: 100px 0;
+        height: 30vh;
+        padding: 10px;
     }
 
     .OptionButton {
@@ -502,7 +534,6 @@
         resize: none;
         width: 100%;
         background: none;
-        padding: 50px 0;
     }
 
     .OptionButton {

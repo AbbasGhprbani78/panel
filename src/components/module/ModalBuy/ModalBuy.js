@@ -44,8 +44,9 @@ export default function ModalBuy({
         }
 
         if (setPropetyId) {
+            console.log(selectedPropertyId)
             setPropetyId(selectedPropertyId);
-            // setErrorSelect(false);
+            setErrorSelect(false);
         }
     };
 

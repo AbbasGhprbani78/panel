@@ -7,11 +7,115 @@ import { GoPlus } from "react-icons/go";
 import { SlSocialDropbox } from "react-icons/sl";
 import TicketItem from '@/components/module/TicketItem/TicketItem'
 import Massage from '@/components/module/Massage/Massage'
+import { FaFileAlt } from "react-icons/fa";
+import { IoSend } from "react-icons/io5";
+import axios from 'axios'
+import swal from 'sweetalert'
 export default function Ticket() {
+
   const [tab, setTab] = useState(1)
   const [tickets, setTickets] = useState([0])
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+  const [title, SetTitle] = useState("")
+  const [text, setText] = useState("")
+  const [file, setFile] = useState("")
+  const [check, setCheck] = useState(false)
+  const [disable, SetDisable] = useState(false)
+  const [allTickets, setAllTickets] = useState([])
 
+
+  const sendTicket = async () => {
+
+    if (!title.trim() || !text.trim()) {
+      swal({
+        title: "عنوان و متن پیام نمی‌توانند خالی باشند",
+        icon: "error",
+        button: "باشه"
+      });
+      return;
+    }
+    SetDisable(true)
+
+    const access = localStorage.getItem("access")
+    const headers = {
+      Authorization: `Bearer ${access}`
+    };
+
+    const formData = new FormData()
+    formData.append("title", title)
+    formData.append("message", text)
+
+    if (file) {
+      formData.append("file", file)
+    }
+
+    if (check) {
+      formData.append("alarm", check)
+    }
+
+    try {
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/chat/send-ticket/`, formData, {
+        headers,
+      })
+
+      if (response.status === 201) {
+        swal({
+          title: "تیکت با موفقیت انجام  شد",
+          icon: "success",
+          button: {
+            text: "باشه",
+            className: "swal-button-center",
+          }
+        })
+
+        SetTitle("")
+        setText("")
+        setFile("")
+        setCheck(false)
+        SetDisable(false)
+      }
+
+    } catch (e) {
+      console.log(e)
+      if (e.response.status === 401) {
+        localStorage.removeItem("refresh")
+        localStorage.removeItem("access")
+        router.push("/login")
+      }
+      SetDisable(false)
+    }
+  }
+
+  const getAllTicket = async () => {
+
+    const access = localStorage.getItem("access")
+    const headers = {
+      Authorization: `Bearer ${access}`
+    };
+
+    try {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/chat//`, {
+        headers,
+      })
+
+      if (response.status === 200) {
+        console.log(response.data)
+      }
+
+    } catch (e) {
+      console.log(e)
+      if (e.response.status === 401) {
+        localStorage.removeItem("refresh")
+        localStorage.removeItem("access")
+        router.push("/login")
+      }
+    }
+  }
+
+
+  useEffect(() => {
+    getAllTicket()
+  }, [])
 
   useEffect(() => {
     const handleWindowResize = () => {
@@ -131,6 +235,7 @@ export default function Ticket() {
                 </div>
               </> :
               <>
+
                 <div className={styles.ButtonBox}>
                   <div className={`${styles.Button1} ${tab === 1 || tab === 3 ? styles.activetab : ""}`} onClick={() => setTab(1)}>
                     <span>تیکت ها</span>
@@ -179,31 +284,58 @@ export default function Ticket() {
                     </div>
                     <div>
                       <div className={styles.InputTitle}>
-                        <input placeholder='عنوان' />
+                        <input
+                          placeholder='عنوان'
+                          value={title}
+                          onChange={e => SetTitle(e.target.value)}
+                          style={{ width: "100%" }}
+                        />
                       </div>
                       <div className={styles.InputText}>
                         <span>متن پیام</span>
                         <div className={styles.TextareaBox}>
-                          <textarea />
+                          <textarea
+                            style={{ outline: "none", }}
+                            value={text}
+                            onChange={e => setText(e.target.value)}
+                          />
                         </div>
                         <div className={styles.OptionButton}>
                           <div className={`${styles.checkbox} mt-4`} >
-                            <input type='checkbox' />
+                            <input
+                              type='checkbox'
+                              checked={check}
+                              onChange={e => setCheck(e.target.checked)}
+                            />
                             <span>هنگام پاسخ من را از طریق پیامک مطلع کن.</span>
                           </div>
                           <label htmlFor="file" className={styles.file}>
-                            بارگذاری فایل
-                            <input type="file" id="file" style={{ display: "none" }} />
+                            {
+                              file ?
+                                <FaFileAlt /> :
+                                <>
+                                  بارگذاری فایل
+                                </>
+                            }
+                            <input
+                              type="file"
+                              id="file"
+                              style={{ display: "none" }}
+                              onChange={e => setFile(e.target.files[0])}
+                            />
                           </label>
                         </div>
                       </div>
                     </div>
                     <div className={styles.ButtonBox2} >
-                      <div className={styles.Buttonsend}>ارسال تیکت</div>
+                      <button
+                        disabled={disable}
+                        className={styles.Buttonsend}
+                        onClick={sendTicket}
+                      >ارسال تیکت</button>
                     </div>
                   </div>
                 </div>
-
                 <div className={`${tab === 3 ? styles.TicketMassageBox : styles.noneBox}`}>
                   <div className={styles.MassageBox}>
                     <Massage sender={true} />
@@ -218,6 +350,10 @@ export default function Ticket() {
                     <Massage sender={false} />
                     <Massage sender={false} />
                   </div>
+                  <div className={styles.input_ticket_wrap}>
+                    <input className={styles.input_ticket} type="text" />
+                    <IoSend className={styles.iconsend} />
+                  </div>
                 </div>
 
               </>
@@ -231,3 +367,7 @@ export default function Ticket() {
 
 
 
+
+const data = [
+
+]

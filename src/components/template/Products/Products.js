@@ -60,6 +60,7 @@ export default function Products() {
         }
     }
 
+
     const addToCartHandler = () => {
 
         if (!propetyId) {
@@ -78,8 +79,8 @@ export default function Products() {
                             item.count = Number(item.count) + Number(value);
                             item.property_id = propetyId
                             item.properties = mainProduct.properties,
-                            item.property_value = propertyValue,
-                            item.property_name = propertName
+                                item.property_value = propertyValue,
+                                item.property_name = propertName
                         }
                     });
                     localStorage.setItem("cart", JSON.stringify(cart));
@@ -157,6 +158,9 @@ export default function Products() {
 
         setFilterProduct(filterProducts);
     };
+
+
+    console.log(products)
 
 
     return (

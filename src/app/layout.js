@@ -1,5 +1,6 @@
 import "./globals.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 import { CountProvaider } from "../context/CartContext";
 export const metadata = {
   title: "panel",

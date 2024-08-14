@@ -8,12 +8,15 @@ import SearchBox from '@/components/module/SearchBox/SearchBox'
 import Filter from '@/components/module/Filter/Filter'
 import axios from 'axios'
 import { useRouter } from 'next/navigation';
+import NoneSearch from '@/components/module/NoneSearch/NoneSearch'
+import EmptyProduct from '@/components/module/EmptyProduct/EmptyProduct'
 
 export default function TrackOrders() {
     const [search, setSearch] = useState("")
-    const [filterValue, setFilterValue] = useState("")
+    const [filterValue, setFilterValue] = useState([])
     const [allOrders, setAllorders] = useState([])
     const router = useRouter()
+
 
     const getAllOrders = async () => {
 
@@ -28,7 +31,7 @@ export default function TrackOrders() {
 
             if (response.status === 200) {
                 setAllorders(response.data)
-
+                setFilterValue(response.data)
             }
 
         } catch (e) {
@@ -40,6 +43,23 @@ export default function TrackOrders() {
         }
     }
 
+
+    const searchHandler = (e) => {
+
+        const searchTerm = e.target.value.toLowerCase();
+        setSearch(searchTerm);
+
+        const filterProducts = allOrders.filter(
+            (product) =>
+                product.cart_id.toString().includes(searchTerm) ||
+                product.order_details[0].number_sold.toString().includes(searchTerm)
+        );
+
+        setFilterValue(filterProducts);
+    }
+
+
+
     useEffect(() => {
         getAllOrders()
     }, [])
@@ -50,29 +70,34 @@ export default function TrackOrders() {
             <div className={styles.pagecontent}>
                 <Header title={"پیگیری سفارشات"} />
                 <div className={styles.ordercontent}>
-                    <div className={styles.topsec}>
-                        <SearchBox
-                            value={search}
-                            onChange={(e) => setSearch(e.target.value)}
-                        />
-                    </div>
-                    <div className={styles.maincontent}>
-                        {
+                    {
+                        filterValue.length > 0 &&
                             allOrders.length > 0 ?
-                                allOrders.map((order,index) => (
-                                    <OrderTrackItem 
-                                        key={order.cart_id}
-                                        order={order}
-                                        number={index}
-                                     />
-                                )) :
-                                <>
-
-                                </>
-                        }
-
-
-                    </div>
+                            <>
+                                <div className={styles.topsec}>
+                                    <SearchBox
+                                        value={search}
+                                        onChange={searchHandler}
+                                    />
+                                </div>
+                                {
+                                    filterValue.length > 0 ?
+                                        filterValue.map((order, index) => (
+                                            <OrderTrackItem
+                                                key={order.cart_id}
+                                                order={order}
+                                                number={index}
+                                            />
+                                        )) :
+                                        <>
+                                            <NoneSearch />
+                                        </>
+                                }
+                            </> :
+                            <>
+                                <EmptyProduct />
+                            </>
+                    }
                 </div>
             </div>
         </div>
@@ -81,16 +106,3 @@ export default function TrackOrders() {
 
 
 
-{/* <div className={styles.filtercontainer}>
-                            <Filter
-                                value={filterValue}
-                                onChange={(e) => setFilterValue(e.target.value)}
-                            />
-                        </div> */}
-
-// <OrderTrackItem />
-// <OrderTrackItem />
-// <OrderTrackItem />
-// <OrderTrackItem />
-// <OrderTrackItem />
-// <OrderTrackItem />

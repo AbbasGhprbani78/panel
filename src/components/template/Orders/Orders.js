@@ -6,10 +6,13 @@ import Header from '@/components/module/Header/Header'
 import OrderItem from '@/components/module/OrderItem/OrderItem'
 import SearchBox from '@/components/module/SearchBox/SearchBox'
 import axios from 'axios'
+import NoneSearch from '@/components/module/NoneSearch/NoneSearch'
+import EmptyProduct from '@/components/module/EmptyProduct/EmptyProduct'
 
 export default function Orders({ id }) {
     const [search, setSearch] = useState("")
     const [orderDetails, setOrderDetails] = useState([])
+    const [filterProduct, setFilterProduct] = useState([])
 
 
     const getOrderDetails = async () => {
@@ -26,6 +29,7 @@ export default function Orders({ id }) {
             if (response.status === 200) {
                 console.log(response.data)
                 setOrderDetails(response.data)
+                setFilterProduct(response.data)
             }
 
         } catch (e) {
@@ -42,6 +46,23 @@ export default function Orders({ id }) {
         return date.toLocaleDateString();
     };
 
+
+    const searchHandler = (e) => {
+        const searchTerm = e.target.value.toLowerCase();
+        setSearch(searchTerm);
+
+        const filterProducts = orderDetails.filter(
+            (product) =>
+                product.product.item_code.includes(searchTerm) ||
+                product.product.descriptions.toLowerCase().includes(searchTerm) ||
+                product.number_sold.toString().includes(searchTerm) ||
+                product.product.specifications[0].property_name.toLowerCase().includes(searchTerm)
+        );
+
+        setFilterProduct(filterProducts);
+    };
+
+
     useEffect(() => {
         getOrderDetails()
     }, [])
@@ -52,33 +73,40 @@ export default function Orders({ id }) {
             <SideBar />
             <div className={styles.pagecontent}>
                 <Header title={"سفارشات"} />
+                {
+                    filterProduct.length > 0 && orderDetails.length > 0 ?
+                        <>
+                            <div className={styles.ordertitlewrapper}>
+                                <div className={styles.detailorderwrapper}>
+                                    <span>تاریخ سفارش :</span>
+                                    <span>{formatDate(orderDetails[0]?.product?.date)}</span>
+                                </div>
+                                <SearchBox
+                                    value={search}
+                                    onChange={searchHandler}
+                                />
+                            </div>
+                            <div className={styles.maincontent}>
+                                <div className={styles.orderitemcontainer}>
+                                    {
+                                        filterProduct.length > 0 ?
+                                            filterProduct.map(item => (
+                                                < OrderItem key={item.product.id}
+                                                    item={item}
+                                                />
+                                            )) :
+                                            <>
+                                                <NoneSearch />
+                                            </>
+                                    }
 
-                <div className={styles.ordertitlewrapper}>
-                    <div className={styles.detailorderwrapper}>
-                        <span>تاریخ سفارش :</span>
-                        <span>{formatDate(orderDetails[0]?.product?.date)}</span>
-                    </div>
-                    <SearchBox
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                    />
-                </div>
-                <div className={styles.maincontent}>
-                    <div className={styles.orderitemcontainer}>
-                        {
-                            orderDetails.length > 0 ?
-                                orderDetails.map(item => (
-                                    < OrderItem key={item.product.id}
-                                        item={item}
-                                    />
-                                )) :
-                                <>
-
-                                </>
-                        }
-
-                    </div>
-                </div>
+                                </div>
+                            </div>
+                        </> :
+                        <>
+                            <EmptyProduct />
+                        </>
+                }
             </div>
         </div >
     )
