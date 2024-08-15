@@ -1,11 +1,16 @@
-.TicketLine {
+.TicketLine,
+.TicketLine_m {
     width: 100%;
     background-color: #f5f5f5;
     color: black;
-    display: flex;
     justify-content: space-between;
     padding: 25px 20px;
     border-radius: 5px;
+    cursor: pointer;
+}
+
+.TicketLine {
+    display: flex;
 }
 
 .ticketicon {
@@ -19,9 +24,16 @@
 }
 
 
-.closed{
+.closed {
     color: rgb(169, 30, 30);
 }
-.open{
+
+.open {
     color: rgb(35, 133, 35);
+}
+
+@media (max-width:768px) {
+    .ticketicon {
+        font-size: 2rem;
+    }
 }

@@ -52,6 +52,7 @@
     color: var(--color-1);
     padding: 10px 30px;
     border-radius: 8px;
+    border: none;
 }
 
 .Button2 {
@@ -76,6 +77,7 @@
     justify-content: space-between;
     align-items: center;
     margin-right: 20px;
+    background-color: #fff;
 }
 
 .input_ticket {
@@ -87,39 +89,100 @@
 
 .iconsend {
     transform: rotate(180deg);
+    cursor: pointer;
 }
 
 .swal-footer {
     text-align: center !important;
 }
 
-
-.file_wrapper {
-    cursor: pointer;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: var(--color-3);
-    color: #fff;
-    overflow: hidden;
+.wrapinpt_m {
     display: flex;
     align-items: center;
+    position: fixed;
+    bottom: 10px;
+    width: 90%;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+.none_ticket {
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+}
+
+.icon_ticket_none {
+    font-size: 10rem;
+}
+
+.ticket_text_none {
+    margin-top: 2rem;
+    font-size: calc(1.8rem + .1vw);
+}
+
+
+
+/*  */
+.file_wrapper {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.labelfile {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-3);
+    cursor: pointer;
+    height: 45px;
+    width: 45px;
+    border-radius: 50%;
 }
 
 .fileicon_m {
     font-size: 20px;
+    color: #fff;
 }
 
-.labelfile {
+.input_tick {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center
+    opacity: 0;
+    cursor: pointer;
 }
 
-@media (min-width:900px) {
+
+@media (min-width:1025px) {
+    .TicketMassageBox {
+        overflow-y: scroll;
+        position: fixed;
+        bottom: 0;
+        top: 140px;
+        width: 76%;
+    }
+
+    .TicketMassageBox::-webkit-scrollbar {
+        display: none;
+    }
+
+    .input_message_p {
+        display: flex;
+        align-items: center;
+        position: fixed;
+        bottom: 10px;
+        width: 80%;
+        left: 40%;
+        transform: translate(-50%);
+    }
+
     .pagecontent1 {
         width: 82%;
         margin-right: 18%;
@@ -291,6 +354,7 @@
         color: var(--color-1);
         padding: 10px 30px;
         border-radius: 8px;
+        border: none;
     }
 
     .Button2 {
@@ -325,7 +389,7 @@
 
     .TicketItemBox {
         width: 100%;
-        height: 400px;
+        max-height: 60vh;
         overflow-y: scroll;
         display: flex;
         flex-direction: column;
@@ -347,11 +411,11 @@
     .MassageBox {
         z-index: 0;
         width: 100%;
-        height: 500px;
-        overflow-y: scroll;
-        bottom: 10vh;
         display: flex;
         flex-direction: column;
+        max-height: 100vh;
+        overflow-y: scroll;
+        padding-bottom: 40px;
 
     }
 
@@ -382,11 +446,28 @@
 
     .maincontent {
         margin-top: 90px;
-        padding: 0 20px;
     }
+
+
+    .createTicket {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .ButtonBox {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .TicketListBox {
+        width: 90%;
+        padding: 20px;
+        margin: 0 auto;
+    }
+
 }
 
-@media (max-width:900px) {
+@media (max-width:1025px) {
 
     .TicketMassageBox {
         margin-top: 20px;
@@ -394,13 +475,14 @@
         background-color: #fff;
         padding: 20px;
         border-radius: 20px;
-        max-height: 70vh;
         overflow-y: scroll;
+        position: fixed;
+        bottom: 0;
+        top: 120px;
     }
 
     .maincontent {
         margin-top: 90px;
-        padding: 0 20px;
     }
 
     .ButtonBox {
@@ -426,6 +508,8 @@
         background-color: var(--color-3);
         text-align: center;
         margin-top: 1.5rem;
+        border: none;
+        margin-bottom: 10px;
     }
 
     .Button2 {
@@ -480,8 +564,7 @@
         background-color: #fff;
         border-radius: 10px;
         padding: 20px;
-
-
+        width: 95%;
     }
 
     .text {
@@ -495,7 +578,7 @@
 
     .TicketItemBox {
         width: 100%;
-        height: 60vh;
+        max-height: 60vh;
         overflow-y: scroll;
         display: flex;
         flex-direction: column;
@@ -561,6 +644,9 @@
         resize: none;
         width: 100%;
         background: none;
+        height: 28vh;
+        outline: none;
+        padding: 10px;
     }
 
     .OptionButton {
@@ -615,9 +701,16 @@
         bottom: 10vh;
         display: flex;
         flex-direction: column;
+        max-height: 100vh;
+        overflow-y: scroll;
+        padding-bottom: 20px;
     }
 
     .TicketMassageBox::-webkit-scrollbar {
+        display: none;
+    }
+
+    .MassageBox::-webkit-scrollbar {
         display: none;
     }
 
@@ -638,5 +731,25 @@
         color: #fff;
     }
 
+    .ChildrenBox {
+        width: 80%;
+        margin: 0 auto;
+    }
+}
 
+
+@media (max-width:600px) {
+    .InputText textarea {
+        height: 20vh;
+    }
+}
+
+@media (max-width:380px) {
+    .title {
+        margin-bottom: 0;
+    }
+
+    .ChildrenBox {
+        padding-bottom: 20px;
+    }
 }

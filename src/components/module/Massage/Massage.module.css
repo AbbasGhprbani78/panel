@@ -1,9 +1,11 @@
 .message_wrapper_snder {
     align-self: flex-end;
+    max-width: 40%;
 }
 
 .message_wrapper_receiver {
     align-self: flex-start;
+    max-width: 40%;
 }
 
 .message_content {
@@ -41,7 +43,6 @@
 
 @media (min-width:900px) {
     .MassageBoxSend {
-        width: max-content;
         height: auto;
         position: relative;
         background-color: #fff;
@@ -50,10 +51,10 @@
         margin: 10px;
         border-radius: 10px;
         padding: 10px;
+        width: fit-content;
     }
 
     .MassageBoxReceive {
-        width: max-content;
         height: auto;
         background-color: var(--color-1);
         word-wrap: break-word;
@@ -61,27 +62,24 @@
         margin: 10px;
         border-radius: 10px;
         padding: 10px;
+        width: fit-content;
     }
 }
 
 @media (max-width:900px) {
     .MassageBoxSend {
-        max-width: 80%;
-        width: max-content;
         height: auto;
         position: relative;
-
         background-color: #fff;
         border: 2px solid var(--color-1);
         word-wrap: break-word;
         margin: 10px;
         border-radius: 10px;
         padding: 10px;
+        width: fit-content;
     }
 
     .MassageBoxReceive {
-        max-width: 80%;
-        width: max-content;
         height: auto;
         background-color: var(--color-1);
         word-wrap: break-word;
@@ -90,5 +88,18 @@
         align-self: flex-end;
         border-radius: 10px;
         padding: 10px;
+        width: fit-content;
+    }
+}
+
+@media (max-width:768px) {
+    .message_wrapper_snder {
+        align-self: flex-end;
+        max-width: 70%;
+    }
+
+    .message_wrapper_receiver {
+        align-self: flex-start;
+        max-width: 70%;
     }
 }

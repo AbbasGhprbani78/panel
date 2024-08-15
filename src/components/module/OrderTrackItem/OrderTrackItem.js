@@ -15,7 +15,7 @@ export default function OrderTrackItem({ order, number }) {
     const [currentStep, setCurrentStep] = useState(1);
     const formatDate = (dateString) => {
         const date = new Date(dateString);
-        return date.toLocaleDateString();
+        return date.toLocaleDateString("fa-IR");
     };
 
     const statusName = order?.order_details[0]?.status_details[0]?.status_name;

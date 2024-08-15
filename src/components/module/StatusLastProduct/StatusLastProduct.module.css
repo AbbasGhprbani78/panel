@@ -69,11 +69,17 @@
 
 
 
+@media (max-width:831px) {
+
+   
+}
+
 
 @media (max-width:658px) {
-    .statustext{
+    .statustext {
         font-size: .9rem;
     }
+
     .orderdeatil {
         display: none;
     }

@@ -5,7 +5,7 @@ import StatusProduct from '../StatusProdcut/StatusProduct';
 import Link from 'next/link';
 import axios from 'axios';
 export default function StatusLastProduct() {
-    const [product, setProduct] = useState(null);
+    const [product, setProduct] = useState([]);
 
     const getLastStatusProduct = async () => {
         const access = localStorage.getItem("access");
@@ -39,11 +39,10 @@ export default function StatusLastProduct() {
         const date = new Date(dateString);
         return date.toLocaleDateString();
     };
-
     return (
         <div className={styles.statusproduct}>
             <p className={styles.statustext}>وضعیت آخرین سفارش</p>
-            <StatusProduct style={"paddingstyle"} />
+            <StatusProduct product={product[0]?.order_details[0]} />
             <div className={styles.statusproductbottom}>
                 <div className={styles.orderdeatil}>
                     <div className={styles.orderdetailitem}>
@@ -55,7 +54,7 @@ export default function StatusLastProduct() {
                     <div className={styles.orderdetailitem}>
                         <span className={styles.orderdetailtitle}>تاریخ سفارش :</span>
                         <span className={styles.orderdetailtext}>
-                            {product?.order_details?.[0]?.date ? formatDate(product.order_details[0].date) : "N/A"}
+                            {product[0]?.date_time ? formatDate(product[0]?.date_time) : "N/A"}
                         </span>
                     </div>
                 </div>

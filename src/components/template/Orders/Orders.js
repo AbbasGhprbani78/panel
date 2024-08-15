@@ -43,7 +43,7 @@ export default function Orders({ id }) {
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
-        return date.toLocaleDateString();
+        return date.toLocaleDateString("fa-IR");
     };
 
 

@@ -32,6 +32,7 @@ export default function TrackOrders() {
             if (response.status === 200) {
                 setAllorders(response.data)
                 setFilterValue(response.data)
+                console.log(response.data)
             }
 
         } catch (e) {

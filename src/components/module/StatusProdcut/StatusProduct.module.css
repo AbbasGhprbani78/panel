@@ -1,15 +1,14 @@
 .pragresswrapper {
     text-align: center;
-    width: 75%;
+    width: 90%;
     margin: 1.5rem auto 0 1.5rem;
 }
 
 .progressc {
     width: 100%;
 }
-.statustext{
-    
-}
+
+.statustext {}
 
 .pragressContainer {
     display: flex;
@@ -49,7 +48,7 @@
     height: 30px;
     border-radius: 50%;
     border: 3px solid var(--color-21);
-    background-color: #f5f5f5;
+    background-color: #ffffff;
     color: var(--color-21);
     transition: .4s ease;
     z-index: 1;
@@ -86,29 +85,25 @@
 }
 
 
-@media (max-width:780px) {
+@media (max-width:831px) {
     .pragresswrapper {
-        width: 90%;
-        /* margin: 1.5rem auto 0 auto; */
+        width: 95%;
+        margin: 0 auto;
         overflow-x: scroll;
-        overflow-y: hidden;
+    }
+
+    .progressc {
+        padding: 0 30px;
+        width: auto;
     }
 
     .pragresswrapper::-webkit-scrollbar {
         display: none;
     }
-}
 
-@media (max-width:658px) {
-    .pragresswrapper {
-        width: 95%;
-    }
-
-    .progressc {
-        width: 1000px;
-    }
-
-    .progressc>.pragressContainer {
-        width: 500px;
+    .pragressContainer {
+        width: 700px;
     }
 }
+
+@media (max-width:658px) {}

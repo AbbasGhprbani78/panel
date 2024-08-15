@@ -23,7 +23,7 @@ export default function Notifications() {
             })
 
             if (response.status === 200) {
-                // console.log(response.data)
+                setNotifications(response.data)
             }
 
         } catch (e) {
@@ -50,20 +50,16 @@ export default function Notifications() {
             <div className={styles.notificationcontent}>
                 {
                     notifications?.length > 0 ?
-                        <>
-                        </> :
-                        <>
-                            <p className='text-center' style={{ color: "gray" }}>اعلانی وجود ندارد</p>
-                        </>
+                        notifications.map(notif => (
+                            <NotifItem key={notif.id} notif={notif}/>
+                        ))
+                        :
+                        <p className='text-center' style={{ color: "gray" }}>اعلانی وجود ندارد</p>
 
                 }
-                {/* <NotifItem />
-                <NotifItem />
-                <NotifItem />
-                <NotifItem />
-                <NotifItem />
-                <NotifItem /> */}
             </div>
         </div>
     )
 }
+
+
