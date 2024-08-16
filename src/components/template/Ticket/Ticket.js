@@ -156,7 +156,7 @@ export default function Ticket() {
             is_admin: false
           }
 
-          selectedTicket.push(newMessage)
+          setSelectedTicket(prevMessages => [...prevMessages, newMessage]);
 
           swal({
             title: "تیکت با موفقیت ارسال  شد",
@@ -165,9 +165,6 @@ export default function Ticket() {
               text: "باشه",
             }
           })
-          if (messageEndRef.current) {
-            messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
-          }
           setTextInput("")
 
         }
@@ -265,6 +262,12 @@ export default function Ticket() {
     setOpenTicket(allOpenTicket.length)
   }, [allTickets])
 
+  useEffect(() => {
+    messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    console.log("hello")
+  }, [selectedTicket]);
+
+
   return (
     <div className={styles.wrapperpage}>
       <SideBar />
@@ -283,168 +286,165 @@ export default function Ticket() {
                     <span>تیکت ها</span>
                   </div>
                 </div>
-                <div className={styles.TabBox}>
-                  <div className={styles.Box}>
+
+                {
+                  tab === 1 &&
+                  <div className={styles.allTickets}>
                     {
-                      tab === 1 &&
-                      <div className={styles.allTickets}>
-                        {
-                          allTickets.length > 0 ?
+                      allTickets.length > 0 ?
 
-                            <div className={styles.TicketListBox}>
-                              <div className={styles.text}>
-                                <span>تعداد کل تیکت‌ها: {allTickets.length} </span>
-                                <span>تیکت‌های باز: {openTicket}</span>
-                              </div>
-                              <div className={styles.TicketItemBox}>
-                                {
-                                  allTickets.map(ticket => (
-                                    <TicketItem
-                                      onClick={() => getSelectedTicket(ticket)}
-                                      key={ticket.ticket_id}
-                                      ticket={ticket}
-                                    />
-                                  ))
-                                }
-
-                              </div>
-                            </div>
-                            :
-                            <>
-                              <div className={styles.none_ticket}>
-                                <SlSocialDropbox className={styles.icon_ticket_none} />
-                                <p className={styles.ticket_text_none}>
-                                  موردی یافت نشد
-                                </p>
-                              </div>
-                            </>
-                        }
-                      </div>
-                    }
-
-                    <div className={`${tab === 2 ? styles.InputBox : styles.noneBox}`}>
-                      <div className={styles.ChildrenBox}>
-                        <div className={styles.title}>
-                          <span>درخواست خود را به صورت یک تیکت مطرح کنید تا کارشناسان ما در اسرع وقت، به آن پاسخ دهند.</span>
-                        </div>
-                        <div>
-                          <div className={styles.InputTitle}>
-                            <input
-                              placeholder='عنوان'
-                              value={title}
-                              onChange={e => SetTitle(e.target.value)}
-                              style={{ width: "100%" }}
-
-                            />
+                        <div className={styles.TicketListBox}>
+                          <div className={styles.text}>
+                            <span>تعداد کل تیکت‌ها: {allTickets.length} </span>
+                            <span>تیکت‌های باز: {openTicket}</span>
                           </div>
-                          <div className={styles.InputText}>
-                            <span>متن پیام</span>
-                            <div className={styles.TextareaBox}>
-                              <textarea
-                                value={text}
-                                onChange={e => setText(e.target.value)}
+                          <div className={styles.TicketItemBox}>
+                            {
+                              allTickets.map(ticket => (
+                                <TicketItem
+                                  onClick={() => getSelectedTicket(ticket)}
+                                  key={ticket.ticket_id}
+                                  ticket={ticket}
+                                />
+                              ))
+                            }
+
+                          </div>
+                        </div>
+                        :
+                        <>
+                          <div className={styles.none_ticket}>
+                            <SlSocialDropbox className={styles.icon_ticket_none} />
+                            <p className={styles.ticket_text_none}>
+                              موردی یافت نشد
+                            </p>
+                          </div>
+                        </>
+                    }
+                  </div>
+                }
+
+                <div className={`${tab === 2 ? styles.InputBox : styles.noneBox}`}>
+                  <div className={styles.ChildrenBox}>
+                    <div className={styles.title}>
+                      <span>درخواست خود را به صورت یک تیکت مطرح کنید تا کارشناسان ما در اسرع وقت، به آن پاسخ دهند.</span>
+                    </div>
+                    <div>
+                      <div className={styles.InputTitle}>
+                        <input
+                          placeholder='عنوان'
+                          value={title}
+                          onChange={e => SetTitle(e.target.value)}
+                          style={{ width: "100%" }}
+
+                        />
+                      </div>
+                      <div className={styles.InputText}>
+                        <span>متن پیام</span>
+                        <div className={styles.TextareaBox}>
+                          <textarea
+                            value={text}
+                            onChange={e => setText(e.target.value)}
+                          />
+                        </div>
+                        <div className={styles.OptionButton}>
+                          <div className={`${styles.checkbox} my-4`}>
+                            <input
+                              type='checkbox'
+                              checked={check}
+                              onChange={e => setCheck(e.target.checked)}
+                            />
+                            <span>هنگام پاسخ من را از طریق پیامک مطلع کن.</span>
+                          </div>
+                          <label
+                            htmlFor="file" className={styles.file}>
+                            {
+                              file ?
+                                <FaFileAlt /> :
+                                <>
+                                  بارگذاری فایل
+                                </>
+                            }
+                            <input
+                              type="file"
+                              id="file"
+                              style={{ display: "none" }}
+                              onChange={e => setFile(e.target.files[0])}
+                            />
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    <div className={styles.ButtonBox2}>
+                      <button className={styles.Button1} onClick={sendTicket}>ارسال تیکت</button>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div className={`${tab === 3 ? styles.TicketMassageBox : styles.noneBox}`}>
+                  <div className={styles.MassageBox}>
+                    {
+                      selectedTicket.length > 0 &&
+                      selectedTicket.map(ticket => (
+                        <Massage key={ticket?.ticket_id} tikectmsg={ticket} />
+                      ))
+                    }
+                    {
+                      showfile &&
+                      <div className='d-flex align-items-end mt-4 col-sm-12' style={{ direction: "rtl" }}>
+                        <div className='file-content' style={{ position: "relative" }}>
+                          <a className='place' href="#" target='blank' download>
+                            <BsFillFileEarmarkArrowDownFill className='fileIcon file-right' />
+                          </a>
+                          <div className='progress-upload'>
+                            <div style={{ width: "55px", height: "55px" }}>
+                              <CircularProgressbar
+                                minValue={0}
+                                maxValue={100}
+                                value={uploadPercentage}
+                                strokeWidth={5}
+                                background={false}
+                                styles={{
+                                  path: {
+                                    stroke: `#45ABE5`,
+                                  },
+                                  trail: {
+                                    stroke: "#ffffff",
+                                  },
+                                }}
                               />
                             </div>
-                            <div className={styles.OptionButton}>
-                              <div className={`${styles.checkbox} my-4`}>
-                                <input
-                                  type='checkbox'
-                                  checked={check}
-                                  onChange={e => setCheck(e.target.checked)}
-                                />
-                                <span>هنگام پاسخ من را از طریق پیامک مطلع کن.</span>
-                              </div>
-                              <label
-                                htmlFor="file" className={styles.file}>
-                                {
-                                  file ?
-                                    <FaFileAlt /> :
-                                    <>
-                                      بارگذاری فایل
-                                    </>
-                                }
-                                <input
-                                  type="file"
-                                  id="file"
-                                  style={{ display: "none" }}
-                                  onChange={e => setFile(e.target.files[0])}
-                                />
-                              </label>
-                            </div>
                           </div>
                         </div>
-                        <div className={styles.ButtonBox2}>
-                          <button className={styles.Button1} onClick={sendTicket}>ارسال تیکت</button>
-                        </div>
                       </div>
-
+                    }
+                    <div ref={messageEndRef} />
+                  </div>
+                  <div className={styles.wrapinpt_m}>
+                    <div className={styles.file_wrapper}>
+                      <label htmlFor="file" className={styles.labelfile}>
+                        <MdAttachFile className={styles.fileicon_m} />
+                      </label>
+                      <input
+                        type="file"
+                        id="file"
+                        onChange={(e) => sendFile(e)}
+                        className={styles.input_tick}
+                      />
                     </div>
-
-                    <div className={`${tab === 3 ? styles.TicketMassageBox : styles.noneBox}`}>
-                      <div className={styles.MassageBox}>
-                        {
-                          selectedTicket.length > 0 &&
-                          selectedTicket.map(ticket => (
-                            <Massage key={ticket?.ticket_id} tikectmsg={ticket} />
-                          ))
-                        }
-                        {
-                          showfile &&
-                          <div className='d-flex align-items-end mt-4 col-sm-12' style={{ direction: "rtl" }}>
-                            <div className='file-content' style={{ position: "relative" }}>
-                              <a className='place' href="#" target='blank' download>
-                                <BsFillFileEarmarkArrowDownFill className='fileIcon file-right' />
-                              </a>
-                              <div className='progress-upload'>
-                                <div style={{ width: "55px", height: "55px" }}>
-                                  <CircularProgressbar
-                                    minValue={0}
-                                    maxValue={100}
-                                    value={uploadPercentage}
-                                    strokeWidth={5}
-                                    background={false}
-                                    styles={{
-                                      path: {
-                                        stroke: `#45ABE5`,
-                                      },
-                                      trail: {
-                                        stroke: "#ffffff",
-                                      },
-                                    }}
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        }
-                      </div>
-                      <div className={styles.wrapinpt_m}>
-                        <div className={styles.file_wrapper}>
-                          <label htmlFor="file" className={styles.labelfile}>
-                            <MdAttachFile className={styles.fileicon_m} />
-                          </label>
-                          <input
-                            type="file"
-                            id="file"
-                            onChange={(e) => sendFile(e)}
-                            className={styles.input_tick}
-                          />
-                        </div>
-                        <div className={styles.input_ticket_wrap}>
-                          <input
-                            className={styles.input_ticket}
-                            type="text"
-                            value={textInput}
-                            onChange={e => setTextInput(e.target.value)}
-                          />
-                          <IoSend className={styles.iconsend} onClick={sendmessage} />
-                        </div>
-                      </div>
+                    <div className={styles.input_ticket_wrap}>
+                      <input
+                        className={styles.input_ticket}
+                        type="text"
+                        value={textInput}
+                        onChange={e => setTextInput(e.target.value)}
+                      />
+                      <IoSend className={styles.iconsend} onClick={sendmessage} />
                     </div>
                   </div>
                 </div>
               </> :
-
               <>
                 <div className={styles.ButtonBox}>
                   <div className={`${styles.Button1} ${tab === 1 || tab === 3 ? styles.activetab : ""}`} onClick={() => setTab(1)}>
@@ -583,7 +583,7 @@ export default function Ticket() {
                         </div>
                       </div>
                     }
-
+                    <div ref={messageEndRef} />
                   </div>
                   <div className={styles.input_message_p}>
                     <div className={styles.file_wrapper}>
@@ -609,7 +609,6 @@ export default function Ticket() {
                       <IoSend className={styles.iconsend} onClick={sendmessage} />
                     </div>
                   </div>
-                  <div ref={messageEndRef} />
                 </div>
               </>
           }

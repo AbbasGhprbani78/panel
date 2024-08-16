@@ -5,7 +5,9 @@ import StatusProduct from '../StatusProdcut/StatusProduct';
 import Link from 'next/link';
 import axios from 'axios';
 export default function StatusLastProduct() {
+
     const [product, setProduct] = useState([]);
+    const [allNumberSold, setAllNumberSold] = useState(0)
 
     const getLastStatusProduct = async () => {
         const access = localStorage.getItem("access");
@@ -19,6 +21,7 @@ export default function StatusLastProduct() {
 
             if (response.status === 200) {
                 setProduct(response.data);
+                console.log(response.data)
             }
 
         } catch (e) {
@@ -35,6 +38,27 @@ export default function StatusLastProduct() {
         getLastStatusProduct();
     }, []);
 
+
+
+    const calcTotalNumberSold = () => {
+        let number = 0;
+        if (product) {
+            number = product[0]?.order_details?.reduce(
+                (prev, current) => prev + current.number_sold,
+                0
+            );
+            setAllNumberSold(number);
+        }
+
+        setAllNumberSold(number);
+    }
+
+    useEffect(() => {
+        calcTotalNumberSold()
+
+    }, [product])
+
+
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         return date.toLocaleDateString();
@@ -48,7 +72,7 @@ export default function StatusLastProduct() {
                     <div className={styles.orderdetailitem}>
                         <span className={styles.orderdetailtitle}>تعداد سفارش :</span>
                         <span className={styles.orderdetailtext}>
-                            {product?.order_details?.[0]?.number_sold}
+                            {allNumberSold}
                         </span>
                     </div>
                     <div className={styles.orderdetailitem}>
@@ -58,7 +82,7 @@ export default function StatusLastProduct() {
                         </span>
                     </div>
                 </div>
-                <Link href={"/orders"} className={styles.historybtn}>تاریخچه</Link>
+                <Link href={`/orders/${product[0]?.cart_id}`} className={styles.historybtn}>تاریخچه</Link>
             </div>
         </div>
     );

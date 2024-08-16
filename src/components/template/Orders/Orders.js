@@ -74,7 +74,7 @@ export default function Orders({ id }) {
             <div className={styles.pagecontent}>
                 <Header title={"سفارشات"} />
                 {
-                    filterProduct.length > 0 && orderDetails.length > 0 ?
+                    orderDetails.length > 0 ?
                         <>
                             <div className={styles.ordertitlewrapper}>
                                 <div className={styles.detailorderwrapper}>

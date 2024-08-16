@@ -8,8 +8,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="fa" dir="rtl">
-      <body>
+    <html style={{ maxWidth: "1676px", margin: "0 auto" }} lang="fa" dir="rtl">
+      <body >
         <CountProvaider>
           {children}
         </CountProvaider>

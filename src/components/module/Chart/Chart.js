@@ -43,7 +43,7 @@ export default function Chart() {
             <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={data}>
                     <XAxis dataKey="month" />
-                    <YAxis />
+                    <YAxis tickMargin={40} />
                     <Bar dataKey="order_count" fill="#ffcb05" />
                     <Tooltip />
                 </BarChart>

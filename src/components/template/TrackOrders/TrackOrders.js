@@ -32,7 +32,6 @@ export default function TrackOrders() {
             if (response.status === 200) {
                 setAllorders(response.data)
                 setFilterValue(response.data)
-                console.log(response.data)
             }
 
         } catch (e) {
@@ -60,10 +59,11 @@ export default function TrackOrders() {
     }
 
 
-
     useEffect(() => {
         getAllOrders()
     }, [])
+
+
 
     return (
         <div className={styles.wrapperpage}>
@@ -72,7 +72,6 @@ export default function TrackOrders() {
                 <Header title={"پیگیری سفارشات"} />
                 <div className={styles.ordercontent}>
                     {
-                        filterValue.length > 0 &&
                             allOrders.length > 0 ?
                             <>
                                 <div className={styles.topsec}>
@@ -94,7 +93,8 @@ export default function TrackOrders() {
                                             <NoneSearch />
                                         </>
                                 }
-                            </> :
+                            </>
+                            :
                             <>
                                 <EmptyProduct />
                             </>
